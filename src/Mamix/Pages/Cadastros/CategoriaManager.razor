@@ -1,0 +1,78 @@
+﻿@page "/categoriaproduto"
+
+@using Radzen
+@using Radzen.Blazor
+
+@using GeneralLabSolutions.WebAPI.DTOs
+@using mamix.Services.Categorias
+
+@inject Microsoft.AspNetCore.Components.NavigationManager NavigationManager // This line is used to generate URLs dynamically //
+
+@inject ICategoriaService _categoriaService
+
+
+<!-- Page Header -->
+<div class="my-4 page-header-breadcrumb d-flex align-items-center justify-content-between flex-wrap gap-2">
+    <div>
+        <h1 class="page-title fw-medium fs-18 mb-2">Categoria</h1>
+        <div class="">
+            <nav>
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="javascript:void(0);">Cadastro</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Lista de categorias</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+</div>
+<!-- Page Header Close -->
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card custom-card">
+            <div class="card-header">
+                <div class="card-title">
+                    Lista de Categoria
+                </div>
+            </div>
+            <div class="card-body">
+
+                @if(categorias == null)
+                {
+                    <p>Carregando Categorias dos Produtos</p>
+                } else
+                {
+                    <RadzenDataGrid Data="@categorias"
+                                    ColumnWidth="200px"
+                                    AllowPaging="true" PageSize="10"
+                                    AllowSorting="true"
+                                    AllowFiltering="true">
+
+                        <Columns>
+                            <RadzenDataGridColumn Property="@nameof(CategoriaProdutoDto.Id)" Title="ID" />
+                            <RadzenDataGridColumn Property="@nameof(CategoriaProdutoDto.Descricao)" Title="Descrição" />
+                        </Columns>
+                    </RadzenDataGrid>                    
+                }
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@code {
+
+    private IEnumerable<CategoriaProdutoDto>? categorias;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        categorias = await _categoriaService.ObterCategoriasAsync();
+        //Console.WriteLine($"Categoria: {JsonSerializer.Serialize(categorias)}");
+    }
+
+}

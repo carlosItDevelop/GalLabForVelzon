@@ -1,0 +1,241 @@
+@page "/ecommerce-contactus"
+@layout mamix.Shared.Ecommerce.MainLayout
+@inject IJSRuntime JSRuntime
+@inject Microsoft.AspNetCore.Components.NavigationManager NavigationManager // This line is used to generate URLs dynamically //
+
+
+            <div class="main-content landing-main ecommerce-main">
+
+                <!-- Start:: Breadcrumb-->
+                <div class="border-bottom py-3">
+                    <div class="container">
+                        <div class="d-md-flex d-block align-items-center justify-content-between page-header-breadcrumb">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb mb-0">
+                                    <li class="breadcrumb-item"><a href="javascript:void(0)"><i class="bi bi-house"></i> Home</a></li>
+                                    <li class="breadcrumb-item">Ecommerce</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Ecommerce Contact Us</li>
+                                </ol>
+                            </nav>
+                            <p class="mb-0">
+                                <span class="text-muted">Updated on </span> Yesterday
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- End:: Breadcrumb-->
+
+                <!-- Start:: Section-1 -->
+                <section class="section">
+                    <div class="container"> 
+                        <div class="text-center mb-5">
+                            <h3 class="fw-semibold mb-1">Contact Us</h3>
+                            <p class="mb-0 text-muted">Just leave us a message for any queries or any remarks!</p>
+                        </div>
+                        <div class="mb-5">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="card custom-card text-center">
+                                        <div class="card-body p-4">
+                                            <span class="avatar bg-primary-transparent rounded-2 mb-3"><i class="ti ti-activity fs-18"></i></span>
+                                            <h6 class="mb-2 fw-semibold fs-18">General</h6>
+                                            <p class="mb-0 fs-13 text-muted">Sed stet kasd lorem dolores ut et rebum. Nonumy sit lorem sanctus.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card custom-card text-center">
+                                        <div class="card-body p-4">
+                                            <span class="avatar bg-warning-transparent rounded-2 mb-3"><i class="ti ti-receipt fs-18"></i></span>
+                                            <h6 class="mb-2 fw-semibold fs-18">Billing</h6>
+                                            <p class="mb-0 fs-13 text-muted">Aliquyam labore eos vero ut rebum clita. Tempor et dolores nonumy.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card custom-card text-center">
+                                        <div class="card-body p-4">
+                                            <span class="avatar bg-info-transparent rounded-2 mb-3"><i class="ti ti-truck-delivery fs-18"></i></span>
+                                            <h6 class="mb-2 fw-semibold fs-18">Shipment</h6>
+                                            <p class="mb-0 fs-13 text-muted">Amet accusam aliquyam aliquyam duo, ipsum et sed.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card custom-card text-center">
+                                        <div class="card-body p-4">
+                                            <span class="avatar bg-danger-transparent rounded-2 mb-3"><i class="ti ti-hearts fs-18"></i></span>
+                                            <h6 class="mb-2 fw-semibold fs-18">Services</h6>
+                                            <p class="mb-0 fs-13 text-muted">Voluptua et dolor dolores dolores sanctus. Ipsum sea est.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card custom-card">
+                            <div class="card-body p-2">
+                                <div class="row align-items-stretch">
+                                    <div class="col-md-5">
+                                        <div class="p-4 h-100 d-flex flex-column rounded-2 text-bg-primary">
+                                            <h4 class="fs-20 fw-semibold mb-2 text-fixed-white">Contact Info</h4>
+                                            <p class="op-8 fs-13 mb-5">Feel free to ask anything. Our team will get back to you with-in 24hrs!</p>
+                                            <div class="d-flex align-items-center gap-3 mb-3">
+                                                <span class="text-fixed-white"><i class="bi bi-telephone-fill fs-18"></i></span>
+                                                <span>+26-4589237510</span>
+                                            </div>
+                                            <div class="d-flex align-items-center gap-3 mb-3">
+                                                <span class="text-fixed-white"><i class="bi bi-envelope-fill fs-18"></i></span>
+                                                <span>bigbaket&#64;ecommerce.mail</span>
+                                            </div>
+                                            <div class="d-flex align-items-center gap-3">
+                                                <span class="text-fixed-white"><i class="bi bi-geo-alt-fill fs-18"></i></span>
+                                                <span>2048 Adugiahsuk Rd, LICE, USA</span>
+                                            </div>
+                                            <div class="d-flex align-items-center gap-2 mt-auto">
+                                                <a href="javascript:void(0);" class="btn btn-icon btn-secondary rounded-circle" data-bs-toggle="tooltip" title="Twitter"><i class="ri-twitter-x-line"></i></a>
+                                                <a href="javascript:void(0);" class="btn btn-icon btn-secondary rounded-circle" data-bs-toggle="tooltip" title="Facebook"><i class="bi bi-facebook"></i></a>
+                                                <a href="javascript:void(0);" class="btn btn-icon btn-secondary rounded-circle" data-bs-toggle="tooltip" title="Instagram"><i class="bi bi-instagram"></i></a>
+                                                <a href="javascript:void(0);" class="btn btn-icon btn-secondary rounded-circle" data-bs-toggle="tooltip" title="Youtube"><i class="bi bi-youtube"></i></a>
+                                                <a href="javascript:void(0);" class="btn btn-icon btn-secondary rounded-circle" data-bs-toggle="tooltip" title="Linkedin"><i class="bi bi-linkedin"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <div class="p-4 h-100">
+                                            <h4 class="fs-20 mb-5 fw-semibold">We Would Love To Hear From You!</h4>
+                                            <form action="javascript:void(0);">
+                                                <div class="row gy-3">
+                                                    <div class="col-lg-6">													
+                                                        <div class="form-floating form-floating-syle">
+                                                            <input type="text" class="form-control" id="name_contact" placeholder="Your Name">
+                                                            <label for="name_contact" class="floating-label fw-300">Your Name</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">													
+                                                        <div class="form-floating form-floating-syle">
+                                                            <input type="text" class="form-control" id="mobileNumber_contact" placeholder="Mobile Number">
+                                                            <label for="mobileNumber_contact" class="floating-label fw-300">Mobile Number</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">													
+                                                        <div class="form-floating form-floating-syle">
+                                                            <input type="email" class="form-control" id="email_contact" placeholder="Email">
+                                                            <label for="email_contact" class="floating-label fw-300">Email</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">													
+                                                        <div class="form-floating form-floating-syle">
+                                                            <input type="text" class="form-control" id="subject_contact" placeholder="Subject">
+                                                            <label for="subject_contact" class="floating-label fw-300">Subject</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12">													
+                                                        <div class="form-floating form-floating-syle">
+                                                            <textarea class="form-control" id="message_contact" placeholder="Writer your message here..."></textarea>
+                                                            <label for="message_contact" class="floating-label fw-300">Your Message</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="text-end mt-4">
+                                                    <a href="javascript:void(0);" class="btn btn-primary">Submit <i class="ti ti-send fs-18 ms-1"></i></a>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section> 
+                <!-- End:: Section-1 -->
+
+                <!-- Start:: Section-2 -->
+                <section class="section">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xl-4">
+                                <div class="card card-style-3 custom-card card-style-3-info mb-xl-0">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-start gap-3">
+                                            <div class="min-w-fit-content">
+                                                <span class="avatar bg-info"><i class="ti ti-truck-delivery fs-20"></i></span>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <p class="mb-0 fw-semibold fs-16 text-info">Free Delivery</p>
+                                                <p class="mb-0 fs-13 text-muted">Consetetur eirmod dolor stet justo gubergren ea et lorem sadipscing.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4">
+                                <div class="card card-style-3 custom-card card-style-3-warning mb-xl-0">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-start gap-3">
+                                            <div class="min-w-fit-content">
+                                                <span class="avatar bg-warning"><i class="ti ti-tags fs-20"></i></span>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <p class="mb-0 fw-semibold fs-16 text-warning">Great Deals & Offers</p>
+                                                <p class="mb-0 fs-13 text-muted">Consetetur eirmod dolor stet justo gubergren ea et lorem sadipscing.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4">
+                                <div class="card card-style-3 custom-card card-style-3-danger mb-xl-0">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-start gap-3">
+                                            <div class="min-w-fit-content">
+                                                <span class="avatar bg-danger"><i class="ti ti-arrow-back-up fs-20"></i></span>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <p class="mb-0 fw-semibold fs-16 text-danger">Easy Returns</p>
+                                                <p class="mb-0 fs-13 text-muted">Consetetur eirmod dolor stet justo gubergren ea et lorem sadipscing.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- End:: Section-2 -->
+
+                <!-- Start:: Section-3 -->
+                <section class="section bg-banner px-lg-0 px-4">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6 text-center">
+                            <div class="mb-4">
+                                <h3 class="fw-semibold mb-2 text-fixed-white">&#128073; Download our free mobile apps today</h3>
+                            </div>
+                            <h6 class="mb-4 op-9 text-fixed-white">Labore no sed ipsum ipsum nonumy. Sit ipsum sanctus ea magna est. Kasd diam rebum sit ipsum ipsum erat et kasd.Est amet sit vero sanctus labore no sed ipsum ipsum nonumy vero sanctus labore..</h6>
+                            <div class="btn-list">
+                                <a href="javascript:void(0);" class="btn btn-dark app-store">
+                                    <img src="@($"{NavigationManager.BaseUri}assets/images/media/apps/play-store.png")" alt="">
+                                    Google Play
+                                </a>
+                                <a href="javascript:void(0);" class="btn btn-dark app-store">
+                                    <img src="@($"{NavigationManager.BaseUri}assets/images/media/apps/apple-store.png")" alt="" class="invert-1">
+                                    App Store
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- End:: Section-3 -->
+
+            </div>
+
+@code {
+    
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("window.interop.initializeTooltips");
+        }
+    }
+
+}

@@ -1,0 +1,1486 @@
+@page "/index16"
+@using ApexCharts
+@inject Microsoft.AspNetCore.Components.NavigationManager NavigationManager // This line is used to generate URLs dynamically //
+
+ 
+        <!-- jsvectormap CSS -->
+        <link rel="stylesheet" href="@($"{NavigationManager.BaseUri}assets/libs/jsvectormap/jsvectormap.min.css")">
+
+
+
+                    <!-- Start::page-header -->
+                    <div class="my-4 page-header-breadcrumb d-flex align-items-center justify-content-between flex-wrap gap-2">
+                        <div>
+                            <h1 class="page-title fw-medium fs-18 mb-2">Social Media</h1>
+                            <ol class="breadcrumb mb-0">
+                                <li class="breadcrumb-item">
+                                    <a href="javascript:void(0);">
+                                        Dashboards
+                                    </a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">Social Media</li>
+                            </ol>
+                        </div>
+                        <div>
+                            <button class="btn btn-primary-light btn-wave me-2 waves-effect waves-light">
+                                <i class="bx bx-crown align-middle"></i> Plan Upgrade
+                            </button>
+                            <button class="btn btn-secondary-light btn-wave me-0 waves-effect waves-light">
+                                <i class="ri-upload-cloud-line align-middle"></i> Export Report
+                            </button>
+                        </div>
+                    </div>
+                    <!-- End::page-header -->
+
+                    <!-- Start:: row-1 -->
+                    <div class="row">
+                        <div class="col-xxl-3 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="card custom-card">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-start gap-3">
+                                        <div class="main-card-icon primary">
+                                            <div class="avatar avatar-lg bg-primary-transparent border border-primary border-opacity-10">
+                                                <div class="avatar avatar-sm svg-white">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><path d="M226.59,71.53a16,16,0,0,0-9.63-11C183.48,47.65,128,48,128,48s-55.48-.35-89,12.58a16,16,0,0,0-9.63,11C27.07,80.54,24,98.09,24,128s3.07,47.46,5.41,56.47A16,16,0,0,0,39,195.42C72.52,208.35,128,208,128,208s55.48.35,89-12.58a16,16,0,0,0,9.63-10.95c2.34-9,5.41-26.56,5.41-56.47S228.93,80.54,226.59,71.53ZM112,160V96l48,32Z" opacity="0.2"/><polygon points="160 128 112 96 112 160 160 128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><path d="M24,128c0,29.91,3.07,47.45,5.41,56.47A16,16,0,0,0,39,195.42C72.52,208.35,128,208,128,208s55.48.35,89-12.58a16,16,0,0,0,9.63-10.95c2.34-9,5.41-26.56,5.41-56.47s-3.07-47.45-5.41-56.47a16,16,0,0,0-9.63-11C183.48,47.65,128,48,128,48s-55.48-.35-89,12.58a16,16,0,0,0-9.63,11C27.07,80.54,24,98.09,24,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/></svg>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="flex-fill">
+                                            <h5 class="fs-4 mb-1">512,345</h5>
+                                            <span class="text-muted fs-12">Subscribers<span class="text-success ms-2 d-inline-block">0.45%<i class="ti ti-arrow-narrow-up"></i></span></span>
+                                            <div id="youtube-subscribers" class="mt-3">
+                                                <ApexChart TItem="Youtube" Options=YoutubeChartOptions>
+                                                    <ApexPointSeries TItem="Youtube" Items="youtube" SeriesType="@SeriesType.Area"
+                                                        XValue="@(e => e.Series)"
+                                                        YAggregate="@(e => e.Sum(e => e.YoutubeValue))"/>
+                                                </ApexChart>
+                                            </div>
+                                        </div>
+                                        <div class="dropdown"> 
+                                            <a aria-label="anchor" href="javascript:void(0);" data-bs-toggle="dropdown"> 
+                                                <i class="ri-more-2-fill fs-5 text-muted"></i>
+                                            </a> 
+                                            <ul class="dropdown-menu" role="menu"> 
+                                                <li><a class="dropdown-item" href="javascript:void(0);">Week</a></li> 
+                                                <li><a class="dropdown-item" href="javascript:void(0);">Day</a></li> 
+                                                <li><a class="dropdown-item" href="javascript:void(0);">Year</a></li> 
+                                            </ul> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xxl-3 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="card custom-card">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-start gap-3">
+                                        <div class="main-card-icon secondary">
+                                            <div class="avatar avatar-lg bg-secondary-transparent border border-secondary border-opacity-10">
+                                                <div class="avatar avatar-sm svg-white">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><polygon points="48 40 96 40 208 216 160 216 48 40" opacity="0.2"/><polygon points="48 40 96 40 208 216 160 216 48 40" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="113.88" y1="143.53" x2="48" y2="216" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="208" y1="40" x2="142.12" y2="112.47" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/></svg>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="flex-fill">
+                                            <h5 class="fs-4 mb-1">154,678</h5>
+                                            <span class="text-muted fs-12">Followers<span class="text-success ms-2 d-inline-block">0.45%<i class="ti ti-arrow-narrow-up"></i></span></span>
+                                            <div id="twitter-followers" class="mt-3 invert-1">
+                                                <ApexChart TItem="Twitter" Options=TwitterChartOptions>
+                                                    <ApexPointSeries TItem="Twitter" Items="twitter" SeriesType="@SeriesType.Area"
+                                                        XValue="@(e => e.Series)"
+                                                        YAggregate="@(e => e.Sum(e => e.TwitterValue))"/>
+                                                </ApexChart>
+                                            </div>
+                                        </div>
+                                        <div class="dropdown"> 
+                                            <a aria-label="anchor" href="javascript:void(0);" data-bs-toggle="dropdown"> 
+                                                <i class="ri-more-2-fill fs-5 text-muted"></i>
+                                            </a> 
+                                            <ul class="dropdown-menu" role="menu"> 
+                                                <li><a class="dropdown-item" href="javascript:void(0);">Week</a></li> 
+                                                <li><a class="dropdown-item" href="javascript:void(0);">Day</a></li> 
+                                                <li><a class="dropdown-item" href="javascript:void(0);">Year</a></li> 
+                                            </ul> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xxl-3 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="card custom-card">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-start gap-3">
+                                        <div class="main-card-icon success">
+                                            <div class="avatar avatar-lg bg-success-transparent border border-success border-opacity-10">
+                                                <div class="avatar avatar-sm svg-white">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><path d="M79.93,211.11a96,96,0,1,0-35-35h0L32.42,213.46a8,8,0,0,0,10.12,10.12l37.39-12.47Z" opacity="0.2"/><polyline points="80 144 112 112 144 144 176 112" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><path d="M79.93,211.11a96,96,0,1,0-35-35h0L32.42,213.46a8,8,0,0,0,10.12,10.12l37.39-12.47Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/></svg>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="flex-fill">
+                                            <h5 class="fs-4 mb-1">307,892</h5>
+                                            <span class="text-muted fs-12">Followers<span class="text-success ms-2 d-inline-block">0.45%<i class="ti ti-arrow-narrow-up"></i></span></span>
+                                            <div id="facebook-followers" class="mt-3">
+                                                <ApexChart TItem="Facebook" Options=FacebookChartOptions>
+                                                    <ApexPointSeries TItem="Facebook" Items="facebook" SeriesType="@SeriesType.Area"
+                                                        XValue="@(e => e.Series)"
+                                                        YAggregate="@(e => e.Sum(e => e.FacebookValue))"/>
+                                                </ApexChart>
+                                            </div>
+                                        </div>
+                                        <div class="dropdown"> 
+                                            <a aria-label="anchor" href="javascript:void(0);" data-bs-toggle="dropdown"> 
+                                                <i class="ri-more-2-fill fs-5 text-muted"></i>
+                                            </a> 
+                                            <ul class="dropdown-menu" role="menu"> 
+                                                <li><a class="dropdown-item" href="javascript:void(0);">Week</a></li> 
+                                                <li><a class="dropdown-item" href="javascript:void(0);">Day</a></li> 
+                                                <li><a class="dropdown-item" href="javascript:void(0);">Year</a></li> 
+                                            </ul> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xxl-3 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="card custom-card">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-start gap-3">
+                                        <div class="main-card-icon orange">
+                                            <div class="avatar avatar-lg bg-orange-transparent border border-orange border-opacity-10">
+                                                <div class="avatar avatar-sm svg-white">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><path d="M176,32H80A48,48,0,0,0,32,80v96a48,48,0,0,0,48,48h96a48,48,0,0,0,48-48V80A48,48,0,0,0,176,32ZM128,168a40,40,0,1,1,40-40A40,40,0,0,1,128,168Z" opacity="0.2"/><rect x="32" y="32" width="192" height="192" rx="48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><circle cx="128" cy="128" r="40" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="16"/><circle cx="180" cy="76" r="12"/></svg>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="flex-fill">
+                                            <h5 class="fs-4 mb-1">198,765</h5>
+                                            <span class="text-muted fs-12">Followers<span class="text-success ms-2 d-inline-block">0.45%<i class="ti ti-arrow-narrow-up"></i></span></span>
+                                            <div id="instagram-followers" class="mt-3">
+                                                <ApexChart TItem="Instagram" Options=InstagramChartOptions>
+                                                    <ApexPointSeries TItem="Instagram" Items="instagram" SeriesType="@SeriesType.Area"
+                                                        XValue="@(e => e.Series)"
+                                                        YAggregate="@(e => e.Sum(e => e.InstagramValue))"/>
+                                                </ApexChart>
+                                            </div>
+                                        </div>
+                                        <div class="dropdown"> 
+                                            <a aria-label="anchor" href="javascript:void(0);" data-bs-toggle="dropdown"> 
+                                                <i class="ri-more-2-fill fs-5 text-muted"></i>
+                                            </a> 
+                                            <ul class="dropdown-menu" role="menu"> 
+                                                <li><a class="dropdown-item" href="javascript:void(0);">Week</a></li> 
+                                                <li><a class="dropdown-item" href="javascript:void(0);">Day</a></li> 
+                                                <li><a class="dropdown-item" href="javascript:void(0);">Year</a></li> 
+                                            </ul> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End:: row-1 -->
+
+                    <!-- Start:: row-2 -->
+                    <div class="row">
+                        <div class="col-xl-9">
+                            <div class="card custom-card profile_analytics">
+                                <div class="card-header justify-content-between">
+                                    <div class="card-title">
+                                        PROFILE ANALYSIS
+                                    </div>
+                                    <div class="d-flex gap-2 align-items-center">
+                                        <div>
+                                            <select class="form-control form-control-sm tomselect" data-trigger>
+                                                <option value="1" selected>Youtube</option>
+                                                <option value="2">Twitter</option>
+                                                <option value="3">Facebook</option>
+                                                <option value="4">Instagram</option>
+                                            </select>
+                                        </div>
+                                        <div class="dropdown"> 
+                                            <a href="javascript:void(0);" class="p-2 fs-12 text-muted" data-bs-toggle="dropdown" aria-expanded="true"> Sort By <i class="ri-arrow-down-s-line align-middle ms-1 d-inline-block"></i> </a> 
+                                            <ul class="dropdown-menu" role="menu" style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate(0px, 28px);" data-popper-placement="bottom-end"> 
+                                                <li><a class="dropdown-item" href="javascript:void(0);">This Week</a></li>
+                                                <li><a class="dropdown-item" href="javascript:void(0);">Last Week</a></li> 
+                                                <li><a class="dropdown-item" href="javascript:void(0);">This Month</a></li> 
+                                            </ul> 
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div id="profile-analysis">
+                                        <ApexChart TItem="Analysis" Height="337" Options=profileanalysisChartOptions>
+                                            <ApexPointSeries TItem="Analysis"
+                                                Items="analysis"
+                                                SeriesType="@SeriesType.Area"
+                                                Name="Followers"
+                                                XValue="@(e => e.Month)"
+                                                YAggregate="@(e => e.Sum(e => e.Followers))"/>
+
+                                            <ApexPointSeries TItem="Analysis"
+                                                Items="analysis"
+                                                SeriesType="@SeriesType.Area"
+                                                Name="Account Reached"
+                                                XValue="@(e => e.Month)"
+                                                YAggregate="@(e => e.Sum(e => e.Reached))"/>
+
+                                            <ApexPointSeries TItem="Analysis"
+                                                Items="analysis"
+                                                SeriesType="@SeriesType.Area"
+                                                Name="People Engaged"
+                                                XValue="@(e => e.Month)"
+                                                YAggregate="@(e => e.Sum(e => e.Engaged))"/>
+                                                
+                                        </ApexChart>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3">
+                            <div class="card custom-card">
+                                <div class="card-header justify-content-between">
+                                    <div class="card-title">
+                                        AUDIENCE AGE METRICS
+                                    </div>
+                                </div>
+                                <div class="card-body py-0">
+                                    <div id="audience-age-metrics">
+                                        <ApexChart TItem="AgeMetrics" Height="375" Options=AgeMetricsChartOptions>
+                                            <ApexPointSeries TItem="AgeMetrics" Items="agemetrics" Name="Total Audience"  SeriesType="SeriesType.Bar" XValue="@(e => e.populationData)" YAggregate="@(e => e.Sum(e => e.TotalAudience))" />
+                                        </ApexChart>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End:: row-2 -->
+
+                    <!-- Start:: row-3 -->
+                    <div class="row">
+                        <div class="col-xl-3">
+                            <div class="card custom-card overflow-hidden">
+                                <div class="card-header justify-content-between">
+                                    <div class="card-title">
+                                        AUDIENCE REACHED
+                                    </div>
+                                    <div class="dropdown"> 
+                                        <a href="javascript:void(0);" class="p-2 fs-12 text-muted" data-bs-toggle="dropdown" aria-expanded="true"> Sort By <i class="ri-arrow-down-s-line align-middle ms-1 d-inline-block"></i> </a> 
+                                        <ul class="dropdown-menu" role="menu" style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate(0px, 28px);" data-popper-placement="bottom-end"> 
+                                            <li><a class="dropdown-item" href="javascript:void(0);">This Week</a></li>
+                                            <li><a class="dropdown-item" href="javascript:void(0);">Last Week</a></li> 
+                                            <li><a class="dropdown-item" href="javascript:void(0);">This Month</a></li> 
+                                        </ul> 
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="leads-source-chart d-flex align-items-center justify-content-center">
+                                        <div id="audience-reached">
+                                            <ApexChart TItem="AudienceReached" Height="228" Options=AudienceReachedChartOptions>
+                                                <ApexPointSeries TItem="AudienceReached" Items="audiencereached" SeriesType="SeriesType.Donut" XValue="@(e => e.Source)" YAggregate="@(e => e.Sum(e => e.SourceValue))" />
+                                            </ApexChart>
+                                        </div>
+                                        <div class="lead-source-value">
+                                            <span class="d-block fs-16">Total Audience</span>
+                                            <span class="d-block fs-18 fw-bold">28924</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer p-0">
+                                    <ul class="list-group list-group-flush audience-reached-list">
+                                        <li class="list-group-item">
+                                            <div class="d-flex align-items-start justify-content-between">
+                                                <div class="lh-1">
+                                                    <div class="fw-medium mb-1">Men</div>
+                                                </div>
+                                                <div class="lh-1 text-end">
+                                                    <span class="d-block fw-semibold mb-0">60.64%</span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <div class="d-flex align-items-start justify-content-between">
+                                                <div class="lh-1">
+                                                    <div class="fw-medium mb-1">Women</div>
+                                                </div>
+                                                <div class="lh-1 text-end">
+                                                    <span class="d-block fw-semibold mb-0">59.36%</span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="card custom-card">
+                                <div class="card-header">
+                                    <div class="card-title">
+                                        AUDIENCE TOP COUNTRIES
+                                    </div>  
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-xl-4 my-auto">
+                                            <ul class="list-unstyled mb-0">
+                                                <li class="mb-3">
+                                                    <span class="fs-12"><i class="ri-checkbox-blank-circle-fill align-middle me-2 d-inline-block text-primary"></i>Usa</span><span class="fw-medium float-end">3,201</span>
+                                                </li>
+                                                <li class="mb-3">
+                                                    <span class="fs-12"><i class="ri-checkbox-blank-circle-fill align-middle me-2 d-inline-block text-secondary"></i>India</span><span class="fw-medium float-end">2,345</span>
+                                                </li>
+                                                <li class="mb-3">
+                                                    <span class="fs-12"><i class="ri-checkbox-blank-circle-fill align-middle me-2 d-inline-block text-danger"></i>Vatican City</span><span class="fw-medium float-end">106</span>
+                                                </li>
+                                                <li class="mb-3">
+                                                    <span class="fs-12"><i class="ri-checkbox-blank-circle-fill align-middle me-2 d-inline-block text-info"></i>Canada</span><span class="fw-medium float-end">2,857</span>
+                                                </li>
+                                                <li class="mb-3">
+                                                    <span class="fs-12"><i class="ri-checkbox-blank-circle-fill align-middle me-2 d-inline-block text-orange"></i>Mauritius</span><span class="fw-medium float-end">169</span>
+                                                </li>
+                                                <li class="mb-3">
+                                                    <span class="fs-12"><i class="ri-checkbox-blank-circle-fill align-middle me-2 d-inline-block text-warning"></i>Singapore</span><span class="fw-medium float-end">1,950</span>
+                                                </li>
+                                                <li class="mb-3">
+                                                    <span class="fs-12"><i class="ri-checkbox-blank-circle-fill align-middle me-2 d-inline-block text-success"></i>Palau</span><span class="fw-medium float-end">224</span>
+                                                </li>
+                                                <li class="mb-0">
+                                                    <span class="fs-12"><i class="ri-checkbox-blank-circle-fill align-middle me-2 d-inline-block text-pink"></i>Maldives</span><span class="fw-medium float-end">147</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-xl-8">
+                                            <div id="visitors-countries" class="text-center"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3">
+                            <div class="card custom-card overflow-hidden">
+                                <div class="card-header justify-content-between">
+                                    <div class="card-title">
+                                        REVENUE EARNED
+                                    </div>
+                                    <div class="dropdown"> 
+                                        <a href="javascript:void(0);" class="p-2 fs-12 text-muted" data-bs-toggle="dropdown" aria-expanded="true"> Sort By <i class="ri-arrow-down-s-line align-middle ms-1 d-inline-block"></i> </a> 
+                                        <ul class="dropdown-menu" role="menu" style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate(0px, 28px);" data-popper-placement="bottom-end"> 
+                                            <li><a class="dropdown-item" href="javascript:void(0);">This Week</a></li>
+                                            <li><a class="dropdown-item" href="javascript:void(0);">Last Week</a></li> 
+                                            <li><a class="dropdown-item" href="javascript:void(0);">This Month</a></li> 
+                                        </ul> 
+                                    </div>
+                                </div>
+                                <div class="card-body p-0">
+                                    <div id="revenue-earned">
+                                        <ApexChart TItem="RevenueEarned" Options=RevenueEarnedChartOptions Height="180">
+                                            <ApexPointSeries TItem="RevenueEarned" Items="revenueearned" SeriesType=SeriesType.RadialBar Name="Social" XValue="@(e => e.SocialApps)" YAggregate="@(e => decimal.Round(e.Average(e => e.Value)))" /> 
+                                        </ApexChart>
+                                    </div>     
+                                    <div class="border-top">
+                                        <ul class="list-group list-group-flush revenue-earned-list">
+                                            <li class="list-group-item">
+                                                <div class="d-flex align-items-start justify-content-between">
+                                                    <div class="lh-1">
+                                                        <div class="fw-medium mb-1">Youtube</div>
+                                                    </div>
+                                                    <div class="lh-1 text-end">
+                                                        <span class="d-block fw-semibold mb-0">$76,562</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <div class="d-flex align-items-start justify-content-between">
+                                                    <div class="lh-1">
+                                                        <div class="fw-medium mb-1">Twitter</div>
+                                                    </div>
+                                                    <div class="lh-1 text-end">
+                                                        <span class="d-block fw-semibold mb-0">$67,454</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <div class="d-flex align-items-start justify-content-between">
+                                                    <div class="lh-1">
+                                                        <div class="fw-medium mb-1">Facebook</div>
+                                                    </div>
+                                                    <div class="lh-1 text-end">
+                                                        <span class="d-block fw-semibold mb-0">$61,225</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <div class="d-flex align-items-start justify-content-between">
+                                                    <div class="lh-1">
+                                                        <div class="fw-medium mb-1">Instagram</div>
+                                                    </div>
+                                                    <div class="lh-1 text-end">
+                                                        <span class="d-block fw-semibold mb-0">$90,568</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>                           
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End:: row-3 -->
+
+                    <!-- Start:: row-4 -->
+                    <div class="row">
+                        <div class="col-xl-9">
+                            <div class="card custom-card">
+                                <div class="card-header justify-content-between">
+                                    <div class="card-title">
+                                        SOCIAL MEDIA PERFORMANCE
+                                    </div>
+                                    <div class="d-flex flex-wrap gap-2"> 
+                                        <div> 
+                                            <input class="form-control form-control-sm" type="text" placeholder="Search Here" aria-label=".form-control-sm example"> 
+                                        </div> 
+                                        <div class="dropdown"> 
+                                            <a href="javascript:void(0);" class="btn btn-primary btn-sm btn-wave waves-effect waves-light" data-bs-toggle="dropdown" aria-expanded="false"> Sort By<i class="ri-arrow-down-s-line align-middle ms-1 d-inline-block"></i> 
+                                            </a> 
+                                            <ul class="dropdown-menu" role="menu"> 
+                                                <li><a class="dropdown-item" href="javascript:void(0);">New</a></li> 
+                                                <li><a class="dropdown-item" href="javascript:void(0);">Popular</a></li> 
+                                                <li><a class="dropdown-item" href="javascript:void(0);">Relevant</a></li> 
+                                            </ul> 
+                                        </div> 
+                                    </div>
+                                </div>
+                                <div class="card-body p-0">
+                                    <div class="table-responsive">
+                                        <table class="table text-nowrap">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Date</th>
+                                                    <th scope="col">Platform</th>
+                                                    <th scope="col">Likes</th>
+                                                    <th scope="col">Comments</th>
+                                                    <th scope="col">Shares</th>
+                                                    <th scope="col">Impressions</th>
+                                                    <th scope="col">Engagemen(%)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        2024-02-15
+                                                    </td>
+                                                    <td>
+                                                    <div class="d-flex align-items-center gap-2">
+                                                            <span class="avatar avatar-sm bg-danger-transparent">
+                                                                <i class="ri-youtube-fill fs-16"></i>
+                                                            </span>
+                                                            <span class="fw-medium">Youtube</span>
+                                                    </div>
+                                                    </td>
+                                                    <td>
+                                                        150
+                                                    </td>
+                                                    <td>
+                                                        25
+                                                    </td>
+                                                    <td>
+                                                        50
+                                                    </td>
+                                                    <td>
+                                                        <span class="badge bg-primary-transparent">10,000</span>
+                                                    </td>
+                                                    <td>
+                                                        3.5%
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        2024-02-14
+                                                    </td>
+                                                    <td>
+                                                    <div class="d-flex align-items-center gap-2">
+                                                            <span class="avatar avatar-sm bg-dark-transparent">
+                                                                <i class="ri-twitter-x-fill fs-16"></i>
+                                                            </span>
+                                                            <span class="fw-medium">Twitter</span>
+                                                    </div>
+                                                    </td>
+                                                    <td>
+                                                        200
+                                                    </td>
+                                                    <td>
+                                                        30
+                                                    </td>
+                                                    <td>
+                                                        70
+                                                    </td>
+                                                    <td>
+                                                        <span class="badge bg-secondary-transparent">15,000</span>
+                                                    </td>
+                                                    <td>
+                                                        4.2%
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        2024-02-13
+                                                    </td>
+                                                    <td>
+                                                    <div class="d-flex align-items-center gap-2">
+                                                            <span class="avatar avatar-sm bg-info-transparent">
+                                                                <i class="ri-messenger-fill fs-16"></i>
+                                                            </span>
+                                                            <span class="fw-medium">Facebook</span>
+                                                    </div>
+                                                    </td>
+                                                    <td>
+                                                        300
+                                                    </td>
+                                                    <td>
+                                                        40
+                                                    </td>
+                                                    <td>
+                                                        90
+                                                    </td>
+                                                    <td>
+                                                        <span class="badge bg-success-transparent">20,000</span>
+                                                    </td>
+                                                    <td>
+                                                        5.0%
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        2024-02-12
+                                                    </td>
+                                                    <td>
+                                                    <div class="d-flex align-items-center gap-2">
+                                                            <span class="avatar avatar-sm bg-secondary-transparent">
+                                                                <i class="ri-instagram-fill fs-16"></i>
+                                                            </span>
+                                                            <span class="fw-medium">Instagram</span>
+                                                    </div>
+                                                    </td>
+                                                    <td>
+                                                        100
+                                                    </td>
+                                                    <td>
+                                                        20
+                                                    </td>
+                                                    <td>
+                                                        30
+                                                    </td>
+                                                    <td>
+                                                        <span class="badge bg-orange-transparent">8,000</span>
+                                                    </td>
+                                                    <td>
+                                                        2.1%
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        2024-02-11
+                                                    </td>
+                                                    <td>
+                                                    <div class="d-flex align-items-center gap-2">
+                                                            <span class="avatar avatar-sm bg-dark-transparent">
+                                                                <i class="ri-twitter-x-fill fs-16"></i>
+                                                            </span>
+                                                            <span class="fw-medium">Twitter</span>
+                                                    </div>
+                                                    </td>
+                                                    <td>
+                                                        120
+                                                    </td>
+                                                    <td>
+                                                        15
+                                                    </td>
+                                                    <td>
+                                                        40
+                                                    </td>
+                                                    <td>
+                                                        <span class="badge bg-info-transparent">12,000</span>
+                                                    </td>
+                                                    <td>
+                                                        3.0%
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="card-footer border-top-0"> 
+                                    <div class="d-flex align-items-center"> 
+                                        <div> Showing 5 Entries <i class="bi bi-arrow-right ms-2 fw-semibold"></i> </div>
+                                        <div class="ms-auto"> 
+                                        <nav aria-label="Page navigation" class="pagination-style-4"> 
+                                            <ul class="pagination mb-0"> 
+                                                <li class="page-item disabled"> <a class="page-link" href="javascript:void(0);"> Prev </a> </li>
+                                                    <li class="page-item active"><a class="page-link" href="javascript:void(0);">1</a></li> 
+                                                    <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li> 
+                                                    <li class="page-item"> <a class="page-link text-primary" href="javascript:void(0);"> next </a> </li> 
+                                                </ul> 
+                                            </nav> 
+                                        </div> 
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3">
+                            <div class="card custom-card">
+                                <div class="card-header justify-content-between">
+                                    <div class="card-title">
+                                        SESSIONS BY DEVICE
+                                    </div>
+                                    <div class="dropdown"> 
+                                        <a href="javascript:void(0);" class="p-2 fs-12 text-muted" data-bs-toggle="dropdown" aria-expanded="true"> Sort By <i class="ri-arrow-down-s-line align-middle ms-1 d-inline-block"></i> </a> 
+                                        <ul class="dropdown-menu" role="menu" style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate(0px, 28px);" data-popper-placement="bottom-end"> 
+                                            <li><a class="dropdown-item" href="javascript:void(0);">This Week</a></li>
+                                            <li><a class="dropdown-item" href="javascript:void(0);">Last Week</a></li> 
+                                            <li><a class="dropdown-item" href="javascript:void(0);">This Month</a></li> 
+                                        </ul> 
+                                    </div>
+                                </div>
+                                <div class="card-body p-0">
+                                    <div id="sessions-device">
+                                    <ApexChart TItem="SessionsDevice" Height="355" Options=SessionsDeviceChartOptions>
+                                        @foreach (var data in incidentsBasic.GroupBy(e => e.Source))
+                                        {
+                                            <ApexBubbleSeries TItem="SessionsDevice"
+                                                Items="data.ToList()"
+                                                Name="@data.Key!.ToString()"
+                                                XValue="@(e => e.x)"
+                                                YAggregate="@(e => (decimal)e.Sum(e => e.y))"
+                                                ZAggregate="@(e => (int)e.Average(e => e.z))" />
+                                        }
+                                    </ApexChart>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End:: row-4 -->
+                
+
+
+        <!-- JSVector Maps JS -->
+        <script src="@($"{NavigationManager.BaseUri}assets/libs/jsvectormap/jsvectormap.min.js")"></script>
+
+        <!-- JSVector Maps MapsJS -->
+        <script src="@($"{NavigationManager.BaseUri}assets/libs/jsvectormap/maps/world-merc.js")"></script>
+
+        <!-- Social Media Dashboard JS -->
+        <script src="@($"{NavigationManager.BaseUri}assets/js/social-media-dashboard.js")"></script>
+            
+        <!-- TomSelect JS -->
+        <script src="@($"{NavigationManager.BaseUri}assets/libs/tom-select/js/tom-select.complete.min.js")"></script>
+        <script src="@($"{NavigationManager.BaseUri}assets/js/tomselect.js")"></script>
+        
+
+@code {
+
+    // Youtube Start //
+    private List<Youtube> youtube { get; set; } = YoutubeData.GetYoutubes();
+    private ApexChartOptions<Youtube> YoutubeChartOptions { get; set; } = new();
+    public class Youtube {
+        public string? Series { get; set; }
+        public decimal YoutubeValue { get; set; }
+        
+    } ;
+    public static class YoutubeData {
+            public static List<Youtube> GetYoutubes()
+            {
+                List<Youtube> youtube = new List<Youtube>
+                {
+                    new Youtube { Series = "1", YoutubeValue = 20},
+                    new Youtube { Series = "2", YoutubeValue = 14},
+                    new Youtube { Series = "3", YoutubeValue = 19},
+                    new Youtube { Series = "4", YoutubeValue = 10},
+                    new Youtube { Series = "5", YoutubeValue = 23},
+                    new Youtube { Series = "6", YoutubeValue = 20},
+                    new Youtube { Series = "7", YoutubeValue = 22},
+                    new Youtube { Series = "8", YoutubeValue = 9},
+                    new Youtube { Series = "9", YoutubeValue = 12},
+
+                };
+
+                return youtube;
+            }
+    }
+    //  Youtube SPARKLINE End //
+
+    // Twitter Start //
+    private List<Twitter> twitter { get; set; } = TwitterData.GetTwitters();
+    private ApexChartOptions<Twitter> TwitterChartOptions { get; set; } = new();
+    public class Twitter {
+        public string? Series { get; set; }
+        public decimal TwitterValue { get; set; }
+        
+    } ;
+    public static class TwitterData {
+            public static List<Twitter> GetTwitters()
+            {
+                List<Twitter> twitter = new List<Twitter>
+                {
+                    new Twitter { Series = "1", TwitterValue = 20},
+                    new Twitter { Series = "2", TwitterValue = 14},
+                    new Twitter { Series = "3", TwitterValue = 20},
+                    new Twitter { Series = "4", TwitterValue = 22},
+                    new Twitter { Series = "5", TwitterValue = 9},
+                    new Twitter { Series = "6", TwitterValue = 12},
+                    new Twitter { Series = "7", TwitterValue = 19},
+                    new Twitter { Series = "8", TwitterValue = 10},
+                    new Twitter { Series = "9", TwitterValue = 25},
+
+                };
+
+                return twitter;
+            }
+    }
+    //  Twitter End //
+
+    // Facebook Start //
+    private List<Facebook> facebook { get; set; } = FacebookData.GetFacebooks();
+    private ApexChartOptions<Facebook> FacebookChartOptions { get; set; } = new();
+    public class Facebook {
+        public string? Series { get; set; }
+        public decimal FacebookValue { get; set; }
+        
+    } ;
+    public static class FacebookData {
+            public static List<Facebook> GetFacebooks()
+            {
+                List<Facebook> facebook = new List<Facebook>
+                {
+                    new Facebook { Series = "1", FacebookValue = 20},
+                    new Facebook { Series = "2", FacebookValue = 20},
+                    new Facebook { Series = "3", FacebookValue = 22},
+                    new Facebook { Series = "4", FacebookValue = 9},
+                    new Facebook { Series = "5", FacebookValue = 14},
+                    new Facebook { Series = "6", FacebookValue = 19},
+                    new Facebook { Series = "7", FacebookValue = 10},
+                    new Facebook { Series = "8", FacebookValue = 25},
+                    new Facebook { Series = "9", FacebookValue = 12},
+
+                };
+
+                return facebook;
+            }
+    }
+    //  Facebook End //
+
+    // Instagram Start //
+    private List<Instagram> instagram { get; set; } = InstagramrrData.GetInstagrams();
+    private ApexChartOptions<Instagram> InstagramChartOptions { get; set; } = new();
+    public class Instagram {
+        public string? Series { get; set; }
+        public decimal InstagramValue { get; set; }
+        
+    } ;
+    public static class InstagramrrData {
+            public static List<Instagram> GetInstagrams()
+            {
+                List<Instagram> instagram = new List<Instagram>
+                {
+                    new Instagram { Series = "1", InstagramValue = 20},
+                    new Instagram { Series = "2", InstagramValue = 20},
+                    new Instagram { Series = "3", InstagramValue = 22},
+                    new Instagram { Series = "4", InstagramValue = 9},
+                    new Instagram { Series = "5", InstagramValue = 12},
+                    new Instagram { Series = "6", InstagramValue = 14},
+                    new Instagram { Series = "7", InstagramValue = 19},
+                    new Instagram { Series = "8", InstagramValue = 10},
+                    new Instagram { Series = "9", InstagramValue = 25},
+
+                };
+
+                return instagram;
+            }
+    }
+    //  Instagram End //
+
+    // profile analysis Start //
+    private List<Analysis> analysis { get; set; } = SampleData.GetAnalysiss();
+    private ApexChartOptions<Analysis> profileanalysisChartOptions { get; set; } = new();
+    public class Analysis {
+        public string? Month { get; set; }
+        public decimal Followers { get; set; }
+        public decimal Reached { get; set; }
+        public decimal Engaged { get; set; }
+        
+        // Add other properties as needed
+    } ;
+    public static class SampleData {
+        public static List<Analysis> GetAnalysiss() {
+            // Replace this with actual data retrieval logic
+            List<Analysis> analysis = new List<Analysis>
+            {
+                new Analysis { Month = "Jan", Followers = 44, Reached = 74, Engaged = 84, },
+                new Analysis { Month = "Feb", Followers = 42, Reached = 72, Engaged = 82, },
+                new Analysis { Month = "Mar", Followers = 57, Reached = 87, Engaged = 97, },
+                new Analysis { Month = "Apr", Followers = 86, Reached = 116, Engaged = 126, },
+                new Analysis { Month = "May", Followers = 58, Reached = 88, Engaged = 98, },
+                new Analysis { Month = "Jun", Followers = 55, Reached = 85, Engaged = 95, },
+                new Analysis { Month = "Jul", Followers = 70, Reached = 100, Engaged = 110, },
+                new Analysis { Month = "Aug", Followers = 43, Reached = 73, Engaged = 83, },
+                new Analysis { Month = "Sep", Followers = 23, Reached = 53, Engaged = 63, },
+                new Analysis { Month = "Oct", Followers = 54, Reached = 84, Engaged = 94, },
+                new Analysis { Month = "Nov", Followers = 77, Reached = 107, Engaged = 117, },
+                new Analysis { Month = "Dec", Followers = 34, Reached = 64, Engaged = 74, },
+
+                // Add more Analysis as needed
+            };
+
+            return analysis;
+        }
+    }
+    // profile analysis End //
+
+    // Age Metrics Chart Start //
+    private List<AgeMetrics> agemetrics { get; set; } = AgeMetricsData.GetAgeMetricss();
+    private ApexChartOptions<AgeMetrics> AgeMetricsChartOptions { get; set; } = new();
+    public class AgeMetrics {
+        public string? populationData { get; set; }
+        public decimal? TotalAudience { get; set; }
+    } ;
+    public static class AgeMetricsData {
+            public static List<AgeMetrics> GetAgeMetricss()
+            {
+                List<AgeMetrics> agemetrics = new List<AgeMetrics>
+                {
+                    new AgeMetrics { populationData = "10-20", TotalAudience = 462},
+                    new AgeMetrics { populationData = "20-30", TotalAudience = 451},
+                    new AgeMetrics { populationData = "30-40", TotalAudience = 350},
+                    new AgeMetrics { populationData = "40-50", TotalAudience = 530},
+                    new AgeMetrics { populationData = "50-60", TotalAudience = 470},
+                    new AgeMetrics { populationData = "60-70", TotalAudience = 500},
+                    new AgeMetrics { populationData = "70-80", TotalAudience = 485},
+
+                };
+
+                return agemetrics;
+            }
+        }
+    //  Selling Bar Chart End //
+
+    //  Audience Reached Start //
+    private List<AudienceReached> audiencereached { get; set; } = DataAudienceReached.GetAudienceReacheds();    
+    private ApexChartOptions<AudienceReached> AudienceReachedChartOptions { get; set; } = new();
+    public static class DataAudienceReached
+    {
+        public static List<AudienceReached> GetAudienceReacheds()
+        {
+            // Sample data for AudienceReacheds
+            List<AudienceReached> audiencereached = new List<AudienceReached>
+            {
+                new AudienceReached { Source = "Man", SourceValue = 17546 },
+                new AudienceReached { Source = "Women", SourceValue = 11378 },
+                // Add more sample data as needed
+            };
+
+            return audiencereached;
+        }
+    }
+    public class AudienceReached
+    {
+        public string? Source { get; set; }
+        public int SourceValue { get; set; }
+    }
+    //  Audience Reached End //
+
+    // Revenue Earned Start //
+    private List<RevenueEarned> revenueearned { get; set; } = DataRevenueEarned.RevenueEarned();
+    private ApexChartOptions<RevenueEarned> RevenueEarnedChartOptions { get; set; } = new();
+    public static class DataRevenueEarned
+    {
+        public static List<RevenueEarned> RevenueEarned()
+        {
+            return new List<RevenueEarned>
+            {
+                new RevenueEarned { SocialApps = "Youtube", Value = 76},
+                new RevenueEarned { SocialApps = "Twitter", Value = 67},
+                new RevenueEarned { SocialApps = "Facebook", Value = 61},
+                new RevenueEarned { SocialApps = "Instagram", Value = 90},
+            };
+        }
+    }
+    public class RevenueEarned
+    {
+        public string? SocialApps { get; set; }
+        public decimal Value { get; set; }
+    }
+    // Revenue Earned End //
+
+    // Sessions Device Start //
+    private ApexChartOptions<SessionsDevice> SessionsDeviceChartOptions { get; set; } = new();
+    public class SessionsDevice
+    {
+        public int x { get; set; }
+        public int y { get; set; }
+        public int z { get; set; }
+        public string? Source { get; set; }
+    }
+    List<SessionsDevice> incidentsBasic = new List<SessionsDevice>
+    {   
+        new SessionsDevice { x = 10, y = 35, z = 80, Source = "Tablet" },
+        new SessionsDevice { x = 22, y =  10, z = 80, Source = "Mobile" },
+        new SessionsDevice { x =  25, y =  25, z = 150, Source = "Desktop" },
+    };
+    // Basic Bubble Chart End //
+
+
+    protected override void OnInitialized() {
+
+        YoutubeChartOptions = new ApexChartOptions<Youtube> {
+            Chart = new () {
+                Toolbar = new ApexCharts.Toolbar {
+                    Tools = new Tools { Zoom = false, Zoomin = false, Zoomout = false,Pan = false, Reset = false,  Download = false},
+                }, 
+                Width ="100px",
+                Height ="30px",
+                Zoom = new () {
+                    Enabled = false
+                },
+                Sparkline = new () {
+                    Enabled = true
+                },
+            }, 
+            Colors = new Color(new List<string> { "var(--primary-color)" }),
+            Stroke = new Stroke { 
+                Curve = Curve.Smooth,
+                Width = 1.5
+            },
+            Grid = new Grid {
+                BorderColor = "transparent",
+            },
+            Xaxis =  new XAxis {
+                Crosshairs = new () {
+                    Show = false,
+                },
+            },
+            Fill = new Fill {
+                Type = new List<FillType> { FillType.Gradient, FillType.Gradient },
+                Gradient = new FillGradient {
+                    OpacityFrom = 0.5,
+                    OpacityTo = 0.2,
+                    Stops= [0, 60],
+                    Shade = ApexCharts.GradientShade.Light,
+                    Type = ApexCharts.GradientType.Vertical,
+                    ColorStops = new List<FillGradientStops> {
+                        new FillGradientStops { Offset = 0, Color = "var(--primary02)", Opacity = 1 },
+                        new FillGradientStops { Offset = 60, Color = "var(--primary02)", Opacity = 0.1 }
+                    }
+                },
+            },
+            Tooltip = new Tooltip
+            {
+                Enabled = true,
+                X = new TooltipX
+                {
+                    Show = false
+                },
+                Y = new TooltipY
+                {
+                    Title = new TooltipYTitle
+                    {
+                        Formatter = @"function(seriesName) {
+                            return '';
+                        }"
+                    }
+                },
+                Marker = new TooltipMarker
+                {
+                    Show = false
+                },
+                Theme = ApexCharts.Mode.Dark
+            },
+        };
+
+        TwitterChartOptions = new ApexChartOptions<Twitter> {
+            Chart = new () {
+                Toolbar = new ApexCharts.Toolbar {
+                    Tools = new Tools { Zoom = false, Zoomin = false, Zoomout = false,Pan = false, Reset = false,  Download = false},
+                }, 
+                Width ="100px",
+                Height ="30px",
+                Sparkline = new () {
+                    Enabled = true
+                },
+            }, 
+            Colors = new Color(new List<string> { "rgb(215, 124, 247)" }),
+            Stroke = new Stroke { 
+                Curve = Curve.Smooth,
+                Width = 1.5
+            },
+            Grid = new Grid {
+                BorderColor = "transparent",
+            },
+            Xaxis =  new XAxis {
+                AxisBorder = new () {
+                    Show = false,
+                },
+            },
+            Yaxis = new List<YAxis>() {
+                new YAxis {
+                    Show = false,
+                    AxisBorder = new () {
+                        Show = false,
+                    },
+                    Min = 0
+                },
+            },
+            Fill = new Fill {
+                Type = new List<FillType> { FillType.Gradient, FillType.Gradient },
+                Gradient = new FillGradient {
+                    OpacityFrom = 0.5,
+                    OpacityTo = 0.2,
+                    Stops= [0, 60],
+                    Shade = ApexCharts.GradientShade.Light,
+                    Type = ApexCharts.GradientType.Vertical,
+                },
+            },
+            Tooltip = new Tooltip
+            {
+                Enabled = true,
+                X = new TooltipX
+                {
+                    Show = false
+                },
+                Y = new TooltipY
+                {
+                    Title = new TooltipYTitle
+                    {
+                        Formatter = @"function(seriesName) {
+                            return '';
+                        }"
+                    }
+                },
+                Marker = new TooltipMarker
+                {
+                    Show = false
+                },
+                Theme = ApexCharts.Mode.Dark
+            },
+        };
+
+        FacebookChartOptions = new ApexChartOptions<Facebook> {
+            Chart = new () {
+                Toolbar = new ApexCharts.Toolbar {
+                    Tools = new Tools { Zoom = false, Zoomin = false, Zoomout = false,Pan = false, Reset = false,  Download = false},
+                }, 
+                Width ="100px",
+                Height ="30px",
+                Sparkline = new () {
+                    Enabled = true
+                },
+            }, 
+            Colors = new Color(new List<string> { "rgb(12, 215, 177)" }),
+            Stroke = new Stroke { 
+                Curve = Curve.Smooth,
+                Width = 1.5
+            },
+            Grid = new Grid {
+                BorderColor = "transparent",
+            },
+            Xaxis =  new XAxis {
+                AxisBorder = new () {
+                    Show = false,
+                },
+            },
+            Yaxis = new List<YAxis>() {
+                new YAxis {
+                    Show = false,
+                    AxisBorder = new () {
+                        Show = false,
+                    },
+                    Min = 0
+                },
+            },
+            Fill = new Fill {
+                Type = new List<FillType> { FillType.Gradient, FillType.Gradient },
+                Gradient = new FillGradient {
+                    OpacityFrom = 0.5,
+                    OpacityTo = 0.2,
+                    Stops= [0, 60],
+                    Shade = ApexCharts.GradientShade.Light,
+                    Type = ApexCharts.GradientType.Vertical,
+                },
+            },
+            Tooltip = new Tooltip
+            {
+                Enabled = true,
+                X = new TooltipX
+                {
+                    Show = false
+                },
+                Y = new TooltipY
+                {
+                    Title = new TooltipYTitle
+                    {
+                        Formatter = @"function(seriesName) {
+                            return '';
+                        }"
+                    }
+                },
+                Marker = new TooltipMarker
+                {
+                    Show = false
+                },
+                Theme = ApexCharts.Mode.Dark
+            },
+        };
+
+        InstagramChartOptions = new ApexChartOptions<Instagram> {
+            Chart = new () {
+                Toolbar = new ApexCharts.Toolbar {
+                    Tools = new Tools { Zoom = false, Zoomin = false, Zoomout = false,Pan = false, Reset = false,  Download = false},
+                }, 
+                Width ="100px",
+                Height ="30px",
+                Sparkline = new () {
+                    Enabled = true
+                },
+            }, 
+            Colors = new Color(new List<string> { "rgb(254, 124, 88)" }),
+            Stroke = new Stroke { 
+                Curve = Curve.Smooth,
+                Width = 1.5
+            },
+            Grid = new Grid {
+                BorderColor = "transparent",
+            },
+            Xaxis =  new XAxis {
+                AxisBorder = new () {
+                    Show = false,
+                },
+            },
+            Yaxis = new List<YAxis>() {
+                new YAxis {
+                    Show = false,
+                    AxisBorder = new () {
+                        Show = false,
+                    },
+                    Min = 0
+                },
+            },
+            Fill = new Fill {
+                Type = new List<FillType> { FillType.Gradient, FillType.Gradient },
+                Gradient = new FillGradient {
+                    OpacityFrom = 0.5,
+                    OpacityTo = 0.2,
+                    Stops= [0, 60],
+                    Shade = ApexCharts.GradientShade.Light,
+                    Type = ApexCharts.GradientType.Vertical,
+                },
+            },
+            Tooltip = new Tooltip
+            {
+                Enabled = true,
+                X = new TooltipX
+                {
+                    Show = false
+                },
+                Y = new TooltipY
+                {
+                    Title = new TooltipYTitle
+                    {
+                        Formatter = @"function(seriesName) {
+                            return '';
+                        }"
+                    }
+                },
+                Marker = new TooltipMarker
+                {
+                    Show = false
+                },
+                Theme = ApexCharts.Mode.Dark
+            },
+        };
+
+        profileanalysisChartOptions = new ApexChartOptions<Analysis> {
+            
+            Chart = new () {
+                Stacked = true,
+                Toolbar = new ApexCharts.Toolbar {
+                    Tools = new Tools { Zoom = false, Zoomin = false, Zoomout = false,Pan = false, Reset = false,  Download = false},
+                }, 
+                DropShadow = new ApexCharts.DropShadow {
+                    Enabled = true,
+                    Color = ["#000"],
+                    Top = 7,
+                    Left = 1,
+                    Blur = 3,
+                    Opacity = 0.1
+                }
+            },
+            Grid = new Grid {
+                BorderColor = "#f5f4f4",
+                StrokeDashArray = 5,
+                Yaxis= new() {
+                    Lines = new() {
+                        Show = true,
+                    },
+                },
+            },
+            Colors = new Color(new List<string> { "var(--primary-color)", "rgb(215, 124, 247)", "rgb(12, 215, 177)"}),
+            Stroke = new Stroke { 
+                Curve = [Curve.Smooth, Curve.Smooth, Curve.Smooth,],
+                Width= [2, 2, 2],
+                Colors = ["var(--primary-color)", "rgba(215, 124, 247, 1)", "rgba(12, 215, 177, 1)"],
+            },
+            Fill = new Fill {
+                Type = new List<FillType> { FillType.Gradient, FillType.Gradient, FillType.Gradient },
+                Gradient = new FillGradient {
+                    ShadeIntensity = 1,
+                    OpacityFrom = 0.5,
+                    OpacityTo = 0.2,
+                    Stops = [0, 90, 100],
+                    Type = ApexCharts.GradientType.Vertical,
+                    GradientToColors = new Color(new List<string> {"rgba(84, 109, 254, 0.8)", "rgba(215, 124, 247, 0.8)", "rgba(12, 215, 177, 0.8)"}),
+                },
+            },
+            Yaxis = new List<YAxis>() {
+                new YAxis {
+                    Show = true,
+                    AxisTicks = new () {
+                        Show = true,
+                        Color = "rgba(119, 119, 142, 0.05)",
+                    },
+                    AxisBorder = new () {
+                        Show = true,
+                        Color = "rgba(119, 119, 142, 0.05)",
+                        Width = 1,
+                    },
+                    Min = 0,
+                    Max = 350,
+                    StepSize = 50,
+                },
+            },
+            Xaxis =  new XAxis {
+                Labels = new XAxisLabels {
+                    Rotate = -90,
+                },
+            },
+            Legend = new Legend {
+                Show = true,
+                Position = LegendPosition.Top,
+                HorizontalAlign = Align.Center,
+                OffsetX = 40,
+                FontSize= "13px",
+                FontWeight= "normal",
+                Labels= new() {
+                    Colors = new Color("#acb1b1"),
+                },
+                Markers=  new(){
+                    Width =  12,
+                    Height = 12,
+                },
+            },
+            Tooltip = new Tooltip { 
+                Enabled= true,
+                Theme = ApexCharts.Mode.Dark
+            },
+        };
+
+        AgeMetricsChartOptions = new ApexChartOptions<AgeMetrics> {
+            Chart = new () {
+                Toolbar = new ApexCharts.Toolbar {
+                    Tools = new Tools { Zoom = false, Zoomin = false, Zoomout = false,Pan = false, Reset = false,  Download = false},
+                }, 
+            }, 
+            PlotOptions = new PlotOptions
+            {
+                Bar = new PlotOptionsBar
+                {
+                    BorderRadius = 2,
+                    Horizontal = true,
+                    Distributed = true,
+                    BarHeight = "30%",
+                }
+            },
+            Legend = new Legend {
+                Show = false,
+            },
+            Grid = new Grid {
+                BorderColor = "#f2f5f7",
+                Xaxis= new() {
+                    Lines = new() {
+                        Show = false,
+                    },
+                },
+                Yaxis= new() {
+                    Lines = new() {
+                        Show = false,
+                    },
+                },
+            },
+            DataLabels = new DataLabels {
+                Enabled=false,
+            }, 
+            Colors = new Color(new List<string> {"var(--primary08)", "rgba(215, 124, 247, 0.8)", "rgba(12, 215, 177, 0.8)", "rgba(254, 124, 88, 0.8)", "rgba(12, 163, 231, 0.8)", "rgba(243, 157, 45, 0.8)", "rgba(254, 84, 84, 0.8)"}),
+            Stroke = new Stroke { 
+                Curve = Curve.Straight,
+                Width = 0,
+            },
+            Xaxis =  new XAxis {  
+                Labels = new XAxisLabels {
+                    Rotate = -90,
+                },
+                AxisTicks = new () {
+                    Show = true,
+                    Color = "#c7cacd"
+                },
+                AxisBorder = new () {
+                    Show = true,
+                    Color = "#c7cacd"
+                },
+            },
+            Yaxis = new List<YAxis>() {
+                new YAxis // Define the first YAxis object
+                {
+                    Min = 0,
+                    Max = 600,
+                    StepSize = 100,
+                }
+            },
+            Tooltip = new Tooltip { 
+                Enabled= true,
+                Theme = ApexCharts.Mode.Dark
+            },
+        };
+
+        AudienceReachedChartOptions = new ApexChartOptions<AudienceReached> {
+            Chart = new () {
+                Height ="10rem",
+            }, 
+            Stroke = new Stroke { 
+                Show = true,
+                Curve = [Curve.Smooth],
+                LineCap = ApexCharts.LineCap.Round,
+                Width = 0
+            },
+            Legend = new Legend  { 
+                Show= false,
+            }, 
+            
+            Colors = new Color(new List<string> {"var(--primary-color)", "rgba(215, 124, 247, 1)"}),
+            
+            PlotOptions = new PlotOptions {
+                Pie = new PlotOptionsPie { 
+                      Donut= new PlotOptionsDonut{
+                        Size = "85%",
+                      },
+                } 
+            },
+        };
+
+        RevenueEarnedChartOptions = new ApexChartOptions<RevenueEarned>
+        {
+            Colors = new Color(new List<string> { "var(--primary-color)", "rgba(215, 124, 247, 1)", "rgba(12, 215, 177, 1)", "rgba(254, 124, 88, 1)"}),
+            PlotOptions = new PlotOptions
+            {
+                RadialBar = new PlotOptionsRadialBar
+                {
+                    OffsetY = 0,
+                    StartAngle = 0,
+                    EndAngle = 270,
+                    DataLabels = new RadialBarDataLabels
+                    {
+                        Name = new (){
+                            Show = false,
+                        },
+                        Value = new (){
+                           Show = false,
+                        },
+                    },
+                    Hollow= new() {
+                        Margin = 5,
+                        Size ="30%",
+                        Background = "transparent",
+                        Image = "undefined",
+                    },
+                }
+            },
+            Legend = new Legend
+            {
+                Position = LegendPosition.Left,
+                Show = false,
+                FontSize = "14px",
+                Floating = true,
+                Labels = new() {
+                    UseSeriesColors = true,
+                },
+                Formatter = @"function (seriesName, opts) {
+                    return seriesName + ' : ' + opts.w.globals.series[opts.seriesIndex]
+                }",
+                ItemMargin= new() {
+                    Vertical= 3
+                }
+            }
+        };
+
+        SessionsDeviceChartOptions = new ApexChartOptions<SessionsDevice> {
+            Chart = new () {
+                Toolbar = new ApexCharts.Toolbar {
+                    Tools = new Tools { Zoom = false, Zoomin = false, Zoomout = false,Pan = false, Reset = false,  Download = false},
+                }, 
+                DropShadow = new ApexCharts.DropShadow {
+                    Enabled = false,
+                    Color = ["#000"],
+                    Top = 7,
+                    Left = 1,
+                    Blur = 3,
+                    Opacity = 0.1
+                }
+            },
+            DataLabels = new DataLabels {
+                Enabled=false,
+            }, 
+            Fill = new Fill {
+                Opacity = 0.8,
+            },
+            Colors = new Color(new List<string> { "var(--primary-color)", "rgb(215, 124, 247)", "rgb(12, 215, 177)" }),
+            Grid = new Grid {
+                BorderColor = "#f3f3f3",
+                StrokeDashArray = 3
+            },
+            Legend= new() {
+                Show= true,
+                FontSize= "13px",
+                Labels=new() {
+                    Colors= "#959595",
+                },
+                Markers=new() {
+                    Width = 10,
+                    Height = 10,
+                },
+            },
+            Xaxis =  new XAxis {  
+                Min= 0,
+                Max = 50,
+                Labels = new XAxisLabels {
+                    Show = false,
+                },
+                AxisBorder= new() {
+                    Show = false,
+                },
+            },
+            Yaxis = new List<YAxis>() {
+                new YAxis // Define the first YAxis object
+                {
+                    Labels = new YAxisLabels
+                    {
+                        Show = false,
+                    },
+                    Max = 50,
+                }
+            },
+            Tooltip = new Tooltip { 
+                Enabled= true,
+                Theme = ApexCharts.Mode.Dark
+            },
+        };
+        
+    }
+
+}

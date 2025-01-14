@@ -1,0 +1,141 @@
+﻿@page "/newprodutomanager"
+
+@using GeneralLabSolutions.Domain.Extensions.Helpers.Generics
+@using GeneralLabSolutions.WebAPI.DTOs
+@using mamix.Services.Base
+@using mamix.Services.Base.mamix.Services.Base
+@using mamix.Shared.Components
+@inject ApiService<ProdutoGridDto> ProdutoApiService
+
+<div class="my-4 page-header-breadcrumb d-flex align-items-center justify-content-between flex-wrap gap-2">
+    <div>
+        <h1 class="page-title fw-medium fs-18 mb-2">Produtos</h1>
+        <nav>
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="javascript:void(0);">Cadastro</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Lista de produtos</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<!-- Campo de pesquisa com debounce -->
+<div class="row mb-3">
+    <div class="col-md-4 d-flex">
+        <input type="text"
+               class="form-control me-2"
+               placeholder="Pesquisar por descrição..."
+               @bind="searchTerm"
+               @bind:event="oninput"
+               @onkeyup="HandleSearch" />
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card custom-card">
+            <div class="card-header">
+                <div class="card-title">Lista de Produtos</div>
+            </div>
+            <div class="card-body">
+                @if (pagedResult == null)
+                {
+                    <p>Carregando Produtos...</p>
+                }
+                else
+                {
+                    <PaginateComponent T="ProdutoGridDto" 
+                                PagedResult="@pagedResult" 
+                                OnFirstPage="FirstPage" 
+                                OnPreviousPage="PreviousPage" 
+                                OnNextPage="NextPage" OnLastPage="LastPage">
+                        <ItemTemplate Context="produto">
+                            <div class="d-flex justify-content-between align-items-center border-bottom py-2">
+                                <div>ProdutoGridDto.Descricao</div>
+                                <div>ProdutoGridDto.Ncm</div>
+                                <div>ProdutoGridDto.Codigo</div>
+                                <div>ProdutoGridDto.ValorUnitario.ToString("C")</div> @* Formatação monetária *@
+                                <div>ProdutoGridDto.StatusDoProduto</div>
+                                <div>ProdutoGridDto.DataDeValidade.ToShortDateString()</div> @* Formatação de data *@
+                            </div>
+                        </ItemTemplate>
+                    </PaginateComponent>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private PagedResult<ProdutoGridDto>? pagedResult;
+    private int pageIndex = 1;
+    private int pageSize = 8;
+    private string? searchTerm;
+    private System.Timers.Timer? debounceTimer;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CarregarProdutos();
+    }
+
+    private async Task CarregarProdutos()
+    {
+        pagedResult = await ProdutoApiService.GetPagedAsync<ProdutoGridDto>("api/produto/produtos-paginados", pageIndex, pageSize, searchTerm);
+        StateHasChanged();
+    }
+
+    private async Task FirstPage()
+    {
+        pageIndex = 1;
+        await CarregarProdutos();
+    }
+
+    private async Task LastPage()
+    {
+        if (pagedResult != null)
+        {
+            pageIndex = pagedResult.TotalPages;
+            await CarregarProdutos();
+        }
+    }
+
+    private async Task PreviousPage()
+    {
+        if (pagedResult != null && pagedResult.HasPrevious)
+        {
+            pageIndex--;
+            await CarregarProdutos();
+        }
+    }
+
+    private async Task NextPage()
+    {
+        if (pagedResult != null && pagedResult.HasNext)
+        {
+            pageIndex++;
+            await CarregarProdutos();
+        }
+    }
+
+    private async Task HandleSearch(KeyboardEventArgs e)
+    {
+        // Implementar debounce aqui
+        if (debounceTimer != null)
+        {
+            debounceTimer.Stop();
+        }
+
+        debounceTimer = new System.Timers.Timer(600); // Debounce de 600ms
+        debounceTimer.Elapsed += async (s, args) =>
+        {
+            debounceTimer.Stop();
+            await InvokeAsync(async () =>
+            {
+                pageIndex = 1; // Retorna para a primeira página na pesquisa
+                await CarregarProdutos();
+                StateHasChanged();
+            });
+        };
+        debounceTimer.Start();
+    }
+}

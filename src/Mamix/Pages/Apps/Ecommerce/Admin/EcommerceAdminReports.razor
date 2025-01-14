@@ -1,0 +1,848 @@
+@page "/ecommerce-admin-reports"
+@using ApexCharts
+@inject Microsoft.AspNetCore.Components.NavigationManager NavigationManager // This line is used to generate URLs dynamically //
+
+
+                    <!-- Page Header -->
+                    <div class="my-4 page-header-breadcrumb d-flex align-items-center justify-content-between flex-wrap gap-2">
+                        <div>
+                            <h1 class="page-title fw-medium fs-18 mb-2">Reports</h1>
+                            <div class="">
+                                <nav>
+                                    <ol class="breadcrumb mb-0">
+                                        <li class="breadcrumb-item"><a href="javascript:void(0);">Apps</a></li>
+                                        <li class="breadcrumb-item"><a href="javascript:void(0);">Ecommerce</a></li>
+                                        <li class="breadcrumb-item"><a href="javascript:void(0);">Admin</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Reports</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="btn-list">
+                            <button class="btn btn-primary-light btn-wave me-2">
+                                <i class="bx bx-crown align-middle"></i> Plan Upgrade
+                            </button>
+                            <button class="btn btn-secondary-light btn-wave me-0">
+                                <i class="ri-upload-cloud-line align-middle"></i> Export Report
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Page Header Close -->
+                    
+                    <!-- Start::row-1 -->
+                    <div class="row">
+                        <div class="col-xxl-6 col-xl-12">
+                            <div class="card custom-card overflow-hidden">
+                                <div class="card-header justify-content-between">
+                                    <div class="card-title">ORDERS SUMMARY</div>
+                                    <div class="dropdown">
+                                        <a href="javascript:void(0);" class="p-2 fs-12" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                            View All<i class="ri-arrow-down-s-line align-middle ms-1"></i>
+                                        </a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a class="dropdown-item" href="javascript:void(0);">Today</a></li>
+                                            <li><a class="dropdown-item" href="javascript:void(0);">This Week</a></li>
+                                            <li><a class="dropdown-item" href="javascript:void(0);">Last Week</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-body p-0">
+                                    <div class="row border-bottom border-block-end-dashed">
+                                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                            <div class="p-4 border-sm-end border-inline-end-dashed text-sm-start text-center">
+                                                <p class="fs-20 fw-semibold mb-0">1,117</p>
+                                                <p class="mb-0 text-muted">Total Orders</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                            <div class="p-4 border-sm-end border-inline-end-dashed text-sm-start text-center">
+                                                <p class="fs-20 fw-semibold mb-0"><span class="basic-subscription">742</span></p>
+                                                <p class="mb-0 text-muted">Delivered Orders</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                            <div class="p-4 text-sm-start text-center">
+                                                <p class="fs-20 fw-semibold mb-0"><span class="pro-subscription">259</span></p>
+                                                <p class="mb-0 text-muted">Cancelled Orders</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="p-2" id="order-summary">
+                                        <ApexChart TItem="OrderSummary"  Height="280" Options=OrderSummaryChartOptions>
+                                            <ApexPointSeries TItem="OrderSummary"
+                                                Items="ordersummary"
+                                                SeriesType="@SeriesType.Bar"
+                                                Name="Total Orders"
+                                                Color="var(--primary-color)"
+                                                XValue="@(e => e.Month)"
+                                                YAggregate="@(e => e.Sum(e => e.OrdersTotal))"/>
+                                            <ApexPointSeries TItem="OrderSummary"
+                                                Items="ordersummary"
+                                                SeriesType="@SeriesType.Bar"
+                                                Name="Delivered Orders"
+                                                Color="var(--primary02)"
+                                                XValue="@(e => e.Month)"
+                                                YAggregate="@(e => e.Sum(e => e.OrdersDelivered))"/>
+                                            <ApexPointSeries TItem="OrderSummary"
+                                                Items="ordersummary"
+                                                SeriesType="@SeriesType.Line"
+                                                Name="Canceled Orders"
+                                                Color="rgb(215, 124, 247)"
+                                                XValue="@(e => e.Month)"
+                                                YAggregate="@(e => e.Sum(e => e.OrdersCancel))"/>
+                                        </ApexChart>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xxl-6 col-xl-12">
+                            <div class="card custom-card">
+                                <div class="card-header justify-content-between">
+                                    <div class="card-title">
+                                        PRODUCTS OVERVIEW
+                                    </div>
+                                    <div class="dropdown">
+                                        <a href="javascript:void(0);" class="p-2 fs-12 text-muted" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                            View All<i class="ri-arrow-down-s-line align-middle ms-1 d-inline-block"></i>
+                                        </a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a class="dropdown-item" href="javascript:void(0);">Today</a></li>
+                                            <li><a class="dropdown-item" href="javascript:void(0);">This Week</a></li>
+                                            <li><a class="dropdown-item" href="javascript:void(0);">Last Week</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div id="products-overview">
+                                        <ApexChart TItem="ProductsOverview"  Height="360" Options=ProductsOverviewChartOptions>
+                                            <ApexPointSeries TItem="ProductsOverview"
+                                                Items="productsoverview"
+                                                SeriesType="@SeriesType.Line"
+                                                Name="Unpublished"
+                                                XValue="@(e => e.Month)"
+                                                YAggregate="@(e => e.Sum(e => e.Unpublished))"/>
+                                            <ApexPointSeries TItem="ProductsOverview"
+                                                Items="productsoverview"
+                                                SeriesType="@SeriesType.Line"
+                                                Name="Published"
+                                                XValue="@(e => e.Month)"
+                                                YAggregate="@(e => e.Sum(e => e.Published))"/>
+                                            <ApexPointSeries TItem="ProductsOverview"
+                                                Items="productsoverview"
+                                                SeriesType="@SeriesType.Area"
+                                                Name="Total Products"
+                                                XValue="@(e => e.Month)"
+                                                YAggregate="@(e => e.Sum(e => e.TotalProducts))"/>
+                                        </ApexChart>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End::row-1 -->
+
+                    <!--Start::row-2 -->
+                    <div class="row">
+                        <div class="col-xxl-3 col-xl-6 col-lg-6 col-md-6 col-12">
+                            <div class="card custom-card">
+                                <div class="card-header justify-content-between">
+                                    <div class="card-title">
+                                        MOST USED BROWSERS
+                                    </div>
+                                    <div class="dropdown">
+                                        <a href="javascript:void(0);" class="py-2 fs-12"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            View All<i class="ri-arrow-down-s-line align-middle ms-1"></i>
+                                        </a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a class="dropdown-item" href="javascript:void(0);">Today</a></li>
+                                            <li><a class="dropdown-item" href="javascript:void(0);">This Week</a>
+                                            </li>
+                                            <li><a class="dropdown-item" href="javascript:void(0);">Last Week</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="leads-source-chart d-flex align-items-center justify-content-center">
+                                        <div id="used-browsers" class="p-3">
+                                            <ApexChart TItem="UsedBrowsers" Options=UsedBrowserschartOptions Height="210">
+                                                <ApexPointSeries TItem="UsedBrowsers" Items="usedbrowsers" Name="Team" SeriesType="SeriesType.Donut" XValue="@(e => e.PieGradientData)" YAggregate="@(e => e.Sum(e => e.GradientValue))" />
+                                            </ApexChart>
+                                        </div>
+                                        <div class="lead-source-value">
+                                            <span class="d-block fs-20 fw-bold">Total</span>
+                                            <span class="d-block fs-20">3243</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="row row-cols-12">
+                                        <div class="col p-0">
+                                            <div class="text-center">
+                                                <span class="text-muted fs-12 mb-1 hrm-jobs-legend published d-inline-block ms-2">Chrome
+                                                </span>
+                                                <div><span class="fs-16 fw-semibold">1,624</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col p-0">
+                                            <div class="text-center">
+                                                <span class="text-muted fs-12 mb-1 hrm-jobs-legend private d-inline-block ms-2">Firefox
+                                                </span>
+                                                <div><span class="fs-16 fw-semibold">1,267</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="col p-0">
+                                            <div class="text-center">
+                                                <span class="text-muted fs-12 mb-1 hrm-jobs-legend closed d-inline-block ms-2">Safari
+                                                </span>
+                                                <div><span class="fs-16 fw-semibold">1,153</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col p-0">
+                                            <div class="text-center">
+                                                <span class="text-muted fs-12 mb-1 hrm-jobs-legend onhold d-inline-block ms-2">Opera
+                                                </span>
+                                                <div><span class="fs-16 fw-semibold">1,153</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xxl-3 col-xl-6 col-lg-6 col-md-6 col-12">
+                            <div class="card custom-card overflow-hidden">
+                                <div class="card-header justify-content-between">
+                                    <div class="card-title">TOTAL VENDORS</div>
+                                    <div class="dropdown">
+                                        <a href="javascript:void(0);" class="p-2 fs-12"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            View All<i class="ri-arrow-down-s-line align-middle ms-1"></i>
+                                        </a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a class="dropdown-item" href="javascript:void(0);">Today</a></li>
+                                            <li><a class="dropdown-item" href="javascript:void(0);">This Week</a>
+                                            </li>
+                                            <li><a class="dropdown-item" href="javascript:void(0);">Last Week</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-body p-0">
+                                    <div class="leads-source-chart d-flex align-items-center justify-content-center">
+                                        <div id="totalvendors-chart" class="p-3">
+                                            <ApexChart TItem="TotalVendors" Height="230" Options=TotalVendorsChartOptions>
+                                                <ApexPointSeries TItem="TotalVendors" Items="totalvendors" SeriesType="SeriesType.Donut" XValue="@(e => e.Source)" YAggregate="@(e => e.Sum(e => e.SourceValue))" />
+                                            </ApexChart>
+                                        </div>
+                                        <div class="lead-source-value">
+                                            <span class="d-block fs-20 fw-bold">Total</span>
+                                            <span class="d-block fs-20">2988</span>
+                                        </div>
+                                    </div>
+                                    <div class="row row-cols-12 border-top border-block-start-dashed">
+                                        <div class="col">
+                                            <div class="p-3 border-end border-inline-end-dashed">
+                                                <div class="text-muted mb-1">Active
+                                                </div>
+                                                <div class="d-flex align-items-center"> <span
+                                                    class="me-2 fs-22 fw-semibold">1,234</span> <span
+                                                    class="text-success fs-11"><i
+                                                    class="ri-arrow-up-s-fill align-middle me-1"></i>0.23%</span> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="p-3">
+                                                <div class="text-muted mb-1">Inactive
+                                                </div>
+                                                <div class="d-flex align-items-center"> 
+                                                    <span class="me-2 fs-22 fw-semibold">1,754</span> 
+                                                    <span
+                                                        class="text-danger fs-11"><i
+                                                            class="ri-arrow-down-s-fill align-middle me-1"></i>0.11%</span> </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xxl-3 col-xl-6 col-lg-6 col-md-6 col-12">                        
+                            <div class="card custom-card overflow-hidden">
+                                <div class="card-header">
+                                    <div class="card-title">MONTHLY SALES REPORT</div>                                        
+                                </div>
+                                <div class="card-body">
+                                    <div id="sales-report">
+                                        <ApexChart TItem="SalesReport"  Height="290" Options=SalesReportChartOptions>
+                                            <ApexPointSeries TItem="SalesReport"
+                                                Items="salesreport"
+                                                SeriesType="@SeriesType.Line"
+                                                XValue="@(e => e.Month)"
+                                                YAggregate="@(e => e.Sum(e => e.SalesValue))"/>
+                                        </ApexChart>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xxl-3 col-xl-6 col-lg-6 col-md-6 col-12">
+                            <div class="card custom-card overflow-hidden">
+                                <div class="card-header justify-content-between">
+                                    <div class="card-title">TOTAL CUSTOMERS</div>
+                                    <div class="dropdown">
+                                        <a href="javascript:void(0);" class="p-2 fs-12"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            View All<i class="ri-arrow-down-s-line align-middle ms-1"></i>
+                                        </a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a class="dropdown-item" href="javascript:void(0);">Today</a></li>
+                                            <li><a class="dropdown-item" href="javascript:void(0);">This Week</a>
+                                            </li>
+                                            <li><a class="dropdown-item" href="javascript:void(0);">Last Week</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-body p-0">
+                                    <div class="leads-source-chart d-flex align-items-center justify-content-center">
+                                        <div id="total-customers" class="p-3">
+                                            <ApexChart TItem="TotalCustomers" Height="230" Options=TotalCustomersChartOptions>
+                                                <ApexPointSeries TItem="TotalCustomers" Items="totalcustomers" SeriesType="SeriesType.Donut" XValue="@(e => e.Source)" YAggregate="@(e => e.Sum(e => e.SourceValue))" />
+                                            </ApexChart>
+                                        </div>
+                                        <div class="lead-source-value">
+                                            <span class="d-block fs-20 fw-bold">Total</span>
+                                            <span class="d-block fs-20">1452</span>
+                                        </div>
+                                    </div>
+                                    <div class="row row-cols-12 border-top border-block-start-dashed">
+                                        <div class="col">
+                                            <div class="p-3 border-end border-inline-end-dashed">
+                                                <div class="text-muted mb-1">Active
+                                                </div>
+                                                <div class="d-flex align-items-center"> <span
+                                                        class="me-2 fs-22 fw-semibold">576</span> <span
+                                                        class="text-success fs-11"><i
+                                                            class="ri-arrow-up-s-fill align-middle me-1"></i>0.23%</span> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="p-3">
+                                                <div class="text-muted mb-1">Inactive
+                                                </div>
+                                                <div class="d-flex align-items-center"> 
+                                                    <span class="me-2 fs-22 fw-semibold">876</span> 
+                                                    <span
+                                                        class="text-danger fs-11"><i
+                                                            class="ri-arrow-down-s-fill align-middle me-1"></i>0.11%</span> </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End::row-2 -->
+
+
+@code {
+
+    // Order Summary Start //
+    private List<OrderSummary> ordersummary { get; set; } = OrderSummaryData.GetOrderSummary();
+    private ApexChartOptions<OrderSummary> OrderSummaryChartOptions { get; set; } = new();
+    public class OrderSummary {
+        public string? Month { get; set; }
+        public decimal OrdersTotal { get; set; }
+        public decimal OrdersDelivered { get; set; }
+        public decimal OrdersCancel { get; set; }
+    } ;
+    public static class OrderSummaryData {
+        public static List<OrderSummary> GetOrderSummary() {
+            // Replace this with actual data retrieval logic
+            List<OrderSummary> ordersummary = new List<OrderSummary>
+            {
+                new OrderSummary { Month = "Jan", OrdersTotal = 23, OrdersDelivered = 17, OrdersCancel = 44},
+                new OrderSummary { Month = "Feb", OrdersTotal = 17, OrdersDelivered = 12, OrdersCancel = 55},
+                new OrderSummary { Month = "Mar", OrdersTotal = 22, OrdersDelivered = 18, OrdersCancel = 41},
+                new OrderSummary { Month = "Apr", OrdersTotal = 27, OrdersDelivered = 23, OrdersCancel = 67},
+                new OrderSummary { Month = "May", OrdersTotal = 13, OrdersDelivered = 10, OrdersCancel = 22},
+                new OrderSummary { Month = "Jun", OrdersTotal = 22, OrdersDelivered = 17, OrdersCancel = 43},
+                new OrderSummary { Month = "Jul", OrdersTotal = 37, OrdersDelivered = 25, OrdersCancel = 21},
+                new OrderSummary { Month = "Aug", OrdersTotal = 21, OrdersDelivered = 18, OrdersCancel = 41},
+                new OrderSummary { Month = "Sep", OrdersTotal = 44, OrdersDelivered = 35, OrdersCancel = 56},
+                new OrderSummary { Month = "Oct", OrdersTotal = 22, OrdersDelivered = 18, OrdersCancel = 27},
+                new OrderSummary { Month = "Nov", OrdersTotal = 45, OrdersDelivered = 37, OrdersCancel = 43},
+                new OrderSummary { Month = "Dec", OrdersTotal = 35, OrdersDelivered = 28, OrdersCancel = 27},
+            };
+            return ordersummary;
+        }
+    }
+    // Order Summary End //
+
+    // Products Overview Start //
+    private List<ProductsOverview> productsoverview { get; set; } = ProductsOverviewData.GetProductsOverview();
+    private ApexChartOptions<ProductsOverview> ProductsOverviewChartOptions { get; set; } = new();
+    public class ProductsOverview {
+        public string? Month { get; set; }
+        public decimal Unpublished { get; set; }
+        public decimal Published { get; set; }
+        public decimal TotalProducts { get; set; }
+    } ;
+    public static class ProductsOverviewData {
+        public static List<ProductsOverview> GetProductsOverview() {
+            // Replace this with actual data retrieval logic
+            List<ProductsOverview> productsoverview = new List<ProductsOverview>
+            {
+                new ProductsOverview { Month = "Jan",  TotalProducts = 100, Published = 180, Unpublished = 200},
+                new ProductsOverview { Month = "Feb",  TotalProducts = 210, Published = 620, Unpublished = 530},
+                new ProductsOverview { Month = "Mar",  TotalProducts = 180, Published = 476, Unpublished = 110},
+                new ProductsOverview { Month = "Apr",  TotalProducts = 454, Published = 220, Unpublished = 130},
+                new ProductsOverview { Month = "May",  TotalProducts = 230, Published = 520, Unpublished = 480},
+                new ProductsOverview { Month = "Jun",  TotalProducts = 320, Published = 780, Unpublished = 520},
+                new ProductsOverview { Month = "Jul",  TotalProducts = 656, Published = 435, Unpublished = 780},
+                new ProductsOverview { Month = "Aug",  TotalProducts = 830, Published = 515, Unpublished = 435},
+                new ProductsOverview { Month = "Sep",  TotalProducts = 350, Published = 738, Unpublished = 475},
+                new ProductsOverview { Month = "Oct",  TotalProducts = 350, Published = 454, Unpublished = 738},
+                new ProductsOverview { Month = "Nov",  TotalProducts = 210, Published = 525, Unpublished = 454},
+                new ProductsOverview { Month = "Dec",  TotalProducts = 410, Published = 230, Unpublished = 480},
+            };
+            return productsoverview;
+        }
+    }
+    // Products Overview End //
+ 
+    // Sales Report Start //
+    private List<SalesReport> salesreport { get; set; } = SalesReportData.GetSalesReport();
+    private ApexChartOptions<SalesReport> SalesReportChartOptions { get; set; } = new();
+    public class SalesReport {
+        public string? Month { get; set; }
+        public decimal SalesValue { get; set; }
+    } ;
+    public static class SalesReportData {
+        public static List<SalesReport> GetSalesReport() {
+            // Replace this with actual data retrieval logic
+            List<SalesReport> salesreport = new List<SalesReport>
+            {
+                new SalesReport { Month = "Jan", SalesValue = 20},
+                new SalesReport { Month = "Feb", SalesValue = 38},
+                new SalesReport { Month = "Mar", SalesValue = 38},
+                new SalesReport { Month = "Apr", SalesValue = 72},
+                new SalesReport { Month = "May", SalesValue = 55},
+                new SalesReport { Month = "Jun", SalesValue = 63},
+                new SalesReport { Month = "Jul", SalesValue = 43},
+                new SalesReport { Month = "Aug", SalesValue = 76},
+                new SalesReport { Month = "Sep", SalesValue = 55},
+                new SalesReport { Month = "Oct", SalesValue = 80},
+                new SalesReport { Month = "Nov", SalesValue = 40},
+                new SalesReport { Month = "Dec", SalesValue = 80},
+            };
+            return salesreport;
+        }
+    }
+    // Sales Report End //
+
+    // Used Browsers Chart Start //
+    private List<UsedBrowsers> usedbrowsers { get; set; } = DataUsedBrowsers.UsedBrowsers();
+    private ApexChartOptions<UsedBrowsers> UsedBrowserschartOptions { get; set; } = new();
+    public static class DataUsedBrowsers
+    {
+        public static List<UsedBrowsers> UsedBrowsers()
+        {
+            return new List<UsedBrowsers>
+            {
+                new UsedBrowsers { PieGradientData = "Chrome", GradientValue = 1754},
+                new UsedBrowsers { PieGradientData = "Firefox", GradientValue = 544},
+                new UsedBrowsers { PieGradientData = "Safari", GradientValue = 682},
+                new UsedBrowsers { PieGradientData = "Opera", GradientValue = 263},
+
+            };
+        }
+    }
+    public class UsedBrowsers
+    {
+        public string? PieGradientData { get; set; }
+        public decimal GradientValue { get; set; }
+    }
+    // Used Browsers Chart End //
+
+    //  Total Vendors Start //
+    private List<TotalVendors> totalvendors { get; set; } = DataTotalVendors.GetTotalVendors();    
+    private ApexChartOptions<TotalVendors> TotalVendorsChartOptions { get; set; } = new();
+    public static class DataTotalVendors
+    {
+        public static List<TotalVendors> GetTotalVendors()
+        {
+            // Sample data for TotalVendorss
+            List<TotalVendors> totalvendors = new List<TotalVendors>
+            {
+                new TotalVendors { Source = "Inactive", SourceValue = 1754 },
+                new TotalVendors { Source = "Active", SourceValue = 1234 },
+                // Add more sample data as needed
+            };
+
+            return totalvendors;
+        }
+    }
+    public class TotalVendors
+    {
+        public string? Source { get; set; }
+        public int SourceValue { get; set; }
+    }
+    //  Total Vendors End //
+
+    //  Total Customers Start //
+    private List<TotalCustomers> totalcustomers { get; set; } = DataTotalCustomers.GetTotalCustomers();    
+    private ApexChartOptions<TotalCustomers> TotalCustomersChartOptions { get; set; } = new();
+    public static class DataTotalCustomers
+    {
+        public static List<TotalCustomers> GetTotalCustomers()
+        {
+            // Sample data for TotalCustomerss
+            List<TotalCustomers> totalcustomers = new List<TotalCustomers>
+            {
+                new TotalCustomers { Source = "Inactive", SourceValue = 576 },
+                new TotalCustomers { Source = "Active", SourceValue = 876 },
+                // Add more sample data as needed
+            };
+
+            return totalcustomers;
+        }
+    }
+    public class TotalCustomers
+    {
+        public string? Source { get; set; }
+        public int SourceValue { get; set; }
+    }
+    //  Total Customers End //
+
+
+    protected override void OnInitialized() {
+
+        OrderSummaryChartOptions = new ApexChartOptions<OrderSummary> {
+            Chart = new () {
+                Toolbar = new ApexCharts.Toolbar {
+                    Tools = new Tools { Zoom = false, Zoomin = false, Zoomout = false,Pan = false, Reset = false,  Download = false},
+                }, 
+                Stacked = false,
+            },
+            Grid = new Grid {
+                BorderColor = "#f5f4f4",
+                StrokeDashArray = 3
+            },
+            Stroke = new Stroke { 
+                Curve = [Curve.Smooth],
+                Width = [2, 2, 1.5],
+                LineCap = ApexCharts.LineCap.Round,
+                Show= true,
+                DashArray= [0, 0, 0],
+            },
+            DataLabels = new DataLabels {
+                Enabled = false,
+            }, 
+            Legend = new Legend {
+                Show = true,
+                Position = LegendPosition.Top,
+                HorizontalAlign = Align.Center,
+                OffsetX = 40,
+                    FontSize= "13px",
+                    FontFamily= "Montserrat",
+                    Labels= new() {
+                        Colors = new Color("#acb1b1"),
+                    },
+                    Markers=  new(){
+                        Width =  10,
+                        Height = 10,
+                    },
+            },
+            PlotOptions = new PlotOptions {
+                Bar = new PlotOptionsBar {
+                    Horizontal = false,
+                    BorderRadius = 2,
+                    ColumnWidth = "40%",
+                    BorderRadiusApplication = BorderRadiusApplication.Around,
+                    BorderRadiusWhenStacked = BorderRadiusWhenStacked.All
+                }
+            },
+            Yaxis = new List<YAxis>() {
+                new YAxis {
+                    Show = true,
+                    AxisTicks = new () {
+                        Show = true,
+                    },
+                    AxisBorder = new () {
+                        Show = false,
+                        Color = "#4eb6d0",
+                    },
+                    Labels = new YAxisLabels {
+                        Style = new AxisLabelStyle {
+                            Colors = new Color("#4eb6d0")
+                        }
+                    },
+                    Min = 0,
+                    Max = 50,
+                    StepSize = 10,
+                },
+                new YAxis {
+                    SeriesName= "Projects",
+                    Opposite = true,
+                    Show = true,
+                    AxisTicks = new () {
+                        Show = true,
+                    },
+                    AxisBorder = new () {
+                        Show = false,
+                    },
+                    Labels = new YAxisLabels {
+                        Style = new AxisLabelStyle {
+                            Colors = new Color("#00E396")
+                        }
+                    },
+                    Min = 0,
+                    Max = 45,
+                    StepSize = 9,
+                },
+                new YAxis {
+                    Min = 0,
+                    Max = 80,
+                    StepSize = 20,
+                    SeriesName= "Revenue",
+                    Opposite = true,
+                    Show = false,
+                    Labels = new YAxisLabels {
+                        Show = false,
+                    },
+                    AxisTicks = new () {
+                        Show = false,
+                    },
+                    AxisBorder = new () {
+                        Show = false,
+                    },
+                },
+            },
+            Xaxis =  new XAxis {
+                Labels = new XAxisLabels {
+                    Show = true,
+                    Style = new AxisLabelStyle {
+                        FontSize = "11px",
+                        FontWeight = 500,
+                        CssClass = "apexcharts-xaxis-label"
+                    }
+                },
+            },
+        };
+
+        ProductsOverviewChartOptions = new ApexChartOptions<ProductsOverview> {
+            Chart = new () {
+                Toolbar = new ApexCharts.Toolbar {
+                    Tools = new Tools { Zoom = true, Zoomin = true, Zoomout = true,Pan = true, Reset = true,  Download = true},
+                }, 
+                Events = new Dictionary<string, object>
+                {
+                    { "legendClick", "function(event, chartContext, seriesIndex, w) { return false; }" }
+                },
+                DropShadow = new ApexCharts.DropShadow {
+                    Enabled = true,
+                    Color = "#000",
+                    Top = 8,
+                    Left = 0,
+                    Blur = 3,
+                    Opacity = 0.1
+                }
+            },
+            Grid = new Grid {
+                BorderColor = "#f1f1f1",
+                StrokeDashArray = 3
+            },
+            Colors = new Color(new List<string> {"rgb(12, 215, 177)", "rgba(215, 124, 247, 0.85)",  "rgba(var(--primary-rgb), 0.05)"}),
+            Stroke = new Stroke { 
+                Curve = [Curve.Smooth],
+                Width = [1, 2, 0],
+                DashArray= [0, 5, 0],
+            },
+            DataLabels = new DataLabels {
+                Enabled = false,
+            }, 
+            Legend = new Legend {
+                Show = true, 
+                Position = LegendPosition.Bottom,
+                HorizontalAlign = Align.Center,
+                OffsetX = 40,
+                FontSize= "13px",
+                FontFamily= "Montserrat",
+                Labels= new() {
+                    Colors = new Color("#acb1b1"),
+                },
+                Markers=  new(){
+                    Width =  10,
+                    Height = 10,
+                },
+            },
+            Yaxis = new List<YAxis>() {
+                new YAxis {
+                    Min = 0,
+                    Max = 1000,
+                    StepSize = 200,
+                }
+            },
+            Xaxis =  new XAxis {
+                Labels = new XAxisLabels {
+                    Show = true,
+                    Style = new AxisLabelStyle {
+                        FontSize = "11px",
+                        FontWeight = 500,
+                        CssClass = "apexcharts-xaxis-label"
+                    }
+                },
+            },
+        };
+
+        SalesReportChartOptions = new ApexChartOptions<SalesReport> {
+            Chart = new () {
+                Toolbar = new ApexCharts.Toolbar {
+                    Tools = new Tools { Zoom = false, Zoomin = false, Zoomout = false,Pan = false, Reset = false,  Download = false},
+                }, 
+                DropShadow = new ApexCharts.DropShadow {
+                    Enabled = true,
+                    Color = ["#000"],
+                    Top = 5,
+                    Left = 0,
+                    Blur = 3,
+                    Opacity = 0.1
+                }
+            },
+            Grid = new Grid {
+                BorderColor = "#f2f6f7",
+            },
+            Tooltip = new Tooltip { 
+                Enabled= true,
+            },
+            Colors = new Color(new List<string> {"var(--primary-color)", "var(--primary03)"}),
+            Stroke = new Stroke { 
+                Curve = Curve.Smooth,
+                Width = [2],
+                DashArray = [0, 5],
+                LineCap = ApexCharts.LineCap.Butt,
+            },
+            DataLabels = new DataLabels {
+                Enabled = false,
+            }, 
+            Legend = new Legend {
+                Show = false,
+            },
+            PlotOptions = new PlotOptions {
+                Bar = new PlotOptionsBar {
+                    Horizontal = false,
+                    BorderRadius = 5,
+                    ColumnWidth = "30%",
+                }
+            },
+            Yaxis = new List<YAxis>() {
+                new YAxis {
+                    Show = true,
+                    Min = 0,
+                    Max = 100,
+                    StepSize = 20,
+                },
+            },
+            Xaxis =  new XAxis {
+                AxisBorder = new AxisBorder
+                {
+                    Show = true,
+                    Color = "rgba(119, 119, 142, 0.05)",
+                    OffsetX = 0,
+                    OffsetY = 0,
+                },
+                AxisTicks = new AxisTicks
+                {
+                    Show = true,
+                    Color = "rgba(119, 119, 142, 0.05)",
+                    OffsetX = 0,
+                    OffsetY = 0,
+                },
+                Labels = new XAxisLabels
+                {    
+                    Show = true,
+                    Rotate = -90, 
+                    RotateAlways = true
+                },
+            },
+        };
+        
+        UsedBrowserschartOptions = new ApexChartOptions<UsedBrowsers>
+        {
+            Colors = new Color(new List<string> { "var(--primary-color)", "rgba(215, 124, 247)", "rgb(12, 215, 177)", "rgb(254, 124, 88)"}),
+            Legend = new Legend
+            {
+                Show = false,
+            },
+            Stroke = new Stroke { 
+                Show = true,
+                Curve = Curve.Smooth,
+                LineCap = ApexCharts.LineCap.Round,
+                Width = 0,
+                DashArray= 0,
+            },
+            PlotOptions = new PlotOptions {
+                Pie = new PlotOptionsPie { 
+                    Donut= new PlotOptionsDonut{
+                        Size = "70%",
+                    },
+                } 
+            },
+        };
+
+        TotalVendorsChartOptions = new ApexChartOptions<TotalVendors> {
+            Chart = new () {
+                Height ="10rem",
+            }, 
+            Stroke = new Stroke { 
+                LineCap = ApexCharts.LineCap.Round,
+                Width = 0
+            },
+            Legend = new Legend  { 
+                Show=false,
+            }, 
+            
+            Colors = new Color(new List<string> {"var(--primary-color)", "rgb(215, 124, 247)"}),
+            
+            PlotOptions = new PlotOptions {
+                Pie = new PlotOptionsPie { 
+                      Donut= new PlotOptionsDonut{
+                        Size = "80%",
+                      },
+                } 
+            },
+        };
+        
+        TotalCustomersChartOptions = new ApexChartOptions<TotalCustomers> {
+            Chart = new () {
+                Height ="10rem",
+            }, 
+            Stroke = new Stroke { 
+                LineCap = ApexCharts.LineCap.Round,
+                Width = 0
+            },
+            Legend = new Legend  { 
+                Show=false,
+            }, 
+            
+            Colors = new Color(new List<string> {"var(--primary-color)", "rgb(215, 124, 247)"}),
+            
+            PlotOptions = new PlotOptions {
+                Pie = new PlotOptionsPie { 
+                      Donut= new PlotOptionsDonut{
+                        Size = "80%",
+                      },
+                } 
+            },
+        };
+
+    }
+
+}

@@ -1,0 +1,265 @@
+@page "/ecommerce-customer-compare"
+@layout mamix.Shared.Ecommerce.MainLayout
+@inject IJSRuntime JSRuntime
+@inject Microsoft.AspNetCore.Components.NavigationManager NavigationManager // This line is used to generate URLs dynamically //
+
+
+            <div class="main-content landing-main ecommerce-main">
+
+                <!-- Start:: Breadcrumb-->
+                <div class="border-bottom py-3">
+                    <div class="container">
+                        <div class="d-md-flex d-block align-items-center justify-content-between page-header-breadcrumb">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb mb-0">
+                                    <li class="breadcrumb-item"><a href="javascript:void(0);">Apps</a></li>
+                                    <li class="breadcrumb-item"><a href="javascript:void(0);">Ecommerce</a></li>
+                                    <li class="breadcrumb-item"><a href="javascript:void(0);">Customer</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Compare Products</li>
+                                </ol>
+                            </nav>
+                            <p class="mb-0">
+                                <span class="text-muted">Updated on </span> Yesterday
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- End:: Breadcrumb-->
+
+                <!-- Start:: Section-1 -->
+                <section class="section py-4">
+                    <div class="container"> 
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card custom-card">
+                                    <div class="card-header">
+                                        <div class="card-title">
+                                            Compare Products
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered text-nowrap mb-0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <span class="fw-semibold">Products</span>
+                                                        </td>
+                                                        <td>
+                                                            <div class="d-flex align-items-start gap-3">
+                                                                <div>
+                                                                    <span class="avatar avatar-xxl bg-light border">
+                                                                        <img src="@($"{NavigationManager.BaseUri}assets/images/ecommerce/png/29.png")" alt="img">
+                                                                    </span>
+                                                                </div>
+                                                                <div>
+                                                                    <h6 class="fs-16 mb-1 fw-medium">CapturePro Camera For Men</h6>
+                                                                    <div class="d-flex align-items-end justify-content-between">
+                                                                        <div>
+                                                                            <p class="mb-0 text-muted">SKU 159346820</p>
+                                                                            <h5 class="mb-0 mt-3 fw-medium">$250.00</h5>
+                                                                        </div>
+                                                                        <div class="btn-list">
+                                                                            <a href="javascript:void(0);" class="btn btn-primary-light btn-icon" data-bs-toggle="tooltip" title="Replace"><i class="ti ti-repeat fs-16"></i></a>
+                                                                            <a href="javascript:void(0);" class="btn btn-secondary-light btn-icon me-0" data-bs-toggle="tooltip" title="Remove"><i class="ti ti-trash fs-16"></i></a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="d-flex align-items-start gap-3">
+                                                                <div>
+                                                                    <span class="avatar avatar-xxl bg-light border">
+                                                                        <img src="@($"{NavigationManager.BaseUri}assets/images/ecommerce/png/30.png")" alt="img">
+                                                                    </span>
+                                                                </div>
+                                                                <div>
+                                                                    <h6 class="fs-16 mb-1 fw-medium">JLB Wireless Headphones 5.2.1</h6>
+                                                                    <div class="d-flex align-items-end justify-content-between">
+                                                                        <div>
+                                                                            <p class="mb-0 text-muted">SKU 7452361895</p>
+                                                                            <h5 class="mb-0 mt-3 fw-medium">$399.00</h5>
+                                                                        </div>
+                                                                        <div class="btn-list">
+                                                                            <a href="javascript:void(0);" class="btn btn-primary-light btn-icon" data-bs-toggle="tooltip" title="Replace"><i class="ti ti-repeat fs-16"></i></a>
+                                                                            <a href="javascript:void(0);" class="btn btn-secondary-light btn-icon me-0" data-bs-toggle="tooltip" title="Remove"><i class="ti ti-trash fs-16"></i></a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="d-flex align-items-start gap-3">
+                                                                <div>
+                                                                    <span class="avatar avatar-xxl bg-light border">
+                                                                        <img src="@($"{NavigationManager.BaseUri}assets/images/ecommerce/png/15.png")" alt="img">
+                                                                    </span>
+                                                                </div>
+                                                                <div>
+                                                                    <h6 class="fs-17 mb-1 fw-medium">Abidas Sports Shoes</h6>
+                                                                    <div class="d-flex align-items-end justify-content-between">
+                                                                        <div>
+                                                                            <p class="mb-0 text-muted">SKU 8628427531</p>
+                                                                            <h5 class="mb-0 mt-3 fw-medium">$1,110.00</h5>
+                                                                        </div>
+                                                                        <div class="btn-list">
+                                                                            <a href="javascript:void(0);" class="btn btn-primary-light btn-icon" data-bs-toggle="tooltip" title="Replace"><i class="ti ti-repeat fs-16"></i></a>
+                                                                            <a href="javascript:void(0);" class="btn btn-secondary-light btn-icon me-0" data-bs-toggle="tooltip" title="Remove"><i class="ti ti-trash fs-16"></i></a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <span class="fw-semibold">Rating</span>
+                                                        </td>
+                                                        <td>
+                                                            <span><i class="fe fe-star text-warning me-1"></i> (4.0)</span>
+                                                            <span class="vr mx-1"></span>
+                                                            <span>128 Ratings</span>
+                                                        </td>
+                                                        <td>
+                                                            <span><i class="fe fe-star text-warning me-1"></i> (3.5)</span>
+                                                            <span class="vr mx-1"></span>
+                                                            <span>350 Ratings</span>
+                                                        </td>
+                                                        <td>
+                                                            <span><i class="fe fe-star text-warning me-1"></i> (4.5)</span>
+                                                            <span class="vr mx-1"></span>
+                                                            <span>227 Ratings</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <span class="fw-semibold">Brand</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>Lenscart</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>JLB</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>Adibas</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <span class="fw-semibold">Model</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>EGFFM00772</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>JWHV655773</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>ASAFM89453</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <span class="fw-semibold">Date</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>02-08-2021</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>16-04-2022</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>11-11-2022</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <span class="fw-semibold">Weight</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>10.5g</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>32.3g</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>180.5g</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <span class="fw-semibold">Color</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>Yellow</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>Blue</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>Lime Green</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            
+                                                        </td>
+                                                        <td>
+                                                            <a href="/ecommerce-customer-cart" class="btn btn-w-lg btn-primary"><i class="ti ti-shopping-cart-plus fs-16 me-1"></i> Add To Cart</a>
+                                                        </td>
+                                                        <td>
+                                                            <a href="/ecommerce-customer-cart" class="btn btn-w-lg btn-primary"><i class="ti ti-shopping-cart-plus fs-16 me-1"></i> Add To Cart</a>
+                                                        </td>
+                                                        <td>
+                                                            <a href="/ecommerce-customer-cart" class="btn btn-w-lg btn-primary"><i class="ti ti-shopping-cart-plus fs-16 me-1"></i> Add To Cart</a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section> 
+                <!-- End:: Section-1 -->
+
+                <!-- Start:: Section-2 -->
+                <section class="section bg-banner px-lg-0 px-4">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6 text-center">
+                            <div class="mb-4">
+                                <h3 class="fw-semibold mb-2 text-fixed-white">&#128073; Download our free mobile apps today</h3>
+                            </div>
+                            <h6 class="mb-4 op-9 text-fixed-white">Labore no sed ipsum ipsum nonumy. Sit ipsum sanctus ea magna est. Kasd diam rebum sit ipsum ipsum erat et kasd.Est amet sit vero sanctus labore no sed ipsum ipsum nonumy vero sanctus labore..</h6>
+                            <div class="btn-list">
+                                <a href="javascript:void(0);" class="btn btn-dark app-store">
+                                    <img src="@($"{NavigationManager.BaseUri}assets/images/media/apps/play-store.png")" alt="">
+                                    Google Play
+                                </a>
+                                <a href="javascript:void(0);" class="btn btn-dark app-store">
+                                    <img src="@($"{NavigationManager.BaseUri}assets/images/media/apps/apple-store.png")" alt="" class="invert-1">
+                                    App Store
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- End:: Section-2 -->
+
+            </div>
+
+@code {
+    
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("window.interop.initializeTooltips");
+        }
+    }
+
+}

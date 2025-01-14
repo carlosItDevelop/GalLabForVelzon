@@ -1,0 +1,140 @@
+﻿@page "/clientemanager"
+
+@using GeneralLabSolutions.Domain.Extensions.Helpers.Generics
+@using Radzen
+@using Radzen.Blazor
+@using GeneralLabSolutions.WebAPI.DTOs
+@using mamix.Services.Clientes
+@inject IClienteService _clienteService
+@inject Microsoft.AspNetCore.Components.NavigationManager NavigationManager
+
+<div class="my-4 page-header-breadcrumb d-flex align-items-center justify-content-between flex-wrap gap-2">
+    <div>
+        <h1 class="page-title fw-medium fs-18 mb-2">Clientes</h1>
+        <nav>
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="javascript:void(0);">Cadastro</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Lista de clientes</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<!-- Campo de pesquisa -->
+<div class="row mb-3">
+    <div class="col-md-4 d-flex">
+        <input type="text" 
+               class="form-control me-2" 
+               placeholder="Pesquisar por nome..." 
+               @bind="searchTerm"
+               @bind:event="oninput" />
+        <button class="btn btn-primary" @onclick="BuscarClientes">Buscar</button>
+    </div>
+</div>
+
+
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card custom-card">
+            <div class="card-header">
+                <div class="card-title">Lista de Clientes</div>
+            </div>
+            <div class="card-body">
+                @if (pagedResult == null)
+                {
+                    <p>Carregando Clientes...</p>
+                }
+                else
+                {
+
+                    <RadzenDataGrid Data="@pagedResult.List" AllowColumnResize="true" ColumnWidth="200px">
+                        <Columns>
+                            <RadzenDataGridColumn Property="@nameof(ClienteGridDto.Nome)" Title="Nome" />
+                            <RadzenDataGridColumn Property="@nameof(ClienteGridDto.Email)" Title="Email" />
+                            <RadzenDataGridColumn Property="@nameof(ClienteGridDto.Documento)" Title="Documento" />
+                            <RadzenDataGridColumn Property="@nameof(ClienteGridDto.Id)" Title="ID" />
+                            <RadzenDataGridColumn Property="@nameof(ClienteGridDto.TipoDePessoa)" Title="Tipo de Pessoa" />
+                            <RadzenDataGridColumn Property="@nameof(ClienteGridDto.TipoDeCliente)" Title="Tipo de Cliente" />
+                            <RadzenDataGridColumn Property="@nameof(ClienteGridDto.StatusDoCliente)" Title="Status do Cliente" />
+                        </Columns>
+                    </RadzenDataGrid>
+
+                    <!-- Controles de paginação -->
+                    <div class="d-flex justify-content-end mt-3 gap-2">
+                        <button class="btn btn-outline-primary" @onclick="FirstPage" disabled="@(pagedResult == null || pageIndex == 1)">Primeiro</button>
+                        <button class="btn btn-outline-primary" @onclick="PreviousPage" disabled="@(pagedResult == null || !pagedResult.HasPrevious)">Anterior</button>
+                        <button class="btn btn-outline-primary" @onclick="NextPage" disabled="@(pagedResult == null || !pagedResult.HasNext)">Próximo</button>
+                        <button class="btn btn-outline-primary" @onclick="LastPage" disabled="@(pagedResult == null || pageIndex == pagedResult?.TotalPages)">Último</button>
+                    </div>
+
+                    <div class="mt-2">
+                        Página @pagedResult?.PageIndex de @pagedResult?.TotalPages
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private PagedResult<ClienteGridDto>? pagedResult;
+    private int pageIndex = 1;
+    private int pageSize = 8;
+    private string? query;
+    private string? searchTerm;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CarregarClientes();
+    }
+
+    private async Task CarregarClientes()
+    {
+        pagedResult = await _clienteService.ObterClientesPaginadosAsync(pageIndex, pageSize, query);
+    }
+
+    private async Task FirstPage()
+    {
+        pageIndex = 1;
+        await CarregarClientes();
+    }
+
+    private async Task LastPage()
+    {
+        if (pagedResult != null)
+        {
+            pageIndex = pagedResult.TotalPages;
+            await CarregarClientes();
+        }
+    }
+
+    private async Task PreviousPage()
+    {
+        if (pagedResult != null && pagedResult.HasPrevious)
+        {
+            pageIndex--;
+            await CarregarClientes();
+        }
+    }
+
+    private async Task NextPage()
+    {
+        if (pagedResult != null && pagedResult.HasNext)
+        {
+            pageIndex++;
+            await CarregarClientes();
+        }
+    }
+
+    private async Task BuscarClientes()
+    {
+        pageIndex = 1;
+        query = searchTerm;
+        await CarregarClientes();
+    }
+}
+
+
+
+

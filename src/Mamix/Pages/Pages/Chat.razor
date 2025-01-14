@@ -1,0 +1,888 @@
+@page "/chat"
+@inject Microsoft.AspNetCore.Components.NavigationManager NavigationManager // This line is used to generate URLs dynamically //
+
+ 
+        <!-- GLightbox CSS -->
+        <link rel="stylesheet" href="@($"{NavigationManager.BaseUri}assets/libs/glightbox/css/glightbox.min.css")">
+      
+
+            <!-- Page Header -->
+            <div class="my-4 page-header-breadcrumb d-flex align-items-center justify-content-between flex-wrap gap-2">
+                <div>
+                    <h1 class="page-title fw-medium fs-18 mb-2">Chat</h1>
+                    <div class="">
+                        <nav>
+                            <ol class="breadcrumb mb-0">
+                                <li class="breadcrumb-item"><a href="javascript:void(0);">Pages</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Chat</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+                <div class="btn-list">
+                    <button class="btn btn-primary-light btn-wave me-2">
+                        <i class="bx bx-crown align-middle"></i> Plan Upgrade
+                    </button>
+                    <button class="btn btn-secondary-light btn-wave me-0">
+                        <i class="ri-upload-cloud-line align-middle"></i> Export Report
+                    </button>
+                </div>
+            </div>
+            <!-- Page Header Close -->
+            
+            <div class="main-chart-wrapper gap-lg-2 gap-0 mb-2 d-lg-flex @mainChartWrapperRef">
+                <div class="chat-info border">
+                    <ul class="nav nav-tabs tab-style-8 scaleX nav-justified mb-0 border-bottom d-flex"
+                        id="myTab1" role="tablist">
+                        <li class="nav-item me-0" role="presentation">
+                            <button class="nav-link active p-4" id="users-tab" data-bs-toggle="tab"
+                                data-bs-target="#users-tab-pane" type="button" role="tab"
+                                aria-controls="users-tab-pane" aria-selected="true">FRIENDS</button>
+                        </li>
+                        <li class="nav-item me-0" role="presentation">
+                            <button class="nav-link p-4" id="groups-tab" data-bs-toggle="tab"
+                                data-bs-target="#groups-tab-pane" type="button" role="tab"
+                                aria-controls="groups-tab-pane" aria-selected="false">GROUPS</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link p-4" id="contacts-tab" data-bs-toggle="tab"
+                                data-bs-target="#contacts-tab-pane" type="button" role="tab"
+                                aria-controls="contacts-tab-pane" aria-selected="false">CONTACTS</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane show active border-0 chat-users-tab" id="users-tab-pane"
+                            role="tabpanel" aria-labelledby="users-tab" tabindex="0">
+                            <BlazorOverlayScrollbars>
+                                <BlazorOverlayScrollbarsContent>
+                                    <ul class="list-unstyled mb-0 mt-2 chat-users-tab" id="chat-msg-scroll">
+                                        <li class="pb-0">
+                                            <p class="text-muted fs-11 fw-medium mb-2 op-7">ACTIVE CHATS</p>
+                                        </li>
+                                        @foreach (var ChatList in ActiveChats)
+                                        {
+                                            <li @onclick="@(() => ShowChat(ChatList))" class="@(ChatList.seen ? "" : "chat-msg-unread") @(ChatList.active ? "active" : "") @(ChatList == ActiveUser ? "active" : "") checkforactive">
+                                                <a href="javascript:void(0);">
+                                                    <div class="d-flex align-items-top">
+                                                        <div class="me-1 lh-1">
+                                                            <span class="avatar avatar-md online me-2 avatar-rounded">
+                                                                <img src="@ChatList.img" alt="img" />
+                                                            </span>
+                                                        </div>
+                                                        <div class="flex-fill">
+                                                            <p class="mb-0 fw-medium">
+                                                                @ChatList.name
+                                                                <span class="float-end text-muted fw-normal fs-11">@ChatList.lastMessageTime</span>
+                                                            </p>
+                                                            <p class="fs-12 mb-0 @(ChatList.isTyping ? "chat-msg-typing" : "")">
+                                                                @if(!string.IsNullOrEmpty(ChatList.lastMsg))
+                                                                {
+                                                                    <span class="chat-msg text-truncate">@((MarkupString)ChatList.lastMsg)</span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span class="chat-msg text-truncate">Typing...</span>
+                                                                }
+                                                                @if(!string.IsNullOrEmpty(ChatList.unReadMessages))
+                                                                {
+                                                                    <span class="badge bg-danger rounded-circle float-end">@ChatList.unReadMessages</span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span class="chat-read-icon float-end align-middle"><i
+                                                                    class="ri-check-double-fill"></i></span>
+                                                                }
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        }
+                                        <li class="pb-0">
+                                            <p class="text-muted fs-11 fw-medium mb-2 op-7">ALL CHATS</p>
+                                        </li>
+                                        @foreach (var ChatList in AllChats)
+                                        {
+                                            <li @onclick="@(() => ShowChat(ChatList))" class="@(ChatList.seen ? "" : "chat-msg-unread") @(ChatList == ActiveUser ? "active" : "") chat-inactive checkforactive" >
+                                                <a href="javascript:void(0);">
+                                                    <div class="d-flex align-items-top">
+                                                        <div class="me-1 lh-1">
+                                                            <span class="avatar avatar-md offline me-2 avatar-rounded" >
+                                                                <img  src="@ChatList.img" alt="img">
+                                                            </span>
+                                                        </div>
+                                                        <div class="flex-fill">
+                                                            <p class="mb-0 fw-medium">
+                                                                @ChatList.name 
+                                                                <span class="float-end text-muted fw-normal fs-11" v-if="!inactive.isTyping">@ChatList.lastMessageTime</span>
+                                                            </p>
+                                                            <p class="fs-12 mb-0">
+                                                                <span class="chat-msg text-truncate">@((MarkupString)(ChatList.lastMsg ?? "Last Message"))</span>
+                                                                @if (!string.IsNullOrEmpty(ChatList.unReadMessages))
+                                                                {
+                                                                <span class="chat-read-icon float-end align-middle"><i
+                                                                        class="ri-check-double-fill"></i></span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span class="chat-read-icon badge bg-success-transparent rounded-circle float-end">2</span>
+                                                                }
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </BlazorOverlayScrollbarsContent>
+                            </BlazorOverlayScrollbars>
+                        </div>
+                        <div class="tab-pane border-0 chat-groups-tab" id="groups-tab-pane"
+                            role="tabpanel" aria-labelledby="groups-tab" tabindex="0">
+                            <BlazorOverlayScrollbars>
+                                <BlazorOverlayScrollbarsContent>
+                                    <div class="chat-groups-tab">
+                                        <ul class="list-unstyled mb-0 mt-2 ">
+                                            <li class="pb-0">
+                                                <p class="text-muted fs-11 fw-medium mb-1 op-7">MY CHAT GROUPS</p>
+                                            </li>
+                                            <li>
+                                                <div class="d-flex align-items-center justify-content-between">
+                                                    <div>
+                                                        <p class="mb-0">1) ChatMingle Collective</p>
+                                                        <p class="mb-0"><span class="badge bg-success-transparent">4
+                                                                Online</span></p>
+                                                    </div>
+                                                    <div class="avatar-list-stacked my-auto">
+                                                        <span class="avatar avatar-sm avatar-rounded">
+                                                            <img src="@($"{NavigationManager.BaseUri}assets/images/faces/2.jpg")" alt="img">
+                                                        </span>
+                                                        <span class="avatar avatar-sm avatar-rounded">
+                                                            <img src="@($"{NavigationManager.BaseUri}assets/images/faces/8.jpg")" alt="img">
+                                                        </span>
+                                                        <span class="avatar avatar-sm avatar-rounded">
+                                                            <img src="@($"{NavigationManager.BaseUri}assets/images/faces/2.jpg")" alt="img">
+                                                        </span>
+                                                        <span class="avatar avatar-sm avatar-rounded">
+                                                            <img src="@($"{NavigationManager.BaseUri}assets/images/faces/10.jpg")" alt="img">
+                                                        </span>
+                                                        <a class="avatar avatar-sm bg-primary text-fixed-white avatar-rounded"
+                                                            href="javascript:void(0);">
+                                                            +19
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="d-flex align-items-center justify-content-between">
+                                                    <div>
+                                                        <p class="mb-0">2) ConnectHub Crew </p>
+                                                        <p class="mb-0"><span class="badge bg-secondary-transparent">32
+                                                                Online</span></p>
+                                                    </div>
+                                                    <div class="avatar-list-stacked my-auto">
+                                                        <span class="avatar avatar-sm avatar-rounded">
+                                                            <img src="@($"{NavigationManager.BaseUri}assets/images/faces/1.jpg")" alt="img">
+                                                        </span>
+                                                        <span class="avatar avatar-sm avatar-rounded">
+                                                            <img src="@($"{NavigationManager.BaseUri}assets/images/faces/7.jpg")" alt="img">
+                                                        </span>
+                                                        <span class="avatar avatar-sm avatar-rounded">
+                                                            <img src="@($"{NavigationManager.BaseUri}assets/images/faces/3.jpg")" alt="img">
+                                                        </span>
+                                                        <span class="avatar avatar-sm avatar-rounded">
+                                                            <img src="@($"{NavigationManager.BaseUri}assets/images/faces/9.jpg")" alt="img">
+                                                        </span>
+                                                        <span class="avatar avatar-sm avatar-rounded">
+                                                            <img src="@($"{NavigationManager.BaseUri}assets/images/faces/12.jpg")" alt="img">
+                                                        </span>
+                                                        <a class="avatar avatar-sm bg-primary text-fixed-white avatar-rounded"
+                                                            href="javascript:void(0);">
+                                                            +123
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="d-flex align-items-center justify-content-between">
+                                                    <div>
+                                                        <p class="mb-0">3) TalkTide Tribe</p>
+                                                        <p class="mb-0"><span class="badge bg-warning-transparent">3
+                                                                Online</span></p>
+                                                    </div>
+                                                    <div class="avatar-list-stacked my-auto">
+                                                        <span class="avatar avatar-sm avatar-rounded">
+                                                            <img src="@($"{NavigationManager.BaseUri}assets/images/faces/4.jpg")" alt="img">
+                                                        </span>
+                                                        <span class="avatar avatar-sm avatar-rounded">
+                                                            <img src="@($"{NavigationManager.BaseUri}assets/images/faces/8.jpg")" alt="img">
+                                                        </span>
+                                                        <span class="avatar avatar-sm avatar-rounded">
+                                                            <img src="@($"{NavigationManager.BaseUri}assets/images/faces/13.jpg")" alt="img">
+                                                        </span>
+                                                        <a class="avatar avatar-sm bg-primary text-fixed-white avatar-rounded"
+                                                            href="javascript:void(0);">
+                                                            +15
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="d-flex align-items-center justify-content-between">
+                                                    <div>
+                                                        <p class="mb-0">4) DialogDynasty</p>
+                                                        <p class="mb-0"><span class="badge bg-danger-transparent">5
+                                                                Online</span></p>
+                                                    </div>
+                                                    <div class="avatar-list-stacked my-auto">
+                                                        <span class="avatar avatar-sm avatar-rounded">
+                                                            <img src="@($"{NavigationManager.BaseUri}assets/images/faces/1.jpg")" alt="img">
+                                                        </span>
+                                                        <span class="avatar avatar-sm avatar-rounded">
+                                                            <img src="@($"{NavigationManager.BaseUri}assets/images/faces/7.jpg")" alt="img">
+                                                        </span>
+                                                        <span class="avatar avatar-sm avatar-rounded">
+                                                            <img src="@($"{NavigationManager.BaseUri}assets/images/faces/14.jpg")" alt="img">
+                                                        </span>
+                                                        <a class="avatar avatar-sm bg-primary text-fixed-white avatar-rounded"
+                                                            href="javascript:void(0);">
+                                                            +28
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="d-flex align-items-center justify-content-between">
+                                                    <div>
+                                                        <p class="mb-0">5) NexusChat Nexus</p>
+                                                        <p class="mb-0"><span class="badge bg-light text-dark">0 Online</span>
+                                                        </p>
+                                                    </div>
+                                                    <div class="avatar-list-stacked my-auto">
+                                                        <span class="avatar avatar-sm avatar-rounded">
+                                                            <img src="@($"{NavigationManager.BaseUri}assets/images/faces/5.jpg")" alt="img">
+                                                        </span>
+                                                        <span class="avatar avatar-sm avatar-rounded">
+                                                            <img src="@($"{NavigationManager.BaseUri}assets/images/faces/6.jpg")" alt="img">
+                                                        </span>
+                                                        <span class="avatar avatar-sm avatar-rounded">
+                                                            <img src="@($"{NavigationManager.BaseUri}assets/images/faces/12.jpg")" alt="img">
+                                                        </span>
+                                                        <span class="avatar avatar-sm avatar-rounded">
+                                                            <img src="@($"{NavigationManager.BaseUri}assets/images/faces/3.jpg")" alt="img">
+                                                        </span>
+                                                        <a class="avatar avatar-sm bg-primary text-fixed-white avatar-rounded"
+                                                            href="javascript:void(0);">
+                                                            +53
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <ul class="list-unstyled mb-0 mt-2 ">
+                                            <li class="pb-0">
+                                                <p class="text-muted fs-11 fw-medium mb-1 op-7">GROUP CHATS</p>
+                                            </li>
+                                            @foreach (var ChatList in GroupData)
+                                            {
+                                                <li @onclick="@(() => ShowChat(ChatList))" class="@(ChatList.seen ? "" : "chat-msg-unread") @(ChatList == ActiveUser ? "active" : "") checkforactive">
+                                                    <a href="javascript:void(0);">
+                                                        <div class="d-flex align-items-top">
+                                                            <div class="me-1 lh-1">
+                                                                <span class="avatar avatar-md online me-2 avatar-rounded @(ChatList.isOnline ? "online" : "offline")">
+                                                                    <img src="@ChatList.img" alt="img">
+                                                                </span>
+                                                            </div>
+                                                            <div class="flex-fill">
+                                                                <p class="mb-0 fw-medium" >
+                                                                    @((MarkupString)(ChatList.name ?? "name")) 
+                                                                    <span class="float-end text-muted fw-normal fs-11">@ChatList.lastMessageTime</span>
+                                                                </p>
+                                                                <p class="fs-12 mb-0  @(ChatList.isTyping ? "chat-msg-typing" : "")">
+                                                                    <span class="chat-msg text-truncate">
+                                                                        @if(!string.IsNullOrEmpty(ChatList.lastMsg))
+                                                                        {
+                                                                            @($"{ChatList.whoslastMsg}  {ChatList.lastMsg}")
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            @($"{ChatList.howisTyping} Typing...")
+                                                                        }
+                                                                    </span>
+                                                                    @if (ChatList.allSeen)
+                                                                    {
+                                                                        <span class="chat-read-icon float-end align-middle"><i
+                                                                            class="ri-check-double-fill"></i></span>
+                                                                    }
+                                                                    @if (int.TryParse(ChatList.unReadMessages, out int unReadMessages) && unReadMessages > 0)
+                                                                    {
+                                                                        <span
+                                                                            class="badge bg-success-transparent rounded-circle float-end">@unReadMessages</span>
+                                                                    }
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </BlazorOverlayScrollbarsContent>
+                            </BlazorOverlayScrollbars>
+                        </div>
+                        <div class="tab-pane border-0 chat-contacts-tab" id="contacts-tab-pane" role="tabpanel"
+                            aria-labelledby="contacts-tab" tabindex="0">
+                            <BlazorOverlayScrollbars>
+                                <BlazorOverlayScrollbarsContent>
+                                    <ul class="list-unstyled mb-0 chat-contacts-tab">
+                                        @foreach(var ContactsList in Contacts) {
+                                            <li>
+                                                <span class="text-default fw-semibold">@ContactsList.titlename</span>
+                                            </li>   
+                                            <li>    
+                                                <div class="d-flex align-items-center gap-3">
+                                                    <div class="lh-1">
+                                                        @if(ContactsList?.imgavatar == true) {
+                                                            <span class="@ContactsList?.avatarBackgroundColor">
+                                                               @ContactsList?.avatarname?.Substring(0, 2).ToUpper()
+                                                            </span>
+                                                        } else {
+                                                            <span class="avatar avatar-rounded avatar-sm">
+                                                                <img src="@ContactsList?.img" alt="">
+                                                            </span>
+                                                        }
+                                                    </div>
+                                                    <div class="flex-fill">
+                                                        <span class="d-block fw-semibold">
+                                                            @ContactsList?.name
+                                                        </span>
+                                                    </div>
+                                                    <div class="dropdown">
+                                                        <a aria-label="anchor" href="javascript:void(0);" data-bs-toggle="dropdown" class="btn btn-icon btn-sm btn-outline-light"> 
+                                                            <i class="ri-more-2-fill"></i>
+                                                        </a> 
+                                                        <ul class="dropdown-menu" role="menu"> 
+                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-message-2-line me-2"></i>Chat</a></li> 
+                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-phone-line me-2"></i>Audio Call</a></li> 
+                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-live-line me-2"></i>Video Call</a></li> 
+                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-edit-line me-2"></i>Edit</a></li> 
+                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-spam-2-line me-2"></i>Block</a></li> 
+                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-line me-2"></i>Delete</a></li> 
+                                                        </ul> 
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        }
+                                    </ul>
+                                </BlazorOverlayScrollbarsContent>
+                            </BlazorOverlayScrollbars>
+                        </div>
+                    </div>
+                </div>
+                <div class="main-chat-area border">
+                    <div class="d-flex align-items-center border-bottom main-chat-head flex-wrap">
+                        <div class="me-2 lh-1">
+                            <span class="avatar avatar-md online avatar-rounded chatstatusperson @(ActiveUser?.isOnline == true ? "online" : "offline")">
+                                <img class="chatimageperson" src="@ActiveUser?.img" alt="img">
+                            </span>
+                        </div>
+                        <div class="flex-fill">
+                            <p class="mb-0 fw-medium fs-14 lh-1">
+                                <a href="javascript:void(0);" data-bs-toggle="offcanvas"
+                                data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" class="chatnameperson responsive-userinfo-open" @onclick="ShowChatUser">@((MarkupString)(ActiveUser?.name ?? "name"))</a>
+                            </p>
+                            <p class="text-muted mb-0 chatpersonstatus">@(ActiveUser?.isOnline == true ? "online" : "offline")</p>
+                        </div>
+                        <div class="d-flex flex-wrap rightIcons">
+                            <button aria-label="button" type="button" class="btn btn-icon btn-primary-light my-1 ms-2 btn-sm">
+                                <i class="ti ti-phone"></i>
+                            </button>
+                            <button aria-label="button" type="button" class="btn btn-icon btn-secondary-light my-1 ms-2 btn-sm">
+                                <i class="ti ti-video"></i>
+                            </button>
+                            <button aria-label="button" type="button" class="btn btn-icon btn-outline-light my-1 ms-2 responsive-userinfo-open btn-sm">
+                                <i class="ti ti-user-circle" id="responsive-chat-close"></i>
+                            </button>
+                            <div class="dropdown ms-2">
+                                <button aria-label="button" class="btn btn-icon btn-success-light my-1 btn-wave waves-light btn-sm" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="ti ti-dots-vertical"></i>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-user-3-line me-1"></i>Profile</a></li>
+                                    <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-format-clear me-1"></i>Clear Chat</a></li>
+                                    <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-user-unfollow-line me-1"></i>Delete User</a></li>
+                                    <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-user-forbid-line me-1"></i>Block User</a></li>
+                                    <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-error-warning-line me-1"></i>Report</a></li>
+                                </ul>
+                            </div>
+                            <button aria-label="button" type="button" class="btn btn-icon btn-outline-light my-1 ms-2 responsive-chat-close btn-sm" @onclick="removeChat">
+                                <i class="ri-close-line"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <BlazorOverlayScrollbars>
+                        <BlazorOverlayScrollbarsContent>
+                            <div class="chat-content" id="main-chat-content">
+                                <ul class="list-unstyled">
+                                    <li class="chat-day-label">
+                                        <span>Today</span>
+                                    </li>
+                                    <li class="chat-item-start">
+                                        <div class="chat-list-inner">
+                                            <div class="chat-user-profile">
+                                                <span class="avatar avatar-md online @(ActiveUser?.isOnline == true ? "online" : "offline") avatar-rounded chatstatusperson">
+                                                    <img class="chatimageperson" src="@ActiveUser?.img" alt="img">
+                                                </span>
+                                            </div>
+                                            <div class="ms-3">
+                                                <span class="chatting-user-info">
+                                                    <span class="chatnameperson">@((MarkupString)(ActiveUser?.name ?? "name"))</span> <span class="msg-sent-time">11:48PM</span>
+                                                </span>
+                                                <div class="main-chat-msg">
+                                                    <div>
+                                                        <p class="mb-0">Hey there! &#128522; How's it going?</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="chat-item-end">
+                                        <div class="chat-list-inner">
+                                            <div class="me-3">
+                                                <span class="chatting-user-info">
+                                                    <span class="msg-sent-time"><span class="chat-read-mark align-middle d-inline-flex"><i
+                                                                class="ri-check-double-line"></i></span>11:50PM</span> You
+                                                </span>
+                                                <div class="main-chat-msg">
+                                                    <div>
+                                                        <p class="mb-0">Hey! I'm good, thanks. Just finished some work. How about you?</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="chat-user-profile">
+                                                <span class="avatar avatar-md online avatar-rounded">
+                                                    <img src="@($"{NavigationManager.BaseUri}assets/images/faces/15.jpg")" alt="img">
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="chat-item-start">
+                                        <div class="chat-list-inner">
+                                            <div class="chat-user-profile">
+                                                <span class="avatar avatar-md online @(ActiveUser?.isOnline == true ? "online" : "offline") avatar-rounded chatstatusperson">
+                                                    <img class="chatimageperson" src="@ActiveUser?.img" alt="img">
+                                                </span>
+                                            </div>
+                                            <div class="ms-3">
+                                                <span class="chatting-user-info">
+                                                    <span class="chatnameperson">@((MarkupString)(ActiveUser?.name ?? "name"))</span> <span class="msg-sent-time">11:51PM</span>
+                                                </span>
+                                                <div class="main-chat-msg">
+                                                    <div>
+                                                        <p class="mb-0">Not too bad, just chilling. Have any exciting plans for the weekend?</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="chat-item-end">
+                                        <div class="chat-list-inner">
+                                            <div class="me-3">
+                                                <span class="chatting-user-info">
+                                                    <span class="msg-sent-time"><span class="chat-read-mark align-middle d-inline-flex"><i
+                                                                class="ri-check-double-line"></i></span>11:52PM</span> You
+                                                </span>
+                                                <div class="main-chat-msg">
+                                                    <div>
+                                                        <p class="mb-0">Not really, just relaxing. Maybe catch up on some movies. You?</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="chat-user-profile">
+                                                <span class="avatar avatar-md online avatar-rounded">
+                                                    <img src="@($"{NavigationManager.BaseUri}assets/images/faces/15.jpg")" alt="img">
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="chat-item-start">
+                                        <div class="chat-list-inner">
+                                            <div class="chat-user-profile">
+                                                <span class="avatar avatar-md @(ActiveUser?.isOnline == true ? "online" : "offline") online avatar-rounded chatstatusperson">
+                                                    <img class="chatimageperson" src="@ActiveUser?.img" alt="img">
+                                                </span>
+                                            </div>
+                                            <div class="ms-3">
+                                                <span class="chatting-user-info">
+                                                    <span class="chatnameperson">@((MarkupString)(ActiveUser?.name ?? "name"))</span> <span class="msg-sent-time">11:55PM</span>
+                                                </span>
+                                                <div class="main-chat-msg">
+                                                    <div>
+                                                        <p class="mb-0">Same here. Thinking of trying out that new cafe downtown. Heard they have amazing coffee.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="chat-item-end">
+                                        <div class="chat-list-inner">
+                                            <div class="me-3">
+                                                <span class="chatting-user-info">
+                                                    <span class="msg-sent-time"><span class="chat-read-mark align-middle d-inline-flex"><i
+                                                                class="ri-check-double-line"></i></span>11:52PM</span> You
+                                                </span>
+                                                <div class="main-chat-msg">
+                                                    <div class="">
+                                                        <p class="mb-0">Oh, nice! Let me know how it is. I might check it out too.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="chat-user-profile">
+                                                <span class="avatar avatar-md online avatar-rounded">
+                                                    <img src="@($"{NavigationManager.BaseUri}assets/images/faces/15.jpg")" alt="img">
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="chat-item-start">
+                                        <div class="chat-list-inner">
+                                            <div class="chat-user-profile">
+                                                <span class="avatar avatar-md @(ActiveUser?.isOnline == true ? "online" : "offline") online avatar-rounded chatstatusperson">
+                                                    <img class="chatimageperson" src="@ActiveUser?.img" alt="img">
+                                                </span>
+                                            </div>
+                                            <div class="ms-3">
+                                                <span class="chatting-user-info chatnameperson">
+                                                    @((MarkupString)(ActiveUser?.name ?? "name"))
+                                                </span>
+                                                <div class="main-chat-msg">
+                                                    <div>
+                                                        <p class="mb-0">No spoilers, promise! Enjoy the binge-watching session. &#128516;</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </BlazorOverlayScrollbarsContent>
+                    </BlazorOverlayScrollbars>
+                    <div class="chat-footer">
+                        <a aria-label="anchor" class="btn btn-icon me-2 btn-success emoji-picker" href="javascript:void(0)">
+                            <i class="ri-emotion-line"></i>
+                        </a>
+                        <input class="form-control chat-message-space" placeholder="Type your message here..." type="text">
+                        <a aria-label="anchor" class="btn btn-primary ms-2 btn-icon btn-send" href="javascript:void(0)">
+                            <i class="ri-send-plane-2-line"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+           
+
+            <!-- Start::chat user details offcanvas -->
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight">
+                <div class="offcanvas-body">
+                    <button type="button" class="btn-close btn btn-sm btn-icon btn-outline-light border" data-bs-dismiss="offcanvas"
+                    aria-label="Close"></button>
+                    <div class="chat-user-details @chatUserDetailsRef" id="chat-user-details">
+                        <BlazorOverlayScrollbars>
+                            <BlazorOverlayScrollbarsContent>
+                                <div class="text-center mb-5 mt-2">
+                                    <span class="avatar avatar-rounded @(ActiveUser?.isOnline == true ? "online" : "offline") avatar-xxl me-2 mb-3 chatstatusperson">
+                                        <img class="chatimageperson" src="@ActiveUser?.img" alt="img">
+                                    </span>
+                                    <p class="mb-1 fs-15 fw-medium text-dark lh-1 chatnameperson">@((MarkupString)(ActiveUser?.name ?? "Name"))</p>
+                                    <p class="fs-12 text-muted"><span class="chatnameperson">@ActiveUser?.email</span></p>
+                                    <p class="text-center mb-0">
+                                        <button type="button" aria-label="button" class="btn btn-icon rounded-pill btn-primary-light btn-wave"><i
+                                                class="ri-phone-line"></i></button>
+                                        <button type="button" aria-label="button" class="btn btn-icon rounded-pill btn-secondary-light ms-2 btn-wave"><i
+                                                class="ri-video-add-line"></i></button>
+                                        <button type="button" aria-label="button" class="btn btn-icon rounded-pill btn-success-light ms-2 btn-wave"><i
+                                                class="ri-chat-1-line"></i></button>
+                                    </p>
+                                </div>
+                                <div class="mb-5">
+                                    <div class="fw-medium mb-4">Shared Files
+                                        <span class="badge bg-secondary rounded-pill ms-1">04</span>
+                                        <span class="float-end fs-11"><a href="javascript:void(0);" class="fs-12 text-muted"> View All<i class="ti ti-arrow-narrow-right ms-1"></i> </a></span>
+                                    </div>
+                                    <ul class="shared-files list-unstyled">
+                                        <li>
+                                            <div class="d-flex align-items-center">
+                                                <div class="me-2 bg-primary-transparent rounded">
+                                                    <span class="shared-file-icon">
+                                                        <i class="ti ti-file-text text-primary"></i>
+                                                    </span>
+                                                </div>
+                                                <div class="flex-fill">
+                                                    <p class="fs-12 fw-medium mb-0">Project Details.pdf</p>
+                                                    <p class="mb-0 text-muted fs-11">24,Oct 2024 - 14:24PM</p>
+                                                </div>
+                                                <div class="fs-18">
+                                                    <a aria-label="anchor" href="javascript:void(0)"><i class="ri-download-2-line text-muted"></i></a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="d-flex align-items-center">
+                                                <div class="me-2 bg-secondary-transparent rounded">
+                                                    <span class="shared-file-icon">
+                                                        <i class="ri-image-line text-secondary"></i>
+                                                    </span>
+                                                </div>
+                                                <div class="flex-fill">
+                                                    <p class="fs-12 fw-medium mb-0">Img_02.Jpg</p>
+                                                    <p class="mb-0 text-muted fs-11">22,Oct 2024 - 10:19AM</p>
+                                                </div>
+                                                <div class="fs-18">
+                                                    <a aria-label="anchor" href="javascript:void(0)"><i class="ri-download-2-line text-muted"></i></a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="d-flex align-items-center">
+                                                <div class="me-2 bg-success-transparent rounded">
+                                                    <span class="shared-file-icon">
+                                                        <i class="ri-image-line text-success"></i>
+                                                    </span>
+                                                </div>
+                                                <div class="flex-fill">
+                                                    <p class="fs-12 fw-medium mb-0">Img_15.Jpg</p>
+                                                    <p class="mb-0 text-muted fs-11">22,Oct 2024 - 10:18AM</p>
+                                                </div>
+                                                <div class="fs-18">
+                                                    <a aria-label="anchor" href="javascript:void(0)"><i class="ri-download-2-line text-muted"></i></a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="d-flex align-items-center">
+                                                <div class="me-2 bg-orange-transparent rounded">
+                                                    <span class="shared-file-icon">
+                                                        <i class="ri-video-line text-orange"></i>
+                                                    </span>
+                                                </div>
+                                                <div class="flex-fill">
+                                                    <p class="fs-12 fw-medium mb-0">Video_15_02_2022.MP4</p>
+                                                    <p class="mb-0 text-muted fs-11">22,Oct 2024 - 10:18AM</p>
+                                                </div>
+                                                <div class="fs-18">
+                                                    <a href="javascript:void(0)"><i class="ri-download-2-line text-muted"></i></a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="mb-0">
+                                    <div class="fw-medium mb-4">Photos & Media
+                                        <span class="badge bg-primary-transparent rounded-circle ms-1">22</span>
+                                        <span class="float-end fs-11"><a href="javascript:void(0);" class="fs-12 text-muted"> View All<i class="ti ti-arrow-narrow-right ms-1"></i> </a></span>
+                                    </div>
+                                    <div class="row gy-3">
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+                                            <a href="@($"{NavigationManager.BaseUri}assets/images/media/media-40.jpg")" class="glightbox card mb-0" data-gallery="gallery1">
+                                                <img src="@($"{NavigationManager.BaseUri}assets/images/media/media-40.jpg")" alt="image" >
+                                            </a>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+                                            <a href="@($"{NavigationManager.BaseUri}assets/images/media/media-41.jpg")" class="glightbox card mb-0" data-gallery="gallery1">
+                                                <img src="@($"{NavigationManager.BaseUri}assets/images/media/media-41.jpg")" alt="image" >
+                                            </a>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+                                            <a href="@($"{NavigationManager.BaseUri}assets/images/media/media-42.jpg")" class="glightbox card mb-0" data-gallery="gallery1">
+                                                <img src="@($"{NavigationManager.BaseUri}assets/images/media/media-42.jpg")" alt="image" >
+                                            </a>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+                                            <a href="@($"{NavigationManager.BaseUri}assets/images/media/media-43.jpg")" class="glightbox card mb-0" data-gallery="gallery1">
+                                                <img src="@($"{NavigationManager.BaseUri}assets/images/media/media-43.jpg")" alt="image" >
+                                            </a>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+                                            <a href="@($"{NavigationManager.BaseUri}assets/images/media/media-44.jpg")" class="glightbox card mb-0" data-gallery="gallery1">
+                                                <img src="@($"{NavigationManager.BaseUri}assets/images/media/media-44.jpg")" alt="image" >
+                                            </a>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+                                            <a href="@($"{NavigationManager.BaseUri}assets/images/media/media-45.jpg")" class="glightbox card mb-0" data-gallery="gallery1">
+                                                <img src="@($"{NavigationManager.BaseUri}assets/images/media/media-45.jpg")" alt="image" >
+                                            </a>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+                                            <a href="@($"{NavigationManager.BaseUri}assets/images/media/media-46.jpg")" class="glightbox card mb-0" data-gallery="gallery1">
+                                                <img src="@($"{NavigationManager.BaseUri}assets/images/media/media-46.jpg")" alt="image" >
+                                            </a>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+                                            <a href="@($"{NavigationManager.BaseUri}assets/images/media/media-60.jpg")" class="glightbox card mb-0" data-gallery="gallery1">
+                                                <img src="@($"{NavigationManager.BaseUri}assets/images/media/media-60.jpg")" alt="image" >
+                                            </a>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+                                            <a href="@($"{NavigationManager.BaseUri}assets/images/media/media-61.jpg")" class="glightbox card mb-0" data-gallery="gallery1">
+                                                <img src="@($"{NavigationManager.BaseUri}assets/images/media/media-61.jpg")" alt="image" >
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </BlazorOverlayScrollbarsContent>
+                        </BlazorOverlayScrollbars>
+                    </div>
+                </div>
+            </div>
+            <!-- End::chat user details offcanvas -->
+
+        
+        <!-- Gallery JS -->
+        <script src="@($"{NavigationManager.BaseUri}assets/libs/glightbox/js/glightbox.min.js")"></script>
+        <script src="@($"{NavigationManager.BaseUri}assets/js/gallery.js")"></script>
+
+
+@code {
+
+    public class ChatList
+    {
+        public int id { get; set; }
+        public string? img { get; set; }
+        public string? email { get; set; }
+        public string? name { get; set; }
+        public string? lastMsg { get; set; }
+        public bool isOnline { get; set; }
+        public bool isTyping { get; set; }
+        public bool seen { get; set; }
+        public string? unReadMessages { get; set; }
+        public string? lastMessageTime { get; set; }
+        public string? whoslastMsg { get; set; }
+        public string? howisTyping { get; set; }
+        public bool allSeen { get; set; }
+        public bool active { get; set; }
+        
+    }
+    List<ChatList> ActiveChats = new List<ChatList>()
+    {  
+        new ChatList {
+            id= 1, img= "../assets/images/faces/5.jpg", email= "emmajohnson@mail.com", name= "Emma Johnson", lastMsg= "Hey there! How's your day going? &#128522;", active= false, isOnline= true, isTyping= false, seen= true, unReadMessages= "", lastMessageTime= "1:32PM"
+        },
+        new ChatList {
+            id= 2, img= "../assets/images/faces/2.jpg", email= "ameliaturner@mail.com", name= "Amelia Turner", lastMsg= "", active= false, isOnline= true, isTyping= true, seen= true, unReadMessages= "2", lastMessageTime= "12:24PM"
+        },
+        new ChatList {
+            id= 3, img= "../assets/images/faces/10.jpg", email= "samuelharris@mail.com", name= "Samuel Harris", lastMsg= "Just had the best coffee ever! &#9749;", active= false, isOnline= true, isTyping= false, seen= false, unReadMessages= "", lastMessageTime= "1:16PM"
+        },
+        new ChatList {
+            id= 4, img= "../assets/images/faces/8.jpg", email= "ariarobinsoa@mail.com", name= "Aria Robinson", lastMsg= "Guess what? I aced that test!", active= false, isOnline= true, isTyping= false, seen= true, unReadMessages= "", lastMessageTime= "12:45PM"
+        },
+    };
+    List<ChatList> AllChats = new List<ChatList>()
+    {
+        new ChatList {
+            id= 5, img= "../assets/images/faces/11.jpg", email= "loganbrooks@mail.com", name= "Logan Brooks", lastMsg= "Movie night tonight? &#127916;", active= false, isOnline= false, isTyping= false, seen= true, unReadMessages= "", lastMessageTime= "11:54AM"
+        },
+        new ChatList {
+            id= 6, img= "../assets/images/faces/3.jpg", email= "evelynadams@mail.com", name= "Evelyn Adams", lastMsg= "Work is dragging...", active= false, isOnline= false, isTyping= false, seen= true, unReadMessages= "", lastMessageTime= "9:45AM"
+        },
+        new ChatList {
+            id= 7, img= "../assets/images/faces/6.jpg", email= "lilybrown@mail.com", name= "Lily Brown", lastMsg= "Meet for lunch tomorrow?", active= false, isOnline= false, isTyping= false, seen= true, unReadMessages= "", lastMessageTime= "8:31AM"
+        },
+        new ChatList {
+            id= 8, img= "../assets/images/faces/4.jpg", email= "chloelewis@mail.com", name= "Chloe Lewis", lastMsg= "Weekend plans?", active= false, isOnline= false, isTyping= false, seen= true, unReadMessages= "", lastMessageTime= "7:23AM"
+        },
+        new ChatList {
+            id= 9, img= "../assets/images/faces/13.jpg", email= "leophillips@mail.com", name= "Leo Phillips", lastMsg= "Craving pizza right now! &#127829;", active= false, isOnline= false, isTyping= false, seen= true, unReadMessages= "", lastMessageTime= "10:22AM"
+        },
+        new ChatList {
+            id= 10, img= "../assets/images/faces/15.jpg", email= "lucashayes@mail.com", name= "Lucas Hayes", lastMsg= "Got any Netflix recommendations?", active= false, isOnline= false, isTyping= false, seen= true, unReadMessages= "", lastMessageTime= "9:10AM"
+        },
+        };
+    List<ChatList> GroupData = new List<ChatList>()
+    {
+        new ChatList {
+            id= 1, img= "../assets/images/faces/17.jpg", email= "chatMinglecollective &#128525; @mail.com", name= "ChatMingle Collective &#128525;", whoslastMsg= "", lastMsg= "", active= false, isOnline= true, isTyping= true, howisTyping= "Hira", allSeen= false, seen= true, unReadMessages= "2", lastMessageTime= "12:24PM"
+        },
+        new ChatList {
+            id= 2, img= "../assets/images/faces/18.jpg", email= "connectHubcrew@mail.com", name= "ConnectHub Crew", whoslastMsg= "Rams:", lastMsg= "Happy to be part of this group", active= false, isOnline= true, isTyping= false, howisTyping= "", allSeen= true, seen= false, unReadMessages= "", lastMessageTime= "1:16PM"
+        },
+        new ChatList {
+            id= 3, img= "../assets/images/faces/19.jpg", email= "talkTidetribe &#128526; @mail.com", name= "TalkTide Tribe &#128526;", whoslastMsg= "", lastMsg= "Simon, Melissa, Amanda, Patrick, Siddique", active= false, isOnline= false, isTyping= false, howisTyping= "", allSeen= false, seen= true, unReadMessages= "", lastMessageTime= "3 days ago"
+        },
+        new ChatList {
+            id= 4, img= "../assets/images/faces/20.jpg", email= "dialogdynasty@mail.com", name= "DialogDynasty", whoslastMsg= "", lastMsg= "Kamalan, Subha, Ambrose, Kiara, Jackson", active= false, isOnline= false, isTyping= false, howisTyping= "", allSeen= false, seen= true, unReadMessages= "", lastMessageTime= "5 days ago"
+        },
+        new ChatList {
+            id= 5, img= "../assets/images/faces/21.jpg", email= "nexusChatnexus@mail.com", name= "NexusChat Nexus", whoslastMsg= "", lastMsg= "Subman, Rajen, Kairo, Dibasha, Alexa", active= false, isOnline= false, isTyping= false, howisTyping= "", allSeen= false, seen= true, unReadMessages= "", lastMessageTime= "12 days ago"
+        },
+    };
+    
+    
+    ChatList? ActiveUser { get; set; }
+    string? chatUserDetailsRef = "";
+    string? mainChartWrapperRef;
+    protected override void OnInitialized()
+    {
+        ActiveUser = ActiveChats.FirstOrDefault();
+    }
+    private void ShowChat(ChatList Selected)
+    {
+       ActiveUser = Selected;
+       mainChartWrapperRef = "responsive-chat-open";
+
+    }    
+    private void removeChat()
+    {
+        mainChartWrapperRef = "";
+    }
+    private void ShowChatUser()
+    {
+        chatUserDetailsRef = "open";
+    }
+    private void CloseChatUser()
+    {
+        chatUserDetailsRef = "";
+    }
+    
+    public class ContactsList
+    {
+        public int id { get; set; }
+        public string? img { get; set; }
+        public string? name { get; set; }
+        public string? titlename { get; set; }
+        public bool imgavatar {get;set;}
+        public string? avatarname {get;set;}
+        public string? avatarBackgroundColor {get;set;}
+        
+    }
+    List<ContactsList> Contacts = new List<ContactsList>()
+    {  
+        new ContactsList {
+            id= 1, img= "../assets/images/faces/5.jpg", imgavatar = false,  name= "Ava Taylor", titlename= "A",
+        },
+        new ContactsList {
+            id= 2, img= "../assets/images/faces/12.jpg", imgavatar = false,  name= "Benjamin Turner", titlename= "B",
+        },
+        new ContactsList {
+            id= 3, img= "../assets/images/faces/14.jpg", imgavatar = false,  name= "Caleb Rodriguez", titlename= "C",
+        },
+        new ContactsList {
+            id= 4, img= "", avatarBackgroundColor = "avatar avatar-rounded avatar-sm bg-primary", imgavatar = true, avatarname= "DS", name= "Daniel Sullivan", titlename= "D",
+        },
+        new ContactsList {
+            id= 5, img= "../assets/images/faces/7.jpg", imgavatar = false,  name= "Emma Johnson", titlename= "E",
+        },
+        new ContactsList {
+            id= 6, img= "../assets/images/faces/15.jpg", imgavatar = false,  name= "Jackson Rivera", titlename= "J",
+        },
+        new ContactsList {
+            id= 7, img= "", avatarBackgroundColor = "avatar avatar-rounded avatar-sm bg-primary", imgavatar = true, avatarname= "LB",  name= "Lily Brown", titlename= "L",
+        },
+        new ContactsList {
+            id= 8, img= "../assets/images/faces/10.jpg", imgavatar = false,  name= "Noah Russell", titlename= "N",
+        },
+        new ContactsList {
+            id= 9, img= "../assets/images/faces/16.jpg", imgavatar = false,  name= "Wyatt Thompson", titlename= "W",
+        },
+    };
+}

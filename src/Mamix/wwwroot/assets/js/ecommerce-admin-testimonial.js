@@ -1,0 +1,22 @@
+(function () {
+    'use strict';
+
+    /* On hover event */
+    var starRating5 = raterJs({
+        starSize: 20,
+        reverse: true,
+        element: document.querySelector("#stars-hover"),
+        rateCallback: function rateCallback(rating, done) {
+            this.setRating(rating);
+            done();
+        },
+        onHover: function (currentIndex, currentRating) {
+            document.querySelector('.live-rating').textContent = currentIndex;
+        },
+        onLeave: function (currentIndex, currentRating) {
+            document.querySelector('.live-rating').textContent = currentRating;
+        }
+    });
+    /* On hover event */
+
+})();

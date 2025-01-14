@@ -1,0 +1,86 @@
+﻿@page "/vendedormanager"
+
+@using Radzen
+@using Radzen.Blazor
+
+
+@using GeneralLabSolutions.WebAPI.DTOs
+@using mamix.Services.Vendedores
+@inject Microsoft.AspNetCore.Components.NavigationManager NavigationManager // This line is used to generate URLs dynamically //
+
+@inject IVendedorService _vendedorService
+
+
+
+<!-- Page Header -->
+<div class="my-4 page-header-breadcrumb d-flex align-items-center justify-content-between flex-wrap gap-2">
+    <div>
+        <h1 class="page-title fw-medium fs-18 mb-2">Vendedores</h1>
+        <div class="">
+            <nav>
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="javascript:void(0);">Cadastro</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Lista de vendedores</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+</div>
+<!-- Page Header Close -->
+
+
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card custom-card">
+            <div class="card-header">
+                <div class="card-title">
+                    Lista de Vendedores
+                </div>
+            </div>
+            <div class="card-body">
+
+
+
+                @if (vendedores == null)
+                {
+                    <p>Carregando Vendedores...</p>
+
+                } else
+                {
+                    <RadzenDataGrid Data="@vendedores"
+                                    ColumnWidth="200px"
+                                    AllowPaging="true" PageSize="10"
+                                    AllowSorting="true"
+                                    AllowFiltering="true">
+
+                        <Columns>
+                            <RadzenDataGridColumn Property="@nameof(VendedorGridDto.Nome)" Title="Nome" />
+                            <RadzenDataGridColumn Property="@nameof(VendedorGridDto.Email)" Title="Email" />
+                            <RadzenDataGridColumn Property="@nameof(VendedorGridDto.Documento)" Title="Documento" />
+                            <RadzenDataGridColumn Property="@nameof(VendedorGridDto.Id)" Title="ID" />
+                            <RadzenDataGridColumn Property="@nameof(VendedorGridDto.TipoDePessoa)" Title="Tipo de Pessoa" />
+                        </Columns>
+                    </RadzenDataGrid>
+                }
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@code {
+    private IEnumerable<VendedorGridDto>? vendedores;
+
+    protected override async Task OnInitializedAsync()
+    {
+        vendedores = await _vendedorService.ObterVendedoresAsync();
+        Console.WriteLine($"Vendedores carregados: {JsonSerializer.Serialize(vendedores)}");
+    }
+}

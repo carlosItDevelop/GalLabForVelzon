@@ -1,0 +1,40 @@
+﻿@model IEnumerable<GeneralLabSolutions.Domain.Entities.GerenciadorDeFluxoKanban>
+@using GeneralLabSolutions.Domain.Entities
+
+<div class="tasks-board mb-3" id="kanbanboard">
+    @foreach (var status in new [] { "Unassigned", "ToDo", "Inprogress", "InReviews", "Completed", "New" })
+    {
+        <div class="tasks-list">
+            <div class="d-flex mb-3">
+                <div class="flex-grow-1">
+                    <h6 class="fs-14 text-uppercase fw-semibold mb-0">
+                        @if (status == "Todo")
+                        {
+                            @:To Do <small class="badge bg-secondary align-bottom ms-1 totaltask-badge">0</small>
+                        } else if (status == "InReviews")
+                        {
+                            @:In Reviews <small class="badge bg-info align-bottom ms-1 totaltask-badge">0</small>
+                        } else
+                        {
+                            @status <small class="badge bg-danger align-bottom ms-1 totaltask-badge">0</small>
+                        }
+                    </h6>
+                </div>
+                <div class="flex-shrink-0">
+                </div>
+            </div>
+            <div data-simplebar class="tasks-wrapper px-3 mx-n3">
+                <div id="@(status.ToLower())-task" class="tasks">
+                </div>
+            </div>
+            <div class="my-3">
+                <button class="btn btn-soft-info w-100"
+                        data-bs-toggle="modal"
+                        data-bs-target="#creatertaskModal"
+                        data-status="@status">
+                    Add More
+                </button>
+            </div>
+        </div>
+    }
+</div>

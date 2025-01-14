@@ -1,0 +1,233 @@
+@page "/ecommerce-customer-address"
+@layout mamix.Shared.Ecommerce.MainLayout
+@inject Microsoft.AspNetCore.Components.NavigationManager NavigationManager // This line is used to generate URLs dynamically //
+
+
+        <!-- Tom Select CSS -->
+        <link rel="stylesheet" href="@($"{NavigationManager.BaseUri}assets/libs/tom-select/css/tom-select.bootstrap5.min.css")">
+
+
+            <!-- Start::app-content -->
+            <div class="main-content landing-main ecommerce-main">
+
+                <!-- Start:: Breadcrumb-->
+                <div class="border-bottom py-3">
+                    <div class="container">
+                        <div class="d-md-flex d-block align-items-center justify-content-between page-header-breadcrumb">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb mb-0">
+                                    <li class="breadcrumb-item"><a href="javascript:void(0);">Apps</a></li>
+                                    <li class="breadcrumb-item"><a href="javascript:void(0);">Ecommerce</a></li>
+                                    <li class="breadcrumb-item"><a href="javascript:void(0);">Customer</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Address</li>
+                                </ol>
+                            </nav>
+                            <p class="mb-0">
+                                <span class="text-muted">Updated on </span> Yesterday
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- End:: Breadcrumb-->
+
+                <!-- Start:: Section-1 -->
+                <section class="section py-4">
+                    <div class="container"> 
+                        <div class="row">
+                            <div class="col-xl-3">
+                                <div class="card custom-card">
+                                    <div class="d-sm-flex align-items-center p-3">
+                                        <div>
+                                            <span class="avatar avatar-lg avatar-rounded online me-3">
+                                                <img src="@($"{NavigationManager.BaseUri}assets/images/faces/9.jpg")" alt="">
+                                            </span>
+                                        </div>
+                                        <div class="main-profile-info flex-fill">
+                                            <h6 class="fw-semibold mb-1">Jack Miller <i class="bi bi-check-circle-fill text-success fs-14" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Verified User"></i></h6>
+                                            <p class="mb-0">Member Since 2005</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card custom-card">
+                                    <div class="card-body p-0">
+                                        <nav class="nav nav-tabs flex-column candidateprofile-nav"> 
+                                            <a class="nav-link" href="/ecommerce-customer">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><rect x="32" y="72" width="192" height="136" rx="8" opacity="0.2"/><rect x="32" y="72" width="192" height="136" rx="8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><path d="M88,96V64a40,40,0,0,1,80,0V96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/></svg>My Orders</a>
+                                            <a class="nav-link" href="/ecommerce-customer-wishlist">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><path d="M128,224S24,168,24,102A54,54,0,0,1,78,48c22.59,0,41.94,12.31,50,32,8.06-19.69,27.41-32,50-32a54,54,0,0,1,54,54C232,168,128,224,128,224Z" opacity="0.2"/><path d="M128,224S24,168,24,102A54,54,0,0,1,78,48c22.59,0,41.94,12.31,50,32,8.06-19.69,27.41-32,50-32a54,54,0,0,1,54,54C232,168,128,224,128,224Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/></svg>My Wishlist</a>
+                                            <a class="nav-link" href="/ecommerce-customer-ordertracking">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><circle cx="200" cy="200" r="24" opacity="0.2"/><circle cx="200" cy="200" r="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><path d="M72,56h96a32,32,0,0,1,0,64H72a40,40,0,0,0,0,80H176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/></svg>Order Tracking</a>
+                                            <a class="nav-link" href="/ecommerce-customer-refunds">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><path d="M128,128h24a40,40,0,0,1,0,80H128Z" opacity="0.2"/><path d="M128,48H112a40,40,0,0,0,0,80h16Z" opacity="0.2"/><line x1="128" y1="24" x2="128" y2="48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="128" y1="208" x2="128" y2="232" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><path d="M184,88a40,40,0,0,0-40-40H112a40,40,0,0,0,0,80h40a40,40,0,0,1,0,80H104a40,40,0,0,1-40-40" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/></svg>Refunds</a>
+                                            <a class="nav-link active" href="/ecommerce-customer-address">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><path d="M208,32H64a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H208a8,8,0,0,0,8-8V40A8,8,0,0,0,208,32ZM136,144a32,32,0,1,1,32-32A32,32,0,0,1,136,144Z" opacity="0.2"/><circle cx="136" cy="112" r="32" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="32" y1="72" x2="56" y2="72" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="32" y1="128" x2="56" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="32" y1="184" x2="56" y2="184" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><path d="M88,168a60,60,0,0,1,96,0" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><rect x="40" y="48" width="192" height="160" rx="8" transform="translate(264 -8) rotate(90)" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/></svg>Address Book</a>
+                                            <a class="nav-link" href="/ecommerce-customer-settings">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><path d="M230.1,108.76,198.25,90.62c-.64-1.16-1.31-2.29-2-3.41l-.12-36A104.61,104.61,0,0,0,162,32L130,49.89c-1.34,0-2.69,0-4,0L94,32A104.58,104.58,0,0,0,59.89,51.25l-.16,36c-.7,1.12-1.37,2.26-2,3.41l-31.84,18.1a99.15,99.15,0,0,0,0,38.46l31.85,18.14c.64,1.16,1.31,2.29,2,3.41l.12,36A104.61,104.61,0,0,0,94,224l32-17.87c1.34,0,2.69,0,4,0L162,224a104.58,104.58,0,0,0,34.08-19.25l.16-36c.7-1.12,1.37-2.26,2-3.41l31.84-18.1A99.15,99.15,0,0,0,230.1,108.76ZM128,168a40,40,0,1,1,40-40A40,40,0,0,1,128,168Z" opacity="0.2"/><circle cx="128" cy="128" r="40" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><path d="M130.05,206.11c-1.34,0-2.69,0-4,0L94,224a104.61,104.61,0,0,1-34.11-19.2l-.12-36c-.71-1.12-1.38-2.25-2-3.41L25.9,147.24a99.15,99.15,0,0,1,0-38.46l31.84-18.1c.65-1.15,1.32-2.29,2-3.41l.16-36A104.58,104.58,0,0,1,94,32l32,17.89c1.34,0,2.69,0,4,0L162,32a104.61,104.61,0,0,1,34.11,19.2l.12,36c.71,1.12,1.38,2.25,2,3.41l31.85,18.14a99.15,99.15,0,0,1,0,38.46l-31.84,18.1c-.65,1.15-1.32,2.29-2,3.41l-.16,36A104.58,104.58,0,0,1,162,224Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/></svg>Settings</a>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-9">
+                                <div class="d-flex align-items-center justify-content-between flex-wrap mb-4 gap-2">
+                                    <div>
+                                        <h5 class="fw-semibold mb-0">My Addresses</h5>                                    
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add-newaddress-modal"> <i class="ti ti-plus ms-1"></i> Add New Address</button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="card custom-card card-style-6">
+                                            <div class="card-body p-3">
+                                                <div class="d-flex align-items-center justify-content-between mb-3">
+                                                    <div class="flex-grow-1">
+                                                        <div class="d-flex align-items-center gap-2 card-style-6-avatar">
+                                                            <div class="min-w-fit-content">
+                                                                <span class="avatar rounded-circle"><i class="ti ti-home fs-16"></i></span>
+                                                            </div>
+                                                            <h6 class="fs-16 mb-0 fw-semibold">Home</h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="min-w-fit-content">
+                                                        <div class="d-flex gap-2">
+                                                            <input class="form-check-input" type="radio" id="address1" name="default-address" checked>
+                                                            <label class="form-check-label cursor-pointer" for="address1">Default</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <h6 class="mb-1 fw-semibold">Ruby Disousa</h6>
+                                                <p class="mb-1 fw-500 fs-13">rubyakuner&#64;ginna.mail</p>
+                                                <p class="mb-2 fw-500 fs-13">+11-23-1116773</p>
+                                                <p class="mb-0">
+                                                    H.No: 3-116/458, Golden Park, Marias St.,
+                                                    Near 12Amet Residency, 14756, United States Of America
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card custom-card card-style-6">
+                                            <div class="card-body p-3">
+                                                <div class="d-flex align-items-center justify-content-between mb-3">
+                                                    <div class="flex-grow-1">
+                                                        <div class="d-flex align-items-center gap-2 card-style-6-avatar">
+                                                            <div class="min-w-fit-content">
+                                                                <span class="avatar rounded-circle"><i class="ti ti-briefcase fs-16"></i></span>
+                                                            </div>
+                                                            <h6 class="fs-16 mb-0 fw-semibold">Work</h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="min-w-fit-content">
+                                                        <div class="d-flex gap-2">
+                                                            <input class="form-check-input" type="radio" id="address2" name="default-address">
+                                                            <label class="form-check-label cursor-pointer" for="address2">Default</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <h6 class="mb-1 fw-semibold">Ruby Disousa</h6>
+                                                <p class="mb-1 fw-500 fs-13">rubyakuner&#64;ginna.mail</p>
+                                                <p class="mb-2 fw-500 fs-13">+11-23-1116773</p>
+                                                <p class="mb-0">
+                                                    Taj Building, 3rd Floor, Room No: 3, Silver St.,
+                                                    Adugiahsuk, LICE, 14756, United States Of America
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section> 
+                <!-- End:: Section-1 -->
+
+                <!-- Start:: Section-2 -->
+                <section class="section bg-banner px-lg-0 px-4">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6 text-center">
+                            <div class="mb-4">
+                                <h3 class="fw-semibold mb-2 text-fixed-white">&#128073; Download our free mobile apps today</h3>
+                            </div>
+                            <h6 class="mb-4 op-9 text-fixed-white">Labore no sed ipsum ipsum nonumy. Sit ipsum sanctus ea magna est. Kasd diam rebum sit ipsum ipsum erat et kasd.Est amet sit vero sanctus labore no sed ipsum ipsum nonumy vero sanctus labore..</h6>
+                            <div class="btn-list">
+                                <a href="javascript:void(0);" class="btn btn-dark app-store">
+                                    <img src="@($"{NavigationManager.BaseUri}assets/images/media/apps/play-store.png")" alt="">
+                                    Google Play
+                                </a>
+                                <a href="javascript:void(0);" class="btn btn-dark app-store">
+                                    <img src="@($"{NavigationManager.BaseUri}assets/images/media/apps/apple-store.png")" alt="" class="invert-1">
+                                    App Store
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- End:: Section-2 -->
+
+            </div>
+            <!-- End::app-content -->
+
+            <!-- Start:: Add New Address Modal -->
+            <div class="modal modal-lg fade" id="add-newaddress-modal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Add New Address</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row gy-4">
+                            <div class="col-xl-6">
+                                <label for="First-name" class="form-label">First Name</label>
+                                <input type="text" class="form-control" id="First-name" placeholder="First Name" value="Jack Miller">
+                            </div>
+                            <div class="col-xl-6">
+                                <label for="Last-Name" class="form-label">Last Name</label> 
+                                <input type="text" class="form-control" id="Last-Name" placeholder="Last Name" value="andrewretail">
+                            </div> 
+                            <div class="col-xl-6">
+                                <label for="email-address" class="form-label">Email Address :</label>
+                                <input type="text" class="form-control" id="email-address" placeholder="xyz&#64;gmail.com" value="json&#64;gmail.com">
+                            </div>
+                            <div class="col-xl-6">
+                                <label for="phone-number" class="form-label">Mobile Number :</label>
+                                <input type="text" class="form-control" id="phone-number" placeholder="*** *** ****" value="65432 76765">
+                            </div>
+                            <div class="col-xl-6">
+                                <label for="Country" class="form-label">Country :</label>
+                                <select class="form-control tomselect" data-trigger name="Country" id="Country">
+                                    <option value="Choice 1">India</option>
+                                    <option value="Choice 2">Germany</option>
+                                    <option value="Choice 3">France</option>
+                                    <option value="Choice 4">USA</option>
+                                    <option value="Choice 5">Argentina</option>
+                                </select>
+                            </div>
+                            <div class="col-xl-6">
+                                <label for="State" class="form-label">State :</label>
+                                <input type="text" class="form-control" id="State" placeholder="State">
+                            </div>
+                            <div class="col-xl-6">
+                                <label for="Address" class="form-label">Address :</label>
+                                <input type="text" class="form-control" id="Address" placeholder="Address" value="H.No: 3-116/458, Golden Park, USA">
+                            </div>
+                            <div class="col-xl-6">
+                                <label for="Zip-Code" class="form-label">Zip Code :</label>
+                                <input type="text" class="form-control" id="Zip-Code" placeholder="Zip Code" value="1234">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Add Address</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <!-- End:: Add New Address Modal -->
+		
+
+        <!-- TomSelect JS -->
+        <script src="@($"{NavigationManager.BaseUri}assets/libs/tom-select/js/tom-select.complete.min.js")"></script>
+        <script src="@($"{NavigationManager.BaseUri}assets/js/tomselect.js")"></script>

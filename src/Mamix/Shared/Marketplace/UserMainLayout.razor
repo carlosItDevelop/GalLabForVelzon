@@ -1,0 +1,65 @@
+@inherits LayoutComponentBase
+@namespace mamix.Shared.Marketplace
+@inject IJSRuntime JSRuntime
+@inject StateService stateService
+@inject SessionService _sessionService
+@inject Microsoft.AspNetCore.Components.NavigationManager NavigationManager // This line is used to generate URLs dynamically //
+
+<mamix.Shared.Marketplace.Switcher />
+
+<div class="landing-page-wrapper">
+
+        <mamix.Shared.Marketplace.UserMainHeader />
+
+        <mamix.Shared.Marketplace.UserNavMenu />
+
+        @Body
+
+        <mamix.Shared.Marketplace.Footer />
+
+        @if (ShowButton)
+        {
+            <!-- Scroll To Top -->
+            <div class="scrollToTop"  @onclick="ScrollToTop">
+                <span class="arrow lh-1"><i class="ti ti-caret-up fs-20"></i></span>
+            </div>
+            <!-- Scroll To Top -->
+        }
+
+</div>
+
+@code {
+
+    bool ShowButton { get; set; } = false;
+    protected override async Task OnInitializedAsync()
+    {
+        await stateService.InitializeLandingAppState1();
+        
+        
+        await base.OnInitializedAsync();
+    
+    }
+      protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            var currentState = new AppState();
+            var newState = stateService.GetAppState(); 
+            if(!currentState.Equals(newState)){
+                await stateService.retrieveFromLandingLocalStorage1();
+            }
+            StateHasChanged();
+            await JSRuntime.InvokeVoidAsync("interop.updateScrollVisibility", DotNetObjectReference.Create(this));
+        }
+    }
+    [JSInvokable]
+    public void UpdateScrollVisibility(int scrollHeight)
+    {
+        ShowButton = scrollHeight >= 100;
+        StateHasChanged();
+    }
+    async Task ScrollToTop()
+    {
+        await JSRuntime.InvokeVoidAsync("interop.scrollToTop");
+    }
+}

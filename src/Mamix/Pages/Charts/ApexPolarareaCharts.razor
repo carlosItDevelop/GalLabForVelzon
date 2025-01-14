@@ -1,0 +1,178 @@
+@page "/apex-polararea-charts"
+@using ApexCharts
+@inject Microsoft.AspNetCore.Components.NavigationManager NavigationManager // This line is used to generate URLs dynamically //
+
+
+
+                    <!-- Page Header -->
+                    <div class="my-4 page-header-breadcrumb d-flex align-items-center justify-content-between flex-wrap gap-2">
+                        <div>
+                            <h1 class="page-title fw-medium fs-18 mb-2">Apex Polar Area Charts</h1>
+                            <div class="">
+                                <nav>
+                                    <ol class="breadcrumb mb-0">
+                                        <li class="breadcrumb-item"><a href="javascript:void(0);">Charts</a></li>
+                                        <li class="breadcrumb-item"><a href="javascript:void(0);">Apex Charts</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Apex Polar Area Charts</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="btn-list">
+                            <button class="btn btn-primary-light btn-wave me-2">
+                                <i class="bx bx-crown align-middle"></i> Plan Upgrade
+                            </button>
+                            <button class="btn btn-secondary-light btn-wave me-0">
+                                <i class="ri-upload-cloud-line align-middle"></i> Export Report
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Page Header Close -->
+
+                    <!-- Start::row-1 -->
+                    <div class="row">
+                        <div class="col-xl-6">
+                            <div class="card custom-card">
+                                <div class="card-header">
+                                    <div class="card-title">Basic Polar Area Chart</div>
+                                </div>
+                                <div class="card-body">
+                                    <div id="polararea-basic">
+                                        <ApexChart TItem="PolarAreachart" Height="300" Options=PolarAreaChartOptions>
+                                            <ApexPointSeries TItem="PolarAreachart" Items="PolarAreaItems"
+                                                SeriesType="SeriesType.PolarArea" XValue="@(e => e.Source)"
+                                                YAggregate="@(e => e.Sum(e => e.SeriesValue))"
+                                                Stroke="@(new ApexCharts.SeriesStroke {Color = "#fff", Width = 2 })" />
+                                        </ApexChart>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="card custom-card">
+                                <div class="card-header">
+                                    <div class="card-title">Polar Area Monochrome Chart</div>
+                                </div>
+                                <div class="card-body">
+                                    <div id="polararea-monochrome">
+                                        <ApexChart TItem="MonochromePolarAreachart" Height="300" Options=MonochromePolarAreaChartOptions>
+                                            <ApexPointSeries TItem="MonochromePolarAreachart" Items="MonochromePolarAreaItems"
+                                                SeriesType="SeriesType.PolarArea" XValue="@(e => e.MonochromeSeriesData)"
+                                                YAggregate="@(e => e.Sum(e => e.MonochromeSeriesValue))"
+                                                Stroke="@(new ApexCharts.SeriesStroke {Width = 1 })" />
+                                        </ApexChart>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End::row-1 -->
+
+
+@code {
+    // PolarAreaItems Start //
+    private List<PolarAreachart> PolarAreaItems { get; set; } = DataPolarAreachart.PolarAreaItems();
+    private ApexChartOptions<PolarAreachart> PolarAreaChartOptions { get; set; } = new();
+    public static class DataPolarAreachart
+    {
+        public static List<PolarAreachart> PolarAreaItems()
+        {
+            // Sample data for PolarAreaItems
+            List<PolarAreachart> PolarAreaItems = new List<PolarAreachart>
+            {
+                new PolarAreachart { SeriesValue = 14, Source = "Series1" },
+                new PolarAreachart { SeriesValue = 23, Source = "Series2" },
+                new PolarAreachart { SeriesValue = 21, Source = "Series3" },
+                new PolarAreachart { SeriesValue = 17, Source = "Series4" },
+                new PolarAreachart { SeriesValue = 15, Source = "Series5" },
+                new PolarAreachart { SeriesValue = 10, Source = "Series6" },
+                new PolarAreachart { SeriesValue = 12, Source = "Series7" },
+                new PolarAreachart { SeriesValue = 17, Source = "Series8" },
+                new PolarAreachart { SeriesValue = 21, Source = "Series9" },
+            };
+
+            return PolarAreaItems;
+        }
+    }
+    public class PolarAreachart
+    {
+        public string? Source { get; set; }
+        public int SeriesValue { get; set; }
+    }
+    // PolarAreaItems End //
+
+    // MonochromePolarAreaItems Start //
+    private List<MonochromePolarAreachart> MonochromePolarAreaItems { get; set; } = DataMonochromePolarAreachart.MonochromePolarAreaItems();
+    private ApexChartOptions<MonochromePolarAreachart> MonochromePolarAreaChartOptions { get; set; } = new();
+    public static class DataMonochromePolarAreachart
+    {
+        public static List<MonochromePolarAreachart> MonochromePolarAreaItems()
+        {
+            // Sample data for MonochromePolarAreaItems
+            List<MonochromePolarAreachart> MonochromePolarAreaItems = new List<MonochromePolarAreachart>
+            {
+                    new MonochromePolarAreachart { MonochromeSeriesValue = 42, MonochromeSeriesData = "Rose A" },
+                    new MonochromePolarAreachart { MonochromeSeriesValue = 47, MonochromeSeriesData = "Rose B" },
+                    new MonochromePolarAreachart { MonochromeSeriesValue = 52, MonochromeSeriesData = "Rose C" },
+                    new MonochromePolarAreachart { MonochromeSeriesValue = 58, MonochromeSeriesData = "Rose D" },
+                new MonochromePolarAreachart { MonochromeSeriesValue = 65, MonochromeSeriesData = "Rose E" },
+            };
+
+            return MonochromePolarAreaItems;
+        }
+    }
+    public class MonochromePolarAreachart
+    {
+        public string? MonochromeSeriesData { get; set; }
+        public int MonochromeSeriesValue { get; set; }
+    }
+    // MonochromePolarAreaItems End //
+    
+    protected override void OnInitialized() {
+        PolarAreaChartOptions = new ApexChartOptions<PolarAreachart>
+        {
+            Colors = new Color(new List<string> { "#546dfe", "#d77cf7", "#f4a742", "#0ca3e7", "#fe5454", "#0cd7b1", "#fe7c58", "#0ca3e7", "#7b76fe" }),
+
+            Legend = new Legend
+            {
+                Position = LegendPosition.Bottom
+            }
+
+        };
+        MonochromePolarAreaChartOptions = new ApexChartOptions<MonochromePolarAreachart>
+        {
+
+            Legend = new Legend
+            {
+                Position = LegendPosition.Bottom
+            },
+           Fill = new Fill {
+                Opacity = 1
+            },
+             PlotOptions = new PlotOptions 
+            {
+                PolarArea = new PlotOptionsPolarArea 
+                { 
+                    Rings = new ()
+                    {
+                        StrokeWidth = 0
+                    },
+                    Spokes = new ()
+                    {
+                        StrokeWidth = 0
+                    }
+                }
+            },
+            Theme = new Theme {
+                Mode = Mode.Light,
+                Monochrome = new ThemeMonochrome  {
+                    Enabled= true,
+                    ShadeIntensity = 0.6,
+                    Color= "#546dfe",
+                }
+            }
+
+        };
+    }
+
+}

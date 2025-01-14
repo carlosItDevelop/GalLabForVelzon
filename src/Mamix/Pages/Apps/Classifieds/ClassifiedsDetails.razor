@@ -1,0 +1,811 @@
+@page "/classifieds-details"
+@layout mamix.Shared.Classifieds.MainLayout
+@inject IJSRuntime JSRuntime
+@inject Microsoft.AspNetCore.Components.NavigationManager NavigationManager // This line is used to generate URLs dynamically //
+
+
+        <!-- GLightbox CSS -->
+        <link rel="stylesheet" href="@($"{NavigationManager.BaseUri}assets/libs/glightbox/css/glightbox.min.css")">
+
+        <!-- SlickCarousel CSS -->
+        <link href="_content/WMBlazorSlickCarousel/WMBlazorSlickCarousel.bundle.scp.css" rel="stylesheet">
+      
+
+            <div class="main-content landing-main px-0">
+
+                <!-- Start:: Breadcrumb-->
+                <div class="border-bottom border-top py-3 bg-white">
+                    <div class="container">
+                        <div class="d-md-flex d-block align-items-center justify-content-between page-header-breadcrumb">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb mb-0">
+                                    <li class="breadcrumb-item"><a href="javascript:void(0);">Apps</a></li>
+                                    <li class="breadcrumb-item"><a href="javascript:void(0);">Classifieds</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Classified Details</li>
+                                </ol>
+                            </nav>
+                            <p class="mb-0">
+                                <span class="text-muted">Updated on </span> Yesterday
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- End:: Breadcrumb-->
+
+                <!-- Start:: Section-1 -->
+                <section class="section py-4">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-8"> 
+                                <div class="card custom-card">                                    
+                                    <div class="">
+                                        <a href="javascript:void(0);" class="btn btn-sm btn-icon btn-primary rounded-circle top-wishlist-icon" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Add to wishlist" data-bs-original-title="Add to wishlist"><i class="ri-heart-line"></i></a>
+                                        <a href="@($"{NavigationManager.BaseUri}assets/images/classifieds/classify-gallery/1.jpg")" class="glightbox card border-0 mb-0" data-gallery="gallery1" data-title="Cadbo Car kb43 (1/5)" data-type="image" data-draggable="true"> 
+                                            <div class="classify-gallery">
+                                                <span class="badge bg-warning tag-badge">Featured</span>
+                                                <span class="btn btn-white-transparent backdrop-blur classifyimage-btn rounded-pill"><i class="ri-image-line me-2 bg-primary text-fixed-white feature-icons border-0"></i>5 Images</span>
+                                                <img src="@($"{NavigationManager.BaseUri}assets/images/classifieds/classify-gallery/1.jpg")" alt="image">
+                                            </div>
+                                        </a>                                 
+                                        <!-- Start::row-1 -->
+                                        <div class="row ad-gallery">
+                                            <div class="col-xl-3">
+                                                <a href="@($"{NavigationManager.BaseUri}assets/images/classifieds/classify-gallery/2.jpg")" class="glightbox card" data-gallery="gallery1" data-title="Cadbo Car kb43 (2/5)" data-type="image" data-draggable="true">
+                                                    <img src="@($"{NavigationManager.BaseUri}assets/images/classifieds/classify-gallery/2.jpg")" alt="image">
+                                                </a>
+                                            </div>
+                                            <div class="col-xl-3">
+                                                <a href="@($"{NavigationManager.BaseUri}assets/images/classifieds/classify-gallery/3.jpg")" class="glightbox card" data-gallery="gallery1" data-title="Gittbos Bike Mf120 (3/5)" data-type="image" data-draggable="true">
+                                                    <img src="@($"{NavigationManager.BaseUri}assets/images/classifieds/classify-gallery/3.jpg")" alt="image">
+                                                </a>
+                                            </div>
+                                            <div class="col-xl-3">
+                                                <a href="@($"{NavigationManager.BaseUri}assets/images/classifieds/classify-gallery/4.jpg")" class="glightbox card" data-gallery="gallery1" data-title="Fed Dog (4/5)" data-type="image" data-draggable="true">
+                                                    <img src="@($"{NavigationManager.BaseUri}assets/images/classifieds/classify-gallery/4.jpg")" alt="image">
+                                                </a>
+                                            </div>
+                                            <div class="col-xl-3">
+                                                <a href="@($"{NavigationManager.BaseUri}assets/images/classifieds/classify-gallery/5.jpg")" class="glightbox card" data-gallery="gallery1" data-title="4 Beds Duplex House (5/5)" data-type="image" data-draggable="true">
+                                                    <img src="@($"{NavigationManager.BaseUri}assets/images/classifieds/classify-gallery/5.jpg")" alt="image">
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <!--End::row-1 -->
+                                    </div>
+                                    <div class="card-body">
+                                        <h4 class="fw-medium">Cadbo Car kb43 (2020)</h4>
+                                        <div class="d-flex flex-wrap gap-4">
+                                            <div class="">
+                                                <p class="fs-14 mb-0">
+                                                    <span class="avatar avatar-sm avatar-rounded me-2 bg-light text-default">
+                                                        <i class="ri-oil-line fs-13"></i>
+                                                    </span>
+                                                    Diesel
+                                                </p>
+                                            </div>
+                                            <div class="">
+                                                <p class="fs-14 mb-0">
+                                                    <span class="avatar avatar-sm avatar-rounded me-2 bg-light text-default">
+                                                        <i class="ri-time-line fs-13"></i>
+                                                    </span>
+                                                    124500 km
+                                                </p>
+                                            </div>
+                                            <div class="">
+                                                <p class="fs-14 mb-0">
+                                                    <span class="avatar avatar-sm avatar-rounded me-2 bg-light text-default">
+                                                        <i class="ri-git-branch-line fs-13"></i>
+                                                    </span>
+                                                    Manual
+                                                </p>
+                                            </div>
+                                            <div class="">
+                                                <p class="fs-14 mb-0">
+                                                    <span class="avatar avatar-sm avatar-rounded me-2 bg-light text-default">
+                                                        <i class="ri-map-pin-line fs-13"></i>
+                                                    </span>
+                                                    USA , 16 Nov 2024
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card custom-card">
+                                    <div class="card-body">
+                                        <h5 class="fw-medium mb-3">Description</h5>
+                                        <p>Est amet sit vero sanctus labore no sed ipsum ipsum nonumy. Sit ipsum sanctus ea magna est. Aliquyam sed amet. Kasd diam rebum sit ipsum ipsum erat et kasd.Est amet sit vero sanctus labore no sed ipsum ipsum nonumy vero sanctus labore.A officiis optio temporibus minima facilis...</p>
+                                        <table class="table row table-borderless w-100 text-nowrap ">
+                                            <tbody class="col-lg-12 col-xl-4 p-0">
+                                                <tr>
+                                                    <td><span class="fw-medium"><i class="bi bi-check-circle text-primary me-2"></i>Posted Date :</span> 25 Dec 2022</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="fw-medium"><i class="bi bi-check-circle text-primary me-2"></i>Seller Type :</span> Private Seller</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="fw-medium"><i class="bi bi-check-circle text-primary me-2"></i>Model :</span> modelH7</td>
+                                                </tr>
+                                            </tbody>
+                                            <tbody class="col-lg-12 col-xl-4 p-0">
+                                                <tr>
+                                                    <td><span class="fw-medium"><i class="bi bi-check-circle text-primary me-2"></i>Kilometres :</span> 452000</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="fw-medium"><i class="bi bi-check-circle text-primary me-2"></i>Breaks :</span> Front , Rear</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="fw-medium"><i class="bi bi-check-circle text-primary me-2"></i>Air Bags :</span> Available</td>
+                                                </tr>
+                                            </tbody>
+                                            <tbody class="col-lg-12 col-xl-4 p-0">
+                                                <tr>
+                                                    <td><span class="fw-medium"><i class="bi bi-check-circle text-primary me-2"></i>Colors :</span> Red , pink, Gray</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="fw-medium"><i class="bi bi-check-circle text-primary me-2"></i>Engine :</span> F8D </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="fw-medium"><i class="bi bi-check-circle text-primary me-2"></i>Power Windows :</span> Available </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="card custom-card border bg-primary-transparent shadow-none border-0">
+                                    <div class="card-body">
+                                        <div class="row align-items-center gy-2">
+                                            <div class="col-md-8 col-lg-6">
+                                                <h5 class="fw-medium mb-0">&#128400; Was this Ad useful to someone?</h5>
+                                            </div>
+                                            <div class="col-md-4 col-lg-6 text-md-end">
+                                                <a href="javascript:void(0);" class="btn btn-success" role="button">
+                                                    <i class="ri-share-line me-2"></i>Share Now
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div class="row mt-5 g-1 stocks-slide px-0">
+                                    <h4 class="fw-medium mb-0">Related Ads</h4>
+                                    <p class="">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+                                    <BlazorSlickCarousel Configurations="ResponsiveConfigurations">
+                                        <BlazorSlickCarouselContent>
+                                            <div class="Carousel-slide">
+                                                <div class="card custom-card overflow-hidden">
+                                                    <span class="badge bg-warning tag-badge">Featured</span>
+                                                    <a href="javascript:void(0)">
+                                                        <div class="featured-img">
+                                                            <img src="@($"{NavigationManager.BaseUri}assets/images/classifieds/featured-adds/1.jpg")" class="" alt="...">
+                                                        </div>
+                                                    </a>
+                                                    <div class="card-body p-3 position-relative">
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="flex-fill">
+                                                                <h5 class="mb-0 fw-medium"><span>$2,226.00</span></h5>
+                                                                <p class="mb-1 fw-medium">4-Bds - 4 Ba - 600ff3</p>
+                                                            </div>
+                                                            <a href="javascript:void(0);" class="btn btn-sm btn-icon btn-outline-light rounded-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to wishlist"><i class="ri-heart-fill op-3"></i></a>
+                                                        </div>
+                                                        <div class="text-muted mb-2">4 Beds Duplex House</div>
+                                                        <div class="fs-11 text-muted">
+                                                            <span class=""><i class="bi bi-geo-alt me-1"></i>USA</span>
+                                                            <span>,</span>
+                                                            <span class="">16 Nov 2024</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="Carousel-slide">
+                                                <div class="card custom-card overflow-hidden sold-out">
+                                                    <span class="badge bg-danger tag-badge">Sold Out</span>
+                                                    <a href="javascript:void(0)">
+                                                        <div class="featured-img">
+                                                            <img src="@($"{NavigationManager.BaseUri}assets/images/classifieds/featured-adds/2.jpg")" class="" alt="...">
+                                                        </div>
+                                                    </a>
+                                                    <div class="card-body p-3 position-relative">
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="flex-fill">
+                                                                <h5 class="mb-0 fw-medium"><span>$5,321.00</span></h5>
+                                                                <p class="mb-1 fw-medium">2024 - 120,000km</p>
+                                                            </div>
+                                                            <a href="javascript:void(0);" class="btn btn-sm btn-icon btn-outline-light rounded-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to wishlist"><i class="ri-heart-fill op-3"></i></a>
+                                                        </div>
+                                                        <div class="text-muted mb-2">Cadbo Car kb43</div>
+                                                        <div class="fs-11 text-muted">
+                                                            <span class=""><i class="bi bi-geo-alt me-1"></i>Banglore</span>
+                                                            <span>,</span>
+                                                            <span class="">16 Nov 2024</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="Carousel-slide">
+                                                <div class="card custom-card overflow-hidden">
+                                                    <span class="badge bg-primary tag-badge">New</span>
+                                                    <a href="javascript:void(0)">
+                                                        <div class="featured-img">
+                                                            <img src="@($"{NavigationManager.BaseUri}assets/images/classifieds/featured-adds/3.jpg")" class="" alt="...">
+                                                        </div>
+                                                    </a>
+                                                    <div class="card-body p-3 position-relative">
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="flex-fill">
+                                                                <h5 class="mb-0 fw-medium"><span>$56,764.00</span></h5>
+                                                                <p class="mb-1 fw-medium">2022 Oct 04</p>
+                                                            </div>
+                                                            <a href="javascript:void(0);" class="btn btn-sm btn-icon btn-outline-light rounded-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to wishlist"><i class="ri-heart-fill op-3"></i></a>
+                                                        </div>
+                                                        <div class="text-muted mb-2">Smart Phone H6</div>
+                                                        <div class="fs-11 text-muted">
+                                                            <span class=""><i class="bi bi-geo-alt me-1"></i>Chennai</span>
+                                                            <span>,</span>
+                                                            <span class="">16 Nov 2024</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="Carousel-slide">
+                                                <div class="card custom-card overflow-hidden">
+                                                    <span class="badge bg-danger tag-badge">Urgent</span>
+                                                    <a href="javascript:void(0)">
+                                                        <div class="featured-img">
+                                                            <img src="@($"{NavigationManager.BaseUri}assets/images/classifieds/featured-adds/4.jpg")" class="" alt="...">
+                                                        </div>
+                                                    </a>
+                                                    <div class="card-body p-3 position-relative">
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="flex-fill">
+                                                                <h5 class="mb-0 fw-medium"><span>$5,763.00</span></h5>
+                                                                <p class="mb-1 fw-medium">2024 - 120,000km</p>
+                                                            </div>
+                                                            <a href="javascript:void(0);" class="btn btn-sm btn-icon btn-outline-light rounded-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to wishlist"><i class="ri-heart-fill op-3"></i></a>
+                                                        </div>
+                                                        <div class="text-muted mb-2">Gittbos Bike Mf120</div>
+                                                        <div class="fs-11 text-muted">
+                                                            <span class=""><i class="bi bi-geo-alt me-1"></i>Pune</span>
+                                                            <span>,</span>
+                                                            <span class="">16 Nov 2024</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="Carousel-slide">
+                                                <div class="card custom-card overflow-hidden">
+                                                    <a href="javascript:void(0)">
+                                                        <div class="featured-img">
+                                                            <img src="@($"{NavigationManager.BaseUri}assets/images/classifieds/featured-adds/1.jpg")" class="" alt="...">
+                                                        </div>
+                                                    </a>
+                                                    <div class="card-body p-3 position-relative">
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="flex-fill">
+                                                                <h5 class="mb-0 fw-medium"><span>$2,226.00</span></h5>
+                                                                <p class="mb-1 fw-medium">4-Bds - 4 Ba - 600ff3</p>
+                                                            </div>
+                                                            <a href="javascript:void(0);" class="btn btn-sm btn-icon btn-outline-light rounded-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to wishlist"><i class="ri-heart-fill op-3"></i></a>
+                                                        </div>
+                                                        <div class="text-muted mb-2">4 Beds Duplex House</div>
+                                                        <div class="fs-11 text-muted">
+                                                            <span class=""><i class="bi bi-geo-alt me-1"></i>USA</span>
+                                                            <span>,</span>
+                                                            <span class="">16 Nov 2024</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="Carousel-slide">
+                                                <div class="card custom-card overflow-hidden">
+                                                    <a href="javascript:void(0)">
+                                                        <div class="featured-img">
+                                                            <img src="@($"{NavigationManager.BaseUri}assets/images/classifieds/featured-adds/2.jpg")" class="" alt="...">
+                                                        </div>
+                                                    </a>
+                                                    <div class="card-body p-3 position-relative">
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="flex-fill">
+                                                                <h5 class="mb-0 fw-medium"><span>$5,321.00</span></h5>
+                                                                <p class="mb-1 fw-medium">2024 - 120,000km</p>
+                                                            </div>
+                                                            <a href="javascript:void(0);" class="btn btn-sm btn-icon btn-outline-light rounded-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to wishlist"><i class="ri-heart-fill op-3"></i></a>
+                                                        </div>
+                                                        <div class="text-muted mb-2">Cadbo Car kb43</div>
+                                                        <div class="fs-11 text-muted">
+                                                            <span class=""><i class="bi bi-geo-alt me-1"></i>Banglore</span>
+                                                            <span>,</span>
+                                                            <span class="">16 Nov 2024</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="Carousel-slide">
+                                                <div class="card custom-card overflow-hidden">
+                                                    <a href="javascript:void(0)">
+                                                        <div class="featured-img">
+                                                            <img src="@($"{NavigationManager.BaseUri}assets/images/classifieds/featured-adds/6.jpg")" class="" alt="...">
+                                                        </div>
+                                                    </a>
+                                                    <div class="card-body p-3 position-relative">
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="flex-fill">
+                                                                <h5 class="mb-0 fw-medium"><span>$56,764.00</span></h5>
+                                                                <p class="mb-1 fw-medium">2022 Oct 04</p>
+                                                            </div>
+                                                            <a href="javascript:void(0);" class="btn btn-sm btn-icon btn-outline-light rounded-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to wishlist"><i class="ri-heart-fill op-3"></i></a>
+                                                        </div>
+                                                        <div class="text-muted mb-2">Laptop F6</div>
+                                                        <div class="fs-11 text-muted">
+                                                            <span class=""><i class="bi bi-geo-alt me-1"></i>Chennai</span>
+                                                            <span>,</span>
+                                                            <span class="">16 Nov 2024</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="Carousel-slide">
+                                                <div class="card custom-card overflow-hidden">
+                                                    <a href="javascript:void(0)">
+                                                        <div class="featured-img">
+                                                            <img src="@($"{NavigationManager.BaseUri}assets/images/classifieds/featured-adds/4.jpg")" class="" alt="...">
+                                                        </div>
+                                                    </a>
+                                                    <div class="card-body p-3 position-relative">
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="flex-fill">
+                                                                <h5 class="mb-0 fw-medium"><span>$5,763.00</span></h5>
+                                                                <p class="mb-1 fw-medium">2024 - 120,000km</p>
+                                                            </div>
+                                                            <a href="javascript:void(0);" class="btn btn-sm btn-icon btn-outline-light rounded-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to wishlist"><i class="ri-heart-fill op-3"></i></a>
+                                                        </div>
+                                                        <div class="text-muted mb-2">Gittbos Bike Mf120</div>
+                                                        <div class="fs-11 text-muted">
+                                                            <span class=""><i class="bi bi-geo-alt me-1"></i>Pune</span>
+                                                            <span>,</span>
+                                                            <span class="">16 Nov 2024</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="Carousel-slide">
+                                                <div class="card custom-card overflow-hidden">
+                                                    <span class="badge bg-warning tag-badge">Featured</span>
+                                                    <a href="javascript:void(0)">
+                                                        <div class="featured-img">
+                                                            <img src="@($"{NavigationManager.BaseUri}assets/images/classifieds/featured-adds/5.jpg")" class="" alt="...">
+                                                        </div>
+                                                    </a>
+                                                    <div class="card-body p-3 position-relative">
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="flex-fill">
+                                                                <h5 class="mb-0 fw-medium"><span>$5,763.00</span></h5>
+                                                                <p class="mb-1 fw-medium">2024 - 4 Months</p>
+                                                            </div>
+                                                            <a href="javascript:void(0);" class="btn btn-sm btn-icon btn-outline-light rounded-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to wishlist"><i class="ri-heart-fill op-3"></i></a>
+                                                        </div>
+                                                        <div class="text-muted mb-2">Fed Dog</div>
+                                                        <div class="fs-11 text-muted">
+                                                            <span class=""><i class="bi bi-geo-alt me-1"></i>Pune</span>
+                                                            <span>,</span>
+                                                            <span class="">16 Nov 2024</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="Carousel-slide">
+                                                <div class="card custom-card overflow-hidden">
+                                                    <span class="badge bg-warning tag-badge">Featured</span>
+                                                    <a href="javascript:void(0)">
+                                                        <div class="featured-img">
+                                                            <img src="@($"{NavigationManager.BaseUri}assets/images/classifieds/featured-adds/1.jpg")" class="" alt="...">
+                                                        </div>
+                                                    </a>
+                                                    <div class="card-body p-3 position-relative">
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="flex-fill">
+                                                                <h5 class="mb-0 fw-medium"><span>$2,226.00</span></h5>
+                                                                <p class="mb-1 fw-medium">4-Bds - 4 Ba - 600ff3</p>
+                                                            </div>
+                                                            <a href="javascript:void(0);" class="btn btn-sm btn-icon btn-outline-light rounded-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to wishlist"><i class="ri-heart-fill op-3"></i></a>
+                                                        </div>
+                                                        <h6 class="text-muted">4 Beds Duplex House</h6>
+                                                        <div class="fs-11 text-muted">
+                                                            <span class=""><i class="bi bi-geo-alt me-1"></i>USA</span>
+                                                            <span>,</span>
+                                                            <span class="">16 Nov 2024</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="Carousel-slide">
+                                                <div class="card custom-card overflow-hidden sold-out">
+                                                    <span class="badge bg-danger tag-badge">Sold Out</span>
+                                                    <a href="javascript:void(0)">
+                                                        <div class="featured-img">
+                                                            <img src="@($"{NavigationManager.BaseUri}assets/images/classifieds/featured-adds/2.jpg")" class="" alt="...">
+                                                        </div>
+                                                    </a>
+                                                    <div class="card-body p-3 position-relative">
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="flex-fill">
+                                                                <h5 class="mb-0 fw-medium"><span>$5,321.00</span></h5>
+                                                                <p class="mb-1 fw-medium">2024 - 120,000km</p>
+                                                            </div>
+                                                            <a href="javascript:void(0);" class="btn btn-sm btn-icon btn-outline-light rounded-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to wishlist"><i class="ri-heart-fill op-3"></i></a>
+                                                        </div>
+                                                        <h6 class="text-muted">Cadbo Car kb43</h6>
+                                                        <div class="fs-11 text-muted">
+                                                            <span class=""><i class="bi bi-geo-alt me-1"></i>Banglore</span>
+                                                            <span>,</span>
+                                                            <span class="">16 Nov 2024</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="Carousel-slide">
+                                                <div class="card custom-card overflow-hidden">
+                                                    <span class="badge bg-primary tag-badge">New</span>
+                                                    <a href="javascript:void(0)">
+                                                        <div class="featured-img">
+                                                            <img src="@($"{NavigationManager.BaseUri}assets/images/classifieds/featured-adds/3.jpg")" class="" alt="...">
+                                                        </div>
+                                                    </a>
+                                                    <div class="card-body p-3 position-relative">
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="flex-fill">
+                                                                <h5 class="mb-0 fw-medium"><span>$56,764.00</span></h5>
+                                                                <p class="mb-1 fw-medium">2022 Oct 04</p>
+                                                            </div>
+                                                            <a href="javascript:void(0);" class="btn btn-sm btn-icon btn-outline-light rounded-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to wishlist"><i class="ri-heart-fill op-3"></i></a>
+                                                        </div>
+                                                        <h6 class="text-muted">Smart Phone H6</h6>
+                                                        <div class="fs-11 text-muted">
+                                                            <span class=""><i class="bi bi-geo-alt me-1"></i>Chennai</span>
+                                                            <span>,</span>
+                                                            <span class="">16 Nov 2024</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </BlazorSlickCarouselContent>
+                                    </BlazorSlickCarousel>
+                                </div>           
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="card custom-card overflow-hidden">
+                                    <div class="card-body p-4">
+                                        <div class="flex-fill main-profile-info">
+                                            <h5 class="fw-medium fs-4">$2,226.00</h5>
+                                        </div>
+                                        <div class="text-center">
+                                            <div class="d-grid gap-2">
+                                                <input type="email" class="form-control" id="inputEmail11" placeholder="$34,786">
+                                                <a href="javascript:void(0)" class="btn btn-lg btn-wave btn-primary mt-1">
+                                                    Bid Now
+                                                </a>
+                                            </div>
+                                        </div> 
+                                    </div>
+                                </div>
+                                <div class="card custom-card overflow-hidden">
+                                    <div class="card-body p-0">
+                                        <div class="d-sm-flex align-items-center p-3 border-bottom">
+                                            <div>
+                                                <span class="avatar avatar-xl avatar-rounded online me-3">
+                                                    <img src="@($"{NavigationManager.BaseUri}assets/images/faces/9.jpg")" alt="">
+                                                </span>
+                                            </div>
+                                            <div class="flex-fill main-profile-info">
+                                                <h5 class="fw-medium mb-1">Jack Miller <i class="bi bi-check-circle-fill text-success fs-14" data-bs-toggle="tooltip"
+                                                    data-bs-placement="top" title="Verified User"></i></h5>
+                                                <p class="mb-0">Member Since 2005</p>
+                                            </div>
+                                        </div>
+                                        <div class="p-4 border-bottom border-block-end-dashed text-center">
+                                            <div class="d-flex flex-wrap gap-2">
+                                                <div class="input-group w-auto flex-grow-1">
+                                                    <div class="input-group-text bg-white">
+                                                        <i class="fe fe-phone"></i>
+                                                    </div>
+                                                    <input type="email" class="form-control" id="inputEmail1" placeholder="*** *** 7654" value="*** *** 7654">
+                                                </div>
+                                                <a href="javascript:void(0)" class="btn btn-wave btn-icon btn-primary">
+                                                    <i class="ri-eye-line"></i>
+                                                </a> 
+                                                <a href="javascript:void(0)" class="btn btn-wave btn-icon btn-secondary">
+                                                    <i class="ri-message-line"></i>
+                                                </a> 
+                                            </div>
+                                        </div>  
+                                        <div class="p-4 d-flex align-items-center flex-wrap gap-2">
+                                            <p class="fs-15 mb-0 me-4 fw-medium">Social Networks :</p>
+                                            <div class="btn-list mb-0">
+                                                <button class="btn btn-sm btn-icon btn-primary-light btn-wave waves-effect waves-light">
+                                                    <i class="ri-facebook-line"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-icon btn-secondary-light btn-wave waves-effect waves-light">
+                                                    <i class="ri-twitter-x-line"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-icon btn-warning-light btn-wave waves-effect waves-light">
+                                                    <i class="ri-instagram-line"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-icon btn-success-light btn-wave waves-effect waves-light">
+                                                    <i class="ri-github-line"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-icon btn-danger-light btn-wave waves-effect waves-light">
+                                                    <i class="ri-youtube-line"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="alert alert-primary alert-dismissible fade show custom-alert-icon shadow-sm" role="alert">
+                                    <div class="d-flex">
+                                        <span class="svg-primary">
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"></path><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path></svg>
+                                        </span>
+                                        <div class="ms-2">
+                                            <h6 class="text-default mb-0">
+                                                Security & Safety Tips
+                                            </h6>
+                                            Check the necessary details before purchase.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card custom-card">
+                                    <div class="card-header">
+                                        <div class="card-title">
+                                            Similar Ads 
+                                        </div>
+                                    </div>
+                                    <div class="card-body p-0">
+                                        <ul class="list-group similarads-list">
+                                            <li class="list-group-item">
+                                                <div class="d-flex g-0 align-items-center flex-wrap">
+                                                    <div>
+                                                        <a href="javascript:void(0)">
+                                                            <div class="similarads-img">
+                                                                <img src="@($"{NavigationManager.BaseUri}assets/images/classifieds/similar-products/1.jpg")" class="img-fluid rounded-3 h-100" alt="...">
+                                                            </div>
+                                                        </a>
+                                                    </div> 
+                                                    <div class="flex-fill">
+                                                        <div class="card-body p-3">
+                                                            <h6 class="card-title fw-medium">4 Beds Duplex House</h6>
+                                                            <div class="fs-12 text-muted mb-2">
+                                                                <span class=""><i class="bi bi-geo-alt me-1"></i>USA</span>
+                                                                <span>,</span>
+                                                                <span class="">16 Nov 2024</span>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between">
+                                                                <p class="fw-medium mb-0 text-muted">$2,226.00</p>
+                                                                <a href="javascript:void(0);" class="text-primary fw-medium fs-14">
+                                                                    View Details <i class="fe fe-arrow-right"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <div class="d-flex g-0 align-items-center flex-wrap">
+                                                    <div>
+                                                        <a href="javascript:void(0)">
+                                                            <div class="similarads-img">
+                                                                <img src="@($"{NavigationManager.BaseUri}assets/images/classifieds/similar-products/2.jpg")" class="img-fluid rounded-3 h-100" alt="...">
+                                                            </div>
+                                                        </a>
+                                                    </div> 
+                                                    <div class="flex-fill">
+                                                        <div class="card-body p-3">
+                                                            <h6 class="card-title fw-medium">Fed Dog</h6>
+                                                            <div class="fs-12 text-muted mb-2">
+                                                                <span class=""><i class="bi bi-geo-alt me-1"></i>USA</span>
+                                                                <span>,</span>
+                                                                <span class="">16 Nov 2024</span>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between">
+                                                                <p class="fw-medium mb-0 text-muted">$25,000</p>
+                                                                <a href="javascript:void(0);" class="text-primary fw-medium fs-14">
+                                                                    View Details <i class="fe fe-arrow-right"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <div class="d-flex g-0 align-items-center flex-wrap">
+                                                    <div>
+                                                        <a href="javascript:void(0)">
+                                                            <div class="similarads-img">
+                                                                <img src="@($"{NavigationManager.BaseUri}assets/images/classifieds/similar-products/3.jpg")" class="img-fluid rounded-3 h-100" alt="...">
+                                                            </div>
+                                                        </a>
+                                                    </div> 
+                                                    <div class="flex-fill">
+                                                        <div class="card-body p-3">
+                                                            <h6 class="card-title fw-medium">Gittbos Bike Mf120</h6>
+                                                            <div class="fs-12 text-muted mb-2">
+                                                                <span class=""><i class="bi bi-geo-alt me-1"></i>Pune </span>
+                                                                <span>,</span>
+                                                                <span class="">16 Nov 2024</span>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between">
+                                                                <p class="fw-medium mb-0 text-muted">$5,763.00</p>
+                                                                <a href="javascript:void(0);" class="text-primary fw-medium fs-14">
+                                                                    View Details <i class="fe fe-arrow-right"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <div class="d-flex g-0 align-items-center flex-wrap">
+                                                    <div>
+                                                        <a href="javascript:void(0)">
+                                                            <div class="similarads-img">
+                                                                <img src="@($"{NavigationManager.BaseUri}assets/images/classifieds/similar-products/4.jpg")" class="img-fluid rounded-3 h-100" alt="...">
+                                                            </div>
+                                                        </a>
+                                                    </div> 
+                                                    <div class="flex-fill">
+                                                        <div class="card-body p-3">
+                                                            <h6 class="card-title fw-medium">Cadbo Car kb43</h6>
+                                                            <div class="fs-12 text-muted mb-2">
+                                                                <span class=""><i class="bi bi-geo-alt me-1"></i>Banglore</span>
+                                                                <span>,</span>
+                                                                <span class="">16 Nov 2024</span>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between">
+                                                                <p class="fw-medium mb-0 text-muted">$5,321.00</p>
+                                                                <a href="javascript:void(0);" class="text-primary fw-medium fs-14">
+                                                                    View Details <i class="fe fe-arrow-right"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="card-footer">
+                                        <a href="javascript:void(0);" class="text-primary fw-medium fs-14 mt-2">
+                                            View All <i class="fe fe-arrow-right"></i>
+                                        </a>                                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- End:: Section-1 -->
+
+                <!-- Start:: Section-2 -->
+                <section class="section bg-banner px-lg-0 px-4">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6 text-center">
+                            <div class="mb-4">
+                                <h3 class="fw-medium mb-2 text-fixed-white">&#128073; Download our free mobile apps today</h3>
+                            </div>
+                            <h6 class="mb-4 op-9 text-fixed-white">Labore no sed ipsum ipsum nonumy. Sit ipsum sanctus ea magna est. Kasd diam rebum sit ipsum ipsum erat et kasd.Est amet sit vero sanctus labore no sed ipsum ipsum nonumy vero sanctus labore..</h6>
+                            <div class="btn-list">
+                                <a href="javascript:void(0);" class="btn btn-dark app-store">
+                                    <img src="@($"{NavigationManager.BaseUri}assets/images/media/apps/play-store.png")" alt="">
+                                    Google Play
+                                </a>
+                                <a href="javascript:void(0);" class="btn btn-dark app-store">
+                                    <img src="@($"{NavigationManager.BaseUri}assets/images/media/apps/apple-store.png")" alt="" class="invert-1">
+                                    App Store
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- End:: Section-2 -->
+
+                <!-- Start:: Search Modal -->
+                <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModal" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-body p-4">
+                        <span class="input-group">
+                            <input type="text" class="form-control form-control-lg border-0 shadow-none" placeholder="Search" aria-label="Username">
+                            <a href="javascript:void(0);" class="input-group-text border-0" id="voice-search"><i class="fe fe-mic header-link-icon"></i></a>
+                        </span>
+                        <div class="mt-4">
+                            <p class="font-weight-semibold text-muted mb-2">Are You Looking For...</p>
+                            <a href="javascript:void(0);" class="search-tags">Popular Articles</a>
+                            <a href="javascript:void(0);" class="search-tags">Recent Articles</a>
+                            <a href="javascript:void(0);" class="search-tags">News and Updates</a>
+                        </div>
+                        </div>
+                        <div class="modal-footer">
+                        <div class="ms-auto">
+                            <button class="btn btn-lg btn-primary">Search</button>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <!-- End:: Search Modal -->
+
+            </div>
+        
+
+        <!-- Gallery JS -->
+        <script src="@($"{NavigationManager.BaseUri}assets/libs/glightbox/js/glightbox.min.js")"></script>
+        <script src="@($"{NavigationManager.BaseUri}assets/js/gallery.js")"></script>
+
+        <!-- Category Dropdown JS -->
+        <script src="@($"{NavigationManager.BaseUri}assets/js/category-dropdown.js")"></script>
+
+@code {
+
+    public WMBSCInitialSettings? ResponsiveConfigurations;  
+    protected override void OnInitialized() {
+        WMBSCSettings breakpoint768Settings = new WMBSCSettings
+        {
+            slidesToShow = 1,
+            arrows = false,
+            autoplay = true,
+            autoplaySpeed = 1500,
+        };
+        WMBSCResponsiveSettings breakpoint768Responsive = new WMBSCResponsiveSettings
+        {
+            breakpoint = 768,
+            settings = breakpoint768Settings
+        };
+        WMBSCSettings breakpoint1024Settings = new WMBSCSettings
+        {
+            slidesToShow = 2,
+            arrows = false,
+            autoplay = true,
+            autoplaySpeed = 1500,
+        };
+        WMBSCResponsiveSettings breakpoint1024Responsive = new WMBSCResponsiveSettings
+        {
+            breakpoint = 1024,
+            settings = breakpoint1024Settings
+        };
+        WMBSCSettings breakpoint1400Settings = new WMBSCSettings
+        {
+            slidesToShow = 2,
+            autoplay = true,
+            autoplaySpeed = 1500,
+        };
+        WMBSCResponsiveSettings breakpoint1400Responsive = new WMBSCResponsiveSettings
+        {
+            breakpoint = 1400,
+            settings = breakpoint1400Settings
+        };
+        List<WMBSCResponsiveSettings> responsiveSettingsList = new List<WMBSCResponsiveSettings>();
+        responsiveSettingsList.Add(breakpoint768Responsive);
+        responsiveSettingsList.Add(breakpoint1024Responsive);
+        responsiveSettingsList.Add(breakpoint1400Responsive);
+
+        ResponsiveConfigurations = new WMBSCInitialSettings
+        {
+            arrows = true,
+            dots = false,
+            slidesToShow = 3,
+            slidesToScroll = 1,
+            infinite = true,
+            autoplay = true,
+            autoplaySpeed = 1500,
+            prevArrow = "<button type='button' class='slick-prev swiper-related-jobs'></button>",
+            nextArrow = "<button type='button' class='slick-next swiper-related-jobs'></button>",
+            responsive = responsiveSettingsList,
+        };
+
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("window.interop.initializeTooltips");
+        }
+    }
+
+}

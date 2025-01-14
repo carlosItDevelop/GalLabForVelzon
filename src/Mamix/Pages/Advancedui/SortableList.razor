@@ -1,0 +1,516 @@
+@page "/sortable-list"
+@inject NestedModel NestedModel
+@inject Microsoft.AspNetCore.Components.NavigationManager NavigationManager // This line is used to generate URLs dynamically //
+
+
+                    <!-- Page Header -->
+                    <div class="my-4 page-header-breadcrumb d-flex align-items-center justify-content-between flex-wrap gap-2">
+                        <div>
+                            <h1 class="page-title fw-medium fs-18 mb-2">Sortable JS</h1>
+                            <div class="">
+                                <nav>
+                                    <ol class="breadcrumb mb-0">
+                                        <li class="breadcrumb-item"><a href="javascript:void(0);">Advanced UI</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Sortable JS</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="btn-list">
+                            <button class="btn btn-primary-light btn-wave me-2">
+                                <i class="bx bx-crown align-middle"></i> Plan Upgrade
+                            </button>
+                            <button class="btn btn-secondary-light btn-wave me-0">
+                                <i class="ri-upload-cloud-line align-middle"></i> Export Report
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Page Header Close -->
+
+                    <!-- Start::row-1 -->
+                    <div class="row">
+                        <div class="col-xl-4">
+                            <div class="card custom-card">
+                                <div class="card-header">
+                                    <div class="card-title">
+                                        SIMPLE LIST
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <SortableWrapper OnDataChanged="@(() => InvokeAsync(StateHasChanged))">
+                                        <Sortable TItem="string" Items="simple" Class="list-group sortable-list list-group-numbered" Options="_simpleoptions">
+                                            <Template Context="item">
+                                                <div class="list-group-item">@item</div>
+                                            </Template>
+                                        </Sortable>
+                                    </SortableWrapper>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-8">
+                            <div class="card custom-card">
+                                <div class="card-header">
+                                    <div class="card-title">SHARED LISTS</div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <SortableWrapper OnDataChanged="@(() => InvokeAsync(StateHasChanged))">
+                                            <div class="col-xl-6">
+                                                <Sortable TItem="string" Items="shared1"Class="list-group sortable-list list-group-numbered" Options="_sharedoptions">
+                                                    <Template Context="item">
+                                                        <div class="list-group-item">@item</div>
+                                                    </Template>
+                                                </Sortable>
+                                            </div>
+                                            <div class="col-xl-6">
+                                                <Sortable TItem="string" Items="shared2" Class="list-group sortable-list list-group-numbered shared-right" Options="_sharedoptions">
+                                                    <Template Context="item">
+                                                        <div class="list-group-item tinted">@item</div>
+                                                    </Template>
+                                                </Sortable>
+                                            </div>
+                                        </SortableWrapper>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End::row-1 -->
+
+                    <!-- Start:: row-2 -->
+                    <div class="row">
+                        <div class="col-xl-6">
+                            <div class="card custom-card">
+                                <div class="card-header">
+                                    <div class="card-title">
+                                        CLONING
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <SortableWrapper OnDataChanged="@(() => InvokeAsync(StateHasChanged))">
+                                            <div class="col-xl-6">
+                                                <Sortable TItem="string" Items="cloning1" Class="list-group sortable-list list-group-numbered" Options="_cloningoptions">
+                                                    <Template Context="item">
+                                                        <div class="list-group-item">@item</div>
+                                                    </Template>
+                                                </Sortable>
+                                            </div>
+                                            <div class="col-xl-6">
+                                                <Sortable TItem="string" Items="cloning2" Class="list-group sortable-list list-group-numbered cloning-right" Options="_cloningoptions">
+                                                    <Template Context="item">
+                                                        <div class="list-group-item tinted">@item</div>
+                                                    </Template>
+                                                </Sortable>
+                                            </div>
+                                        </SortableWrapper>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="card custom-card">
+                                <div class="card-header">
+                                    <div class="card-title">
+                                        DISABLING SORTING
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <SortableWrapper OnDataChanged="@(() => InvokeAsync(StateHasChanged))">
+                                            <div class="col-xl-6">
+                                                <Sortable TItem="string" Items="disabling1" Class="list-group sortable-list list-group-numbered" Options="_disablingoptions1">
+                                                    <Template Context="item">
+                                                        <div class="list-group-item">@item</div>
+                                                    </Template>
+                                                </Sortable>
+                                            </div>
+                                            <div class="col-xl-6">
+                                                <Sortable TItem="string" Items="disabling2" Class="list-group sortable-list list-group-numbered disabling-sorting-right" Options="_disablingoptions2">
+                                                    <Template Context="item">
+                                                        <div class="list-group-item tinted">@item</div>
+                                                    </Template>
+                                                </Sortable>
+                                            </div>
+                                        </SortableWrapper>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End:: row-2 -->
+
+                    <!-- Start:: row-3 -->
+                    <div class="row">
+                        <div class="col-xl-6">
+                            <div class="card custom-card">
+                                <div class="card-header">
+                                    <div class="card-title">
+                                        SORTING WITH HANDLE
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <SortableWrapper OnDataChanged="@(() => InvokeAsync(StateHasChanged))">
+                                        <Sortable TItem="string" Items="handle" Class="list-group sortable-list" Options="_handleoptions">
+                                            <Template Context="item">
+                                                <div class="list-group-item">
+                                                    <i class="las la-arrows-alt handle"></i>
+                                                    @item
+                                                </div>
+                                            </Template>
+                                        </Sortable>
+                                    </SortableWrapper>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="card custom-card">
+                                <div class="card-header">
+                                    <div class="card-title">
+                                        SORTING WITH FILTER
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <SortableWrapper OnDataChanged="@(() => InvokeAsync(StateHasChanged))">
+                                        <Sortable TItem="string" Items="filter" Class="list-group sortable-list" Options="_filteroptions">
+                                            <Template Context="item">
+                                                <div class="list-group-item @(item == "Update company policies." ? "filtered" : "")">@item</div>
+                                            </Template>
+                                        </Sortable>
+                                    </SortableWrapper>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End:: row-3 -->
+
+                    <!-- Start:: row-4 -->
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="card custom-card">
+                                <div class="card-header">
+                                    <div class="card-title">
+                                        SORTABLE GRID
+                                    </div>
+                                </div>
+                                <div class="card-body" id="sortable-grid">
+                                    <SortableWrapper>
+                                        <Sortable TItem="string" Items="grid" Context="item" Options="_gridoptions">
+                                            <Template>
+                                                <div class="grid-square">@item</div>
+                                            </Template>
+                                        </Sortable>
+                                    </SortableWrapper>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End:: row-4 -->
+
+                    <!-- Start:: row-5 -->
+                    <div class="row">
+                        <div class="col-xl-6">
+                            <div class="card custom-card">
+                                <div class="card-header">
+                                    <div class="card-title">
+                                        NESTED SORTABLE
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <SortableWrapper OnDataChanged="@(() => InvokeAsync(StateHasChanged))">
+                                        <NestedRecursive Items="items" Depth="1" />
+                                    </SortableWrapper>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="card custom-card">
+                                        <div class="card-header">
+                                            <div class="card-title">
+                                                MULTIPLE DRAG
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <SortableWrapper OnDataChanged="@(() => InvokeAsync(StateHasChanged))">
+                                                <Sortable TItem="string" Items="multiple" Class="list-group sortable-list" Options="_multipleOptions">
+                                                    <Template Context="item">
+                                                        <div class="list-group-item">@item</div>
+                                                    </Template>
+                                                </Sortable>
+                                            </SortableWrapper>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-12">
+                                    <div class="card custom-card">
+                                        <div class="card-header">
+                                            <div class="card-title">
+                                                SWAP
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <SortableWrapper OnDataChanged="@(() => InvokeAsync(StateHasChanged))">
+                                                <Sortable TItem="string" Items="swap" Class="list-group sortable-list" Options="_swapoptions">
+                                                    <Template Context="item">
+                                                        <div class="list-group-item">@item</div>
+                                                    </Template>
+                                                </Sortable>
+                                            </SortableWrapper>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End:: row-5 -->
+   
+      
+        <!-- Sortable JS -->
+        <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+        <script src="_content/BlazorSortableJS/SortableInterop.js"></script>
+
+
+@code {
+
+    // SIMPLE LIST //
+    object _simpleoptions = new
+    {
+        animation = 150,
+        ghostClass = "blue-background-class"
+    };
+    private List<string> simple = new List<string>
+    {
+        "Design logo for fictional company",
+        "Draft 300-word blog post",
+        "Create project plan with milestones",
+        "Develop sample interview questions",
+        "Generate customer feedback for product.",
+        "Write email template for newsletter.",
+    };
+    // SIMPLE LIST //
+
+    // SHARED LISTS //
+    object _sharedoptions = new
+    {
+        group = "example2",
+        animation = 150,
+        ghostClass = "blue-background-class"
+    };
+    private List<string> shared1 = new List<string>
+    {
+        "Sketch a website homepage",
+        "Plan team-building activity.",
+        "Summarize meeting minutes.",
+        "Code a simple webpage.",
+        "Create survey questions.",
+        "Schedule team meeting.",
+    };
+    private List<string> shared2 = new List<string>
+    {
+        "Edit product description.",
+        "Brainstorm marketing ideas.",
+        "Write slogan for brand.",
+        "Update contact information.",
+        "Proofread blog post.",
+        "Analyze sales data.",
+    };
+    // SHARED LISTS //
+
+    // CLONING LISTS //
+    object _cloningoptions = new
+    {
+        group = new {
+            name = "shared",
+            pull = "clone" 
+        },
+        animation = 150,
+        ghostClass = "blue-background-class"
+    };
+    private List<string> cloning1 = new List<string>
+    {
+        "Update social media profiles.",
+        "Draft project budget.",
+        "Brainstorm domain names.",
+        "Revise resume content.",
+        "Test website functionality.",
+        "Edit meeting agenda.",
+    };
+    private List<string> cloning2 = new List<string>
+    {
+        "Create mood board.",
+        "Design event flyer.",
+        "Research industry trends.",
+        "Format spreadsheet cells.",
+        "Outline marketing strategy.",
+        "Compile data report.",
+    };
+    // CLONING LISTS //
+
+    // DISABLING SORTING LISTS //
+    object _disablingoptions1 = new
+    {
+        group = new {
+            name = "shared",
+            pull = "clone",
+            put = false
+        },
+        animation = 150,
+        sort = false,
+        ghostClass = "blue-background-class"
+    };
+    object _disablingoptions2 = new
+    {
+        group = new
+        {
+            name = "shared",
+            pull = "clone",
+        },
+        animation = 150,
+        ghostClass = "blue-background-class"
+    };
+    private List<string> disabling1 = new List<string>
+    {
+        "Write customer service script.",
+        "Schedule team training.",
+        "Edit presentation slides.",
+        "Generate weekly schedule.",
+        "Review expense reports.",
+        "Create product catalog.",
+    };
+    private List<string> disabling2 = new List<string>
+    {
+        "Brainstorm blog topics.",
+        "Draft press release.",
+        "Update employee handbook.",
+        "Design event tickets.",
+        "Summarize research findings.",
+        "Plan office layout.",
+    };
+    // DISABLING SORTING LISTS //
+
+    // SORTING WITH HANDLE LISTS //
+    object _handleoptions = new
+    {
+        handle = ".handle",
+        animation = 150,
+        ghostClass = "blue-background-class"
+    };
+    private List<string> handle = new List<string>
+    {
+        "Analyze market trends.",
+        "Edit video content.",
+        "Plan social media calendar.",
+        "Update company policies.",
+        "Compile sales reports.",
+        "Schedule client calls.",
+    };
+    // SORTING WITH HANDLE LISTS //
+
+    // SORTING WITH FILTER LISTS //
+    object _filteroptions = new
+    {
+        filter = ".filtered",
+        animation = 150,
+        ghostClass = "blue-background-class"
+    };
+    private List<string> filter = new List<string>
+    {
+        "Analyze market trends.",
+        "Edit video content.",
+        "Plan social media calendar.",
+        "Update company policies.",
+        "Compile sales reports.",
+        "Schedule client calls.",
+    };
+    // SORTING WITH FILTER LISTS //
+
+    // SORTABLE GRID LISTS //
+    object _gridoptions = new
+    {
+        animation = 150,
+        ghostClass = "blue-background-class"
+    };
+    private List<string> grid = new List<string>();
+
+    protected override void OnInitialized()
+    {
+        for (var i = 1; i < 21; ++i)
+        {
+            grid.Add($"Item {i}");
+        }
+    }
+    // SORTABLE GRID LISTS //
+
+    // NESTED SORTABLE LISTS //
+
+    private List<NestedModel> items = new List<NestedModel>
+    {
+        new NestedModel{ Data = "Item 1.1"},
+        new NestedModel{ Data = "Item 1.2", Children = new List<NestedModel>()
+        {
+            new NestedModel{ Data = "Item 1.2-1"},
+            new NestedModel{ Data = "Item 1.2-2", Children = new List<NestedModel>(){
+                new NestedModel{ Data = "Item 1.2-2.1"},
+                new NestedModel{ Data = "Item 1.2-2.2"},
+                new NestedModel{ Data = "Item 1.2-2.3"},
+                new NestedModel{ Data = "Item 1.2-2.4"},
+            }},
+            new NestedModel{ Data = "Item 1.2.3"},
+            new NestedModel{ Data = "Item 1.2.4"},
+        }},
+        new NestedModel{ Data = "Item 1.3"},
+        new NestedModel{ Data = "Item 1.4", Children = new List<NestedModel>()
+        {
+            new NestedModel{ Data = "Item 1.4.1"},
+            new NestedModel{ Data = "Item 1.4.2"},
+            new NestedModel{ Data = "Item 1.4.3"},
+            new NestedModel{ Data = "Item 1.4.4"},
+        }},
+        new NestedModel{ Data = "Item 1.5"},
+    };
+
+    // NESTED SORTABLE LISTS //
+
+    // MULTIPLE LIST //
+    private List<string> multiple = new List<string>
+    {
+        "Update website images.",
+        "Create marketing banners.",
+        "Revise product descriptions.",
+        "Set up client meetings.",
+        "Check email for urgent messages.",
+        "Proofread customer communications.",
+    };
+
+    private object _multipleOptions = new
+    {
+        multiDrag = true,
+        selectedClass = "selected",
+        fallbackTolerance = 3,
+        animation = 150,
+        ghostClass = "blue-background-class"
+    };
+
+    // MULTIPLE LIST //
+
+    // SWAP LIST //
+    object _swapoptions = new
+    {
+        animation = 150,
+        swap = true,
+        ghostClass = "blue-background-class"
+    };
+    private List<string> swap = new List<string>
+    {
+        "Test software functionality.",
+        "Brainstorm team-building activities.",
+        "Format spreadsheet cells.",
+        "Plan virtual team event.",
+        "Edit meeting agenda.",
+        "Compile weekly progress report.",
+    };
+    // SWAP LIST //
+
+}
