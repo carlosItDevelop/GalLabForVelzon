@@ -1,21 +1,20 @@
 ﻿using GeneralLabSolutions.Domain.Entities;
 using GeneralLabSolutions.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace GeneralLabSolutions.InfraStructure.Mappings
 {
-	public class ProdutoMap : IEntityTypeConfiguration<Produto>
+    public class ProdutoMap : IEntityTypeConfiguration<Produto>
 	{
 		public void Configure(EntityTypeBuilder<Produto> builder)
 		{
 			builder.HasKey(x => x.Id);
 
             // Configuração de índices para melhorar o desempenho de consultas em campos frequentemente utilizados
-            builder.HasIndex(x => x.Descricao).HasDatabaseName("IX_Produto_Descricao");
-            builder.HasIndex(x => x.Codigo).HasDatabaseName("IX_Produto_Codigo");
-            builder.HasIndex(x => x.Ncm).HasDatabaseName("IX_Produto_Ncm");
+            builder.HasIndex(x => x.Descricao).IsUnique().HasDatabaseName("IX_Produto_Descricao");
+            builder.HasIndex(x => x.Codigo).IsUnique().HasDatabaseName("IX_Produto_Codigo");
+            builder.HasIndex(x => x.Ncm).IsUnique().HasDatabaseName("IX_Produto_Ncm");
 
             builder.Property(x => x.Descricao)
 				.IsRequired()

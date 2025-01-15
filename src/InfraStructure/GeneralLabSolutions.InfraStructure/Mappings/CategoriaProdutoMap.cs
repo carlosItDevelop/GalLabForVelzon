@@ -10,7 +10,9 @@ namespace GeneralLabSolutions.InfraStructure.Mappings
 		{
 			builder.HasKey(x => x.Id);
 
-			builder.Property(x => x.Descricao)
+            builder.HasIndex(x => x.Descricao).IsUnique().HasDatabaseName("IX_Cliente_Descricao");
+
+            builder.Property(x => x.Descricao)
 				.IsRequired()
 				.HasColumnType("varchar(200)")
 				.HasComment("Descrição da categoria do produto");

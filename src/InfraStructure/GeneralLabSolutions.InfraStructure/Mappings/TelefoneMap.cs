@@ -1,9 +1,7 @@
 ﻿using GeneralLabSolutions.Domain.Entities;
 using GeneralLabSolutions.Domain.Enums;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore;
-using GeneralLabSolutions.Domain.Entities.Base;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 
 namespace GeneralLabSolutions.InfraStructure.Mappings;

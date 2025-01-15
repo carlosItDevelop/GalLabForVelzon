@@ -2,6 +2,9 @@
 
 namespace GeneralLabSolutions.Identidade.Dtos
 {
+    /// <summary>
+    /// Transporte de dados para inclusão de usuário a uma role
+    /// </summary>
     public class AdicionarUsuarioRoleDto
     {
         [Required(ErrorMessage = "O campo {0} é obrigatório")]

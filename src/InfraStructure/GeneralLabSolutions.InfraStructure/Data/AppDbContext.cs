@@ -20,13 +20,6 @@ namespace GeneralLabSolutions.InfraStructure.Data
             _mediatorHandler = mediatorHandler;
         }
 
-        //public AppDbContext(DbContextOptions<AppDbContext> options)
-        //    : base(options)
-        //{
-
-        //}
-
-
         public DbSet<Produto> Produto { get; set; }
 		public DbSet<CategoriaProduto> CategoriaProduto { get; set; }
 		public DbSet<Cliente> Cliente { get; set; }

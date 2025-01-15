@@ -2,6 +2,9 @@
 
 namespace GeneralLabSolutions.Identidade.Dtos
 {
+    /// <summary>
+    /// DTO para transporte de dados para criar role
+    /// </summary>
     public class CriarRoleDto
     {
         [Required(ErrorMessage = "O campo {0} é obrigatório")]

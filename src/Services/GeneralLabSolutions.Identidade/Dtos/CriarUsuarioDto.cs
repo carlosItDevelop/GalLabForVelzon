@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Identity;
 
 namespace GeneralLabSolutions.Identidade.Dtos
 {
+    /// <summary>
+    /// DTO para criação de usuário
+    /// </summary>
     public class CriarUsuarioDto
     {
         [Required(ErrorMessage = "O campo {0} é obrigatório!")]

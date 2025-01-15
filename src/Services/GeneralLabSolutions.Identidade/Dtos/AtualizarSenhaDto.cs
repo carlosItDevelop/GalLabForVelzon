@@ -2,6 +2,9 @@
 
 namespace GeneralLabSolutions.Identidade.Dtos
 {
+    /// <summary>
+    /// DTO para transporte de dados para Atualizar Senha
+    /// </summary>
     public class AtualizarSenhaDto
     {
         [Required(ErrorMessage = "O campo {0} é obrigatório")]

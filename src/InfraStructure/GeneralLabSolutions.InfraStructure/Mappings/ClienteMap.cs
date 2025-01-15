@@ -1,7 +1,6 @@
 ﻿using GeneralLabSolutions.Domain.Entities;
 using GeneralLabSolutions.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace GeneralLabSolutions.InfraStructure.Mappings
@@ -14,8 +13,8 @@ namespace GeneralLabSolutions.InfraStructure.Mappings
 
 
             builder.HasIndex(x => x.Nome).HasDatabaseName("IX_Cliente_Nome");
-            builder.HasIndex(x => x.Email).HasDatabaseName("IX_Cliente_Email");
-            builder.HasIndex(x => x.Documento).HasDatabaseName("IX_Cliente_Documento");
+            builder.HasIndex(x => x.Email).IsUnique().HasDatabaseName("IX_Cliente_Email");
+            builder.HasIndex(x => x.Documento).IsUnique().HasDatabaseName("IX_Cliente_Documento");
 
             builder.Property(x => x.Nome)
                 .IsRequired()

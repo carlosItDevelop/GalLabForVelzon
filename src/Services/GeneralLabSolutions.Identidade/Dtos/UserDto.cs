@@ -1,9 +1,12 @@
 ﻿namespace GeneralLabSolutions.Identidade.Dtos
 {
+    /// <summary>
+    /// DTO para transporte de dados do Usuário
+    /// </summary>
     public class UserDto
     {
 
-        public string UserId { get; set; } = Guid.NewGuid().ToString();
+        public string? UserId { get; set; } = Guid.NewGuid().ToString();
         public string Apelido { get; set; } = string.Empty;
         public string NomeCompleto { get; set; } = string.Empty;
         public DateTime DataNascimento { get; set; }

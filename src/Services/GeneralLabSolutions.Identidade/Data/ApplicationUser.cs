@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Identity;
 
 namespace GeneralLabSolutions.Identidade.Data
 {
+    /// <summary>
+    /// Especialização do IdentityUser a fim de extender suas funcionalidades, e/ou, propriedades.
+    /// </summary>
     public class ApplicationUser : IdentityUser
     {
         [Required(ErrorMessage = "O campo {0} é obrigatório!")]
@@ -20,7 +23,7 @@ namespace GeneralLabSolutions.Identidade.Data
         public DateTime DataNascimento { get; set; }
 
         [DataType(DataType.Text)]
-        [StringLength(maximumLength: 255, ErrorMessage = "O campo {0} deve ter entre {2} e {1} caracteres", MinimumLength = 21)]
+        [StringLength(maximumLength: 4000, ErrorMessage = "O campo {0} deve ter entre {2} e {1} caracteres", MinimumLength = 21)]
         public string ImgProfilePath { get; set; } = "imagemPadrao.png";
 
         public bool IsAtivo { get; set; } = true;
