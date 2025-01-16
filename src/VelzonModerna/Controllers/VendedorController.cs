@@ -51,7 +51,6 @@ namespace VelzonModerna.Controllers
         {
             if (ModelState.IsValid)
             {
-                vendedor.Id = Guid.NewGuid();
                 _context.Add(vendedor);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
