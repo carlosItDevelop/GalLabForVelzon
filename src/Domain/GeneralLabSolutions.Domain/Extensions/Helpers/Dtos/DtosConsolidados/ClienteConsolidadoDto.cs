@@ -162,6 +162,4 @@ namespace GeneralLabSolutions.Domain.Extensions.Helpers.Dtos.DtosConsolidados
         public decimal ValorTotalItens { get; set; }
     }
 
-
-
 }

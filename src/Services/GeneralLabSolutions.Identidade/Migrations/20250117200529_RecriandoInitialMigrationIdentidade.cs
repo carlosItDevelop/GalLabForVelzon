@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace GeneralLabSolutions.Identidade.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialIdentity : Migration
+    public partial class RecriandoInitialMigrationIdentidade : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -33,7 +33,7 @@ namespace GeneralLabSolutions.Identidade.Migrations
                     Apelido = table.Column<string>(type: "nvarchar(35)", maxLength: 35, nullable: false),
                     NomeCompleto = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
                     DataNascimento = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ImgProfilePath = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    ImgProfilePath = table.Column<string>(type: "nvarchar(4000)", maxLength: 4000, nullable: false),
                     IsAtivo = table.Column<bool>(type: "bit", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),

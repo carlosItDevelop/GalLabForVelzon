@@ -62,7 +62,7 @@ namespace VelzonModerna.Controllers
             }
 
 
-            return PartialView("_ItensVendaPartial", itensVenda);  // Supondo que você use um PartialView
+            return PartialView("_ItensVendaPartial", itensVenda);  // Supondo que use um PartialView
         }
     }
 }

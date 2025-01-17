@@ -12,7 +12,5 @@
         public string ValorCancelado { get; set; } = string.Empty;
         public string ValorEntregue { get; set; } = string.Empty;
 
-
-
     }
 }

@@ -1,25 +1,31 @@
 ﻿using GeneralLabSolutions.Domain.Entities.Base;
+using GeneralLabSolutions.Domain.Enums;
 using System;
 
 namespace GeneralLabSolutions.Domain.Entities
 {
 	public class ItemPedido : EntityBase
 	{
-		public ItemPedido(Guid pedidoId, 
-						  Guid produtoId, 
-						  int quantidade, 
-						  decimal valorUnitario,
-						  string nomeDoProduto)
-		{
-			PedidoId = pedidoId;
-			ProdutoId = produtoId;
-			Quantidade = quantidade;
-			ValorUnitario = valorUnitario;
-			NomeDoProduto = nomeDoProduto;
-		}
+        // Relacionamento com EstadoDoItem
+        public virtual EstadoDoItem EstadoDoItem { get; private set; }
 
-		// EF
-		protected ItemPedido() { }
+        public ItemPedido(Guid pedidoId,
+                      Guid produtoId,
+                      int quantidade,
+                      decimal valorUnitario,
+                      string nomeDoProduto)
+        : this()
+        {
+            PedidoId = pedidoId;
+            ProdutoId = produtoId;
+            Quantidade = quantidade;
+            ValorUnitario = valorUnitario;
+            NomeDoProduto = nomeDoProduto;
+            EstadoDoItem = new EstadoDoItem(this.Id, StatusDoItem.EmRevisao); // Estado inicial
+        }
+
+        // EF
+        protected ItemPedido() { }
 
 		public Guid PedidoId { get; set; }
 
@@ -37,5 +43,18 @@ namespace GeneralLabSolutions.Domain.Entities
 		{
 			Quantidade = quantidade;
 		}
-	}
+
+        // Método para alterar o estado
+        public void AlterarEstado(StatusDoItem novoStatus)
+        {
+            EstadoDoItem.AlterarStatus(novoStatus);
+        }
+
+        public void SetEstadoDoItem(EstadoDoItem estadoDoItem)
+        {
+            EstadoDoItem = estadoDoItem;
+        }
+
+
+    }
 }

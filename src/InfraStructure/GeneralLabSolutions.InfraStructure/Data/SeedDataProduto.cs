@@ -31,6 +31,7 @@ namespace GeneralLabSolutions.InfraStructure.Data
             return (decimal)(random.NextDouble() * 10000); // Gera valores entre 0 e 10000
         }
 
+        // **Modificação aqui!**
         private static string GerarDescricaoProduto(Random random, List<CategoriaProduto> categorias)
         {
             var adjetivos = new [] { "Incrível", "Moderno", "Eficiente", "Robusto", "Prático", "Inovador" };
@@ -40,12 +41,16 @@ namespace GeneralLabSolutions.InfraStructure.Data
             var adjetivo = adjetivos [random.Next(adjetivos.Length)];
             var nome = nomes [random.Next(nomes.Length)];
 
-            return $"{adjetivo} {nome} para {categoria}";
+            // Gerar um GUID e pegar os primeiros 8 caracteres
+            var guidParte = Guid.NewGuid().ToString().Substring(0, 8);
+
+            return $"{adjetivo} {nome} para {categoria} - {guidParte}";
         }
 
         // Função para retornar o status do produto baseado em pesos (reutilizada do código anterior)
         public static StatusDoProduto GetStatusDoProdutoByWeight(Random random)
         {
+            // (Mesma implementação, não foi alterada)
             var pesos = new Dictionary<StatusDoProduto, int>
             {
                 { StatusDoProduto.Dropshipping, 30 },
@@ -86,7 +91,7 @@ namespace GeneralLabSolutions.InfraStructure.Data
                     var random = new Random();
 
                     var categorias = context.CategoriaProduto.ToList();
-                    var fornecedores = context.Fornecedor.ToList(); // Obter os fornecedores com a nova estrutura
+                    var fornecedores = context.Fornecedor.ToList();
 
                     using (var transaction = context.Database.BeginTransaction())
                     {

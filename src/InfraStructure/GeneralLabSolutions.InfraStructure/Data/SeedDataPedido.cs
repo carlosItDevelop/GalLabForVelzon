@@ -41,6 +41,41 @@ namespace GeneralLabSolutions.InfraStructure.Data
             return StatusDoPedido.Pago;
         }
 
+
+        // NOVO MÉTODO para gerar StatusDoItem com base nos pesos
+        public static StatusDoItem GetStatusDoItemByWeight(Random random)
+        {
+            var pesos = new Dictionary<StatusDoItem, int>
+        {
+            { StatusDoItem.Pago, 30 },
+            { StatusDoItem.Entregue, 20 },
+            { StatusDoItem.AguardandoTransportadora, 5 },
+            { StatusDoItem.EmRevisao, 8 },
+            { StatusDoItem.EmTransito, 10 },
+            { StatusDoItem.NaAlfandega, 15 }
+        };
+
+            // Calcular a soma total dos pesos
+            int pesoTotal = pesos.Values.Sum();
+
+            // Gerar um número aleatório no intervalo de 0 até pesoTotal - 1
+            int randomValue = random.Next(0, pesoTotal);
+
+            // Percorrer os pesos e retornar o status correspondente
+            int acumulado = 0;
+            foreach (var entry in pesos)
+            {
+                acumulado += entry.Value;
+                if (randomValue < acumulado)
+                {
+                    return entry.Key;
+                }
+            }
+
+            // Fallback (apenas como segurança, mas nunca deverá acontecer)
+            return StatusDoItem.EmRevisao; // Ou outro status padrão que você preferir
+        }
+
         public static void Initialize(IServiceProvider serviceProvider)
         {
             using (var context = new AppDbContext(
@@ -86,8 +121,6 @@ namespace GeneralLabSolutions.InfraStructure.Data
                                 for (int j = 0; j < numItens; j++)
                                 {
                                     var produto = produtos [random.Next(produtos.Count)];
-
-                                    // Até 3 quantidades de Ítens por Pedido
                                     var quantidade = random.Next(1, 4);
 
                                     var itemPedido = new ItemPedido(
@@ -95,8 +128,14 @@ namespace GeneralLabSolutions.InfraStructure.Data
                                         produtoId: produto.Id,
                                         quantidade: quantidade,
                                         valorUnitario: produto.ValorUnitario,
-                                        nomeDoProduto: produto.Descricao // Obter o NomeDoProduto do Produto
+                                        nomeDoProduto: produto.Descricao
                                     );
+
+                                    // **Usar o novo método para gerar o StatusDoItem**
+                                    var statusInicial = GetStatusDoItemByWeight(random);
+                                    var estadoDoItem = new EstadoDoItem(itemPedido.Id, statusInicial);
+
+                                    itemPedido.SetEstadoDoItem(estadoDoItem);
 
                                     pedido.AdicionarItem(itemPedido);
                                 }
@@ -107,10 +146,10 @@ namespace GeneralLabSolutions.InfraStructure.Data
                     }
 
                     context.SaveChanges();
-                    Console.WriteLine("SeedData para Pedido e ItemPedido gerado com sucesso!");
+                    Console.WriteLine("SeedData para Pedido, ItemPedido e EstadoDoItem gerado com sucesso!");
                 } else
                 {
-                    Console.WriteLine("O SeedData para Pedido e ItemPedido já foi gerado!");
+                    Console.WriteLine("O SeedData para Pedido, ItemPedido e EstadoDoItem já foi gerado!");
                 }
             }
         }

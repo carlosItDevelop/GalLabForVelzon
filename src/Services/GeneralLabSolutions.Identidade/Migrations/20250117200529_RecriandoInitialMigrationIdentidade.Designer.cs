@@ -12,15 +12,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GeneralLabSolutions.Identidade.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250111205534_InitialIdentity")]
-    partial class InitialIdentity
+    [Migration("20250117200529_RecriandoInitialMigrationIdentidade")]
+    partial class RecriandoInitialMigrationIdentidade
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.11")
+                .HasAnnotation("ProductVersion", "8.0.12")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -54,8 +54,8 @@ namespace GeneralLabSolutions.Identidade.Migrations
 
                     b.Property<string>("ImgProfilePath")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasMaxLength(4000)
+                        .HasColumnType("nvarchar(4000)");
 
                     b.Property<bool>("IsAtivo")
                         .HasColumnType("bit");

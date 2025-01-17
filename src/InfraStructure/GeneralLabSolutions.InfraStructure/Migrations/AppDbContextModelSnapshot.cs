@@ -17,7 +17,7 @@ namespace GeneralLabSolutions.InfraStructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.11")
+                .HasAnnotation("ProductVersion", "8.0.12")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -34,6 +34,10 @@ namespace GeneralLabSolutions.InfraStructure.Migrations
                         .HasComment("Descrição da categoria do produto");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Descricao")
+                        .IsUnique()
+                        .HasDatabaseName("IX_Cliente_Descricao");
 
                     b.ToTable("CategoriaProduto");
                 });
@@ -74,9 +78,11 @@ namespace GeneralLabSolutions.InfraStructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("Documento")
+                        .IsUnique()
                         .HasDatabaseName("IX_Cliente_Documento");
 
                     b.HasIndex("Email")
+                        .IsUnique()
                         .HasDatabaseName("IX_Cliente_Email");
 
                     b.HasIndex("Nome")
@@ -142,14 +148,22 @@ namespace GeneralLabSolutions.InfraStructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Estado")
+                    b.Property<DateTime>("DataAlteracao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("ItemPedidoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Status")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("varchar(50)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("EstadoDoItem");
+                    b.HasIndex("ItemPedidoId")
+                        .IsUnique();
+
+                    b.ToTable("EstadoDoItem", (string)null);
                 });
 
             modelBuilder.Entity("GeneralLabSolutions.Domain.Entities.Fornecedor", b =>
@@ -184,9 +198,11 @@ namespace GeneralLabSolutions.InfraStructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("Documento")
+                        .IsUnique()
                         .HasDatabaseName("IX_Fornecedor_Documento");
 
                     b.HasIndex("Email")
+                        .IsUnique()
                         .HasDatabaseName("IX_Fornecedor_Email");
 
                     b.HasIndex("Nome")
@@ -422,14 +438,17 @@ namespace GeneralLabSolutions.InfraStructure.Migrations
                     b.HasIndex("CategoriaId");
 
                     b.HasIndex("Codigo")
+                        .IsUnique()
                         .HasDatabaseName("IX_Produto_Codigo");
 
                     b.HasIndex("Descricao")
+                        .IsUnique()
                         .HasDatabaseName("IX_Produto_Descricao");
 
                     b.HasIndex("FornecedorId");
 
                     b.HasIndex("Ncm")
+                        .IsUnique()
                         .HasDatabaseName("IX_Produto_Ncm");
 
                     b.ToTable("Produto", (string)null);
@@ -496,9 +515,11 @@ namespace GeneralLabSolutions.InfraStructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("Documento")
+                        .IsUnique()
                         .HasDatabaseName("IX_Vendedor_Documento");
 
                     b.HasIndex("Email")
+                        .IsUnique()
                         .HasDatabaseName("IX_Vendedor_Email");
 
                     b.HasIndex("Nome")
@@ -582,6 +603,17 @@ namespace GeneralLabSolutions.InfraStructure.Migrations
                     b.Navigation("Pessoa");
                 });
 
+            modelBuilder.Entity("GeneralLabSolutions.Domain.Entities.EstadoDoItem", b =>
+                {
+                    b.HasOne("GeneralLabSolutions.Domain.Entities.ItemPedido", "ItemPedido")
+                        .WithOne("EstadoDoItem")
+                        .HasForeignKey("GeneralLabSolutions.Domain.Entities.EstadoDoItem", "ItemPedidoId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("ItemPedido");
+                });
+
             modelBuilder.Entity("GeneralLabSolutions.Domain.Entities.Fornecedor", b =>
                 {
                     b.HasOne("GeneralLabSolutions.Domain.Entities.Pessoa", "Pessoa")
@@ -598,7 +630,7 @@ namespace GeneralLabSolutions.InfraStructure.Migrations
                     b.HasOne("GeneralLabSolutions.Domain.Entities.Pedido", "Pedido")
                         .WithMany("Itens")
                         .HasForeignKey("PedidoId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("GeneralLabSolutions.Domain.Entities.Produto", "Produto")
@@ -739,6 +771,12 @@ namespace GeneralLabSolutions.InfraStructure.Migrations
             modelBuilder.Entity("GeneralLabSolutions.Domain.Entities.Fornecedor", b =>
                 {
                     b.Navigation("Produtos");
+                });
+
+            modelBuilder.Entity("GeneralLabSolutions.Domain.Entities.ItemPedido", b =>
+                {
+                    b.Navigation("EstadoDoItem")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("GeneralLabSolutions.Domain.Entities.Pedido", b =>

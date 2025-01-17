@@ -7,6 +7,4 @@
         public decimal ValorTotalItens { get; set; }
     }
 
-
-
 }

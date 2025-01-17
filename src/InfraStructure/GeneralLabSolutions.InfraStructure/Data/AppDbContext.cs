@@ -34,7 +34,7 @@ namespace GeneralLabSolutions.InfraStructure.Data
         public DbSet<MembroEquipe> MembroEquipe { get; set; }
 		public DbSet<Voucher> Voucher { get; set; }
 
-        public EstadoDoItem EstadoDoItem { get; set; }
+        public DbSet<EstadoDoItem> EstadoDoItem { get; set; }
 
         public DbSet<PessoaTelefone> PessoaTelefone { get; set; }
         public DbSet<PessoaContato> PessoaContato { get; set; }
@@ -44,13 +44,6 @@ namespace GeneralLabSolutions.InfraStructure.Data
 		{
 			modelBuilder.Ignore<ValidationResult>();
 			modelBuilder.Ignore<Event>();
-
-            modelBuilder.Entity<EstadoDoItem>().HasKey(p => p.Id);
-            modelBuilder.Entity<EstadoDoItem>().Property(p => p.Estado)
-                .IsRequired()
-                .HasColumnType("varchar")
-                .HasMaxLength(50);
-
 
 
             foreach (var property in modelBuilder.Model.GetEntityTypes().SelectMany(

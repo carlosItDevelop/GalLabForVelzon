@@ -6,6 +6,9 @@ using VelzonModerna.ViewModels;
 
 namespace VelzonModerna.Controllers
 {
+    /// <summary>
+    /// DashBoard do Projeto MVC (VelzonModerna)
+    /// </summary>
     public class GalLabsController : Controller
     {
 

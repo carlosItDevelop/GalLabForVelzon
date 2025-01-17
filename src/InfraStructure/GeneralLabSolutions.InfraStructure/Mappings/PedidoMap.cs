@@ -30,9 +30,9 @@ namespace GeneralLabSolutions.InfraStructure.Mappings
 
             // Configuração do relacionamento Pedido 1:N ItensPedido
             builder.HasMany(x => x.Itens)
-                .WithOne()
+                .WithOne(x=>x.Pedido)
                 .HasForeignKey(x => x.PedidoId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Restrict);
 
             // Configuração do relacionamento com Cliente
             builder.HasOne(x => x.Cliente)

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace GeneralLabSolutions.InfraStructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMamix : Migration
+    public partial class RecriandoInitialMigrationCatalogo : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -39,18 +39,6 @@ namespace GeneralLabSolutions.InfraStructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Contato", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "EstadoDoItem",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Estado = table.Column<string>(type: "varchar(100)", maxLength: 50, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EstadoDoItem", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -353,7 +341,8 @@ namespace GeneralLabSolutions.InfraStructure.Migrations
                         name: "FK_ItemPedido_Pedido_PedidoId",
                         column: x => x.PedidoId,
                         principalTable: "Pedido",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ItemPedido_Produto_ProdutoId",
                         column: x => x.ProdutoId,
@@ -362,15 +351,42 @@ namespace GeneralLabSolutions.InfraStructure.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "EstadoDoItem",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ItemPedidoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Status = table.Column<string>(type: "varchar(50)", nullable: false),
+                    DataAlteracao = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EstadoDoItem", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EstadoDoItem_ItemPedido_ItemPedidoId",
+                        column: x => x.ItemPedidoId,
+                        principalTable: "ItemPedido",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cliente_Descricao",
+                table: "CategoriaProduto",
+                column: "Descricao",
+                unique: true);
+
             migrationBuilder.CreateIndex(
                 name: "IX_Cliente_Documento",
                 table: "Cliente",
-                column: "Documento");
+                column: "Documento",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cliente_Email",
                 table: "Cliente",
-                column: "Email");
+                column: "Email",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cliente_Nome",
@@ -394,14 +410,22 @@ namespace GeneralLabSolutions.InfraStructure.Migrations
                 column: "Nome");
 
             migrationBuilder.CreateIndex(
+                name: "IX_EstadoDoItem_ItemPedidoId",
+                table: "EstadoDoItem",
+                column: "ItemPedidoId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Fornecedor_Documento",
                 table: "Fornecedor",
-                column: "Documento");
+                column: "Documento",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Fornecedor_Email",
                 table: "Fornecedor",
-                column: "Email");
+                column: "Email",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Fornecedor_Nome",
@@ -477,12 +501,14 @@ namespace GeneralLabSolutions.InfraStructure.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Produto_Codigo",
                 table: "Produto",
-                column: "Codigo");
+                column: "Codigo",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Produto_Descricao",
                 table: "Produto",
-                column: "Descricao");
+                column: "Descricao",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Produto_FornecedorId",
@@ -492,7 +518,8 @@ namespace GeneralLabSolutions.InfraStructure.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Produto_Ncm",
                 table: "Produto",
-                column: "NCM");
+                column: "NCM",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_TarefaMembro_TarefasId",
@@ -512,12 +539,14 @@ namespace GeneralLabSolutions.InfraStructure.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Vendedor_Documento",
                 table: "Vendedor",
-                column: "Documento");
+                column: "Documento",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Vendedor_Email",
                 table: "Vendedor",
-                column: "Email");
+                column: "Email",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Vendedor_Nome",
@@ -543,9 +572,6 @@ namespace GeneralLabSolutions.InfraStructure.Migrations
                 name: "EstadoDoItem");
 
             migrationBuilder.DropTable(
-                name: "ItemPedido");
-
-            migrationBuilder.DropTable(
                 name: "PessoaContato");
 
             migrationBuilder.DropTable(
@@ -555,10 +581,7 @@ namespace GeneralLabSolutions.InfraStructure.Migrations
                 name: "TarefaMembro");
 
             migrationBuilder.DropTable(
-                name: "Pedido");
-
-            migrationBuilder.DropTable(
-                name: "Produto");
+                name: "ItemPedido");
 
             migrationBuilder.DropTable(
                 name: "Contato");
@@ -571,6 +594,12 @@ namespace GeneralLabSolutions.InfraStructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "MembroEquipe");
+
+            migrationBuilder.DropTable(
+                name: "Pedido");
+
+            migrationBuilder.DropTable(
+                name: "Produto");
 
             migrationBuilder.DropTable(
                 name: "Cliente");

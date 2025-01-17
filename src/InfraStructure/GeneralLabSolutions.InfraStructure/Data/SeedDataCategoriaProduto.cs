@@ -37,6 +37,7 @@ namespace GeneralLabSolutions.InfraStructure.Data
                         new CategoriaProduto("Móveis e Armazenagem")
                     );
                     context.SaveChanges();
+                    Console.WriteLine("SeedData para Categoria de Produto gerado com sucesso!");
                 } else
                 {
                     Console.WriteLine("O SeedData para Categoria de Produto Já foi gerado!");
