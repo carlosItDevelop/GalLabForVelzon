@@ -1,46 +1,5 @@
 ﻿@model GeneralLabSolutions.Domain.Entities.Fornecedor
 
-@* @{
-    ViewData["Title"] = "Details";
-}
-
-<h1>Details</h1>
-
-<div>
-    <h4>Fornecedor</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Documento)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Documento)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.StatusDoFornecedor)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.StatusDoFornecedor)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.TipoDePessoa)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.TipoDePessoa)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
- *@
 
 @{
     ViewData ["Title"] = "Detalhes de Fornecedor";

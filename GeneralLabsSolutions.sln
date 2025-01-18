@@ -46,6 +46,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.Velzon", "4.Velzon", "{34
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VelzonModerna", "src\VelzonModerna\VelzonModerna.csproj", "{97476FBD-AE40-47A9-B5C0-999B2BE88016}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneralLabSolutions.Application", "src\GeneralLabSolutions.Application\GeneralLabSolutions.Application.csproj", "{8332733C-CAEC-4B3B-A19E-95E12F590323}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0.Application", "0.Application", "{23D55741-6583-4ED3-A616-00E3F1BB51DE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -84,6 +88,10 @@ Global
 		{97476FBD-AE40-47A9-B5C0-999B2BE88016}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97476FBD-AE40-47A9-B5C0-999B2BE88016}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97476FBD-AE40-47A9-B5C0-999B2BE88016}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8332733C-CAEC-4B3B-A19E-95E12F590323}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8332733C-CAEC-4B3B-A19E-95E12F590323}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8332733C-CAEC-4B3B-A19E-95E12F590323}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8332733C-CAEC-4B3B-A19E-95E12F590323}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -107,6 +115,8 @@ Global
 		{6DFF74D4-33C9-4864-ACE2-64D1E39C495B} = {E6B73589-F9A4-40D6-954B-3BE5C1DDB693}
 		{340FBD20-560D-488E-84F2-3500B890F7DC} = {2C82D6C0-60FF-4A75-A310-AB33BBA3FE8D}
 		{97476FBD-AE40-47A9-B5C0-999B2BE88016} = {340FBD20-560D-488E-84F2-3500B890F7DC}
+		{8332733C-CAEC-4B3B-A19E-95E12F590323} = {23D55741-6583-4ED3-A616-00E3F1BB51DE}
+		{23D55741-6583-4ED3-A616-00E3F1BB51DE} = {2C82D6C0-60FF-4A75-A310-AB33BBA3FE8D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D9A89055-F42C-443F-8933-E84150FFF4AC}

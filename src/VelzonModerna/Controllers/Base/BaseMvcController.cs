@@ -4,11 +4,11 @@ using velzon.Models;
 
 namespace VelzonModerna.Controllers.Base
 {
-    public abstract class MainController : Controller
+    public abstract class BaseMvcController : Controller
     {
         private readonly INotificador _notificador;
 
-        protected MainController(INotificador notificador)
+        protected BaseMvcController(INotificador notificador)
         {
             _notificador = notificador;
         }

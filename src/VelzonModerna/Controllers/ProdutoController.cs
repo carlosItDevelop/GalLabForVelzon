@@ -9,7 +9,7 @@ using VelzonModerna.Controllers.Base;
 
 namespace VelzonModerna.Controllers
 {
-    public class ProdutoController : MainController
+    public class ProdutoController : BaseMvcController
     {
         private readonly AppDbContext _context;
 

@@ -41,7 +41,7 @@ namespace VelzonModerna.Controllers
 
 
         [HttpPost]
-        //[ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken] // tratei no cshtml e no javascript
         [IgnoreAntiforgeryToken] // <<<=== Desabilitar temporariamente
         public async Task<IActionResult> AtualizarStatusTarefa([FromBody] TarefaStatusUpdateDto updateDto)
         {

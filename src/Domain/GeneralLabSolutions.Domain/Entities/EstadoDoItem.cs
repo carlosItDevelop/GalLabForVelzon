@@ -39,8 +39,13 @@ namespace GeneralLabSolutions.Domain.Entities
         {
             var transicoesValidas = new Dictionary<StatusDoItem, List<StatusDoItem>>
             {
-                { StatusDoItem.Pago, new List<StatusDoItem> { StatusDoItem.Entregue, StatusDoItem.EmTransito } },
-                { StatusDoItem.EmTransito, new List<StatusDoItem> { StatusDoItem.Entregue, StatusDoItem.NaAlfandega } },
+                { 
+                    StatusDoItem.Pago, new List<StatusDoItem> 
+                      { StatusDoItem.Entregue, StatusDoItem.EmTransito } 
+                },
+                { 
+                    StatusDoItem.EmTransito, new List<StatusDoItem> { StatusDoItem.Entregue, StatusDoItem.NaAlfandega } 
+                },
                 // Adicione outras transições conforme necessário
             };
 

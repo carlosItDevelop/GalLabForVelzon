@@ -9,7 +9,7 @@ using VelzonModerna.ViewModels;
 
 namespace VelzonModerna.Controllers
 {
-    public class ClienteController : MainController
+    public class ClienteController : BaseMvcController
     {
 
         private readonly IMapper _mapper;
