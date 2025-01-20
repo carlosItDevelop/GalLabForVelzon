@@ -3,77 +3,49 @@ using GeneralLabSolutions.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace GeneralLabSolutions.InfraStructure.Data
 {
     public static class SeedDataPedido
     {
-        public static StatusDoPedido GetStatusDoPedidoByWeight(Random random)
+        // Método para obter um StatusDoItem aleatório com base em pesos (agora buscamos da tabela StatusDoItem)
+        public static StatusDoItem GetStatusDoItemByWeight(Random random, List<StatusDoItem> statusItens)
         {
-            var pesos = new Dictionary<StatusDoPedido, int>
+            // Aqui você pode definir os pesos para cada StatusDoItem, se desejar
+            // Exemplo:
+            var pesos = new Dictionary<string, int>
             {
-                { StatusDoPedido.Orcamento, 10 },   // Peso maior que cancelado
-                { StatusDoPedido.EmProcessamento, 20 },  // Peso ainda maior
-                { StatusDoPedido.Pago, 30 },        // Peso mais alto (prioritário)
-                { StatusDoPedido.Enviado, 10 },     // Peso médio
-                { StatusDoPedido.Entregue, 20 },    // Peso grande
-                { StatusDoPedido.Cancelado, 5 }     // Peso mínimo (raridade)
+                { "Pago", 30 },
+                { "Entregue", 20 },
+                { "Aguardando a Transportadora", 5 },
+                { "Em Revisao", 8 },
+                { "Em Transito", 10 },
+                { "Na Alfândega", 15 },
+                // ... outros status e seus pesos
             };
 
-            // Calcular a soma total dos pesos
+            // Se você não quiser usar pesos, pode remover essa parte e fazer um random simples
+
             int pesoTotal = pesos.Values.Sum();
-
-            // Gerar um número aleatório no intervalo de 0 até pesoTotal - 1
             int randomValue = random.Next(0, pesoTotal);
-
-            // Percorrer os pesos e retornar o status correspondente
             int acumulado = 0;
-            foreach (var entry in pesos)
+
+            foreach (var status in statusItens)
             {
-                acumulado += entry.Value;
-                if (randomValue < acumulado)
+                if (pesos.ContainsKey(status.Descricao))
                 {
-                    return entry.Key;
+                    acumulado += pesos [status.Descricao];
+                    if (randomValue < acumulado)
+                    {
+                        return status;
+                    }
                 }
             }
 
-            // Fallback (apenas como segurança, mas nunca deverá acontecer)
-            return StatusDoPedido.Pago;
-        }
-
-
-        // NOVO MÉTODO para gerar StatusDoItem com base nos pesos
-        public static StatusDoItem GetStatusDoItemByWeight(Random random)
-        {
-            var pesos = new Dictionary<StatusDoItem, int>
-        {
-            { StatusDoItem.Pago, 30 },
-            { StatusDoItem.Entregue, 20 },
-            { StatusDoItem.AguardandoTransportadora, 5 },
-            { StatusDoItem.EmRevisao, 8 },
-            { StatusDoItem.EmTransito, 10 },
-            { StatusDoItem.NaAlfandega, 15 }
-        };
-
-            // Calcular a soma total dos pesos
-            int pesoTotal = pesos.Values.Sum();
-
-            // Gerar um número aleatório no intervalo de 0 até pesoTotal - 1
-            int randomValue = random.Next(0, pesoTotal);
-
-            // Percorrer os pesos e retornar o status correspondente
-            int acumulado = 0;
-            foreach (var entry in pesos)
-            {
-                acumulado += entry.Value;
-                if (randomValue < acumulado)
-                {
-                    return entry.Key;
-                }
-            }
-
-            // Fallback (apenas como segurança, mas nunca deverá acontecer)
-            return StatusDoItem.EmRevisao; // Ou outro status padrão que você preferir
+            // Fallback: retorna um status aleatório da lista (caso os pesos não estejam definidos para todos os status)
+            return statusItens [random.Next(statusItens.Count)];
         }
 
         public static void Initialize(IServiceProvider serviceProvider)
@@ -93,31 +65,29 @@ namespace GeneralLabSolutions.InfraStructure.Data
                     var vendedores = context.Vendedor.ToList();
                     var produtos = context.Produto.ToList();
 
+                    // *** Buscar os StatusDoItem do banco de dados ***
+                    var statusItens = context.StatusDoItem.ToList();
+
                     // Adiciona a lógica para gerar pedidos nos anos 2022, 2023 e 2024
-                    // Itera pelos anos 2022, 2023 e 2024
                     for (int ano = 2022; ano <= 2024; ano++)
                     {
-                        for (int mes = 1; mes <= 12; mes++) // Itera pelos 12 meses do ano
+                        for (int mes = 1; mes <= 12; mes++)
                         {
-                            int numPedidos = random.Next(6, 16); // 6 a 15 pedidos por mês
+                            int numPedidos = random.Next(6, 16);
 
                             for (int i = 0; i < numPedidos; i++)
                             {
                                 var cliente = clientes [random.Next(clientes.Count)];
                                 var vendedor = vendedores [random.Next(vendedores.Count)];
+                                var dataPedido = new DateTime(ano, mes, random.Next(1, DateTime.DaysInMonth(ano, mes) + 1));
 
-                                // Obtém o número de dias no mês
-                                int diasNoMes = DateTime.DaysInMonth(ano, mes);
+                                var pedido = new Pedido(cliente.Id, vendedor.Id, dataPedido);
+                                pedido.AtualizarStatus(StatusDoPedido.Orcamento);
 
-                                // Aumenta o limite para o último dia
-                                var dataPedido = new DateTime(ano, mes, random.Next(1, diasNoMes + 1));
 
-                                var pedido = new Pedido(cliente.Id, vendedor.Id, dataPedido)
-                                {
-                                    StatusDoPedido = GetStatusDoPedidoByWeight(random)
-                                };
 
-                                int numItens = random.Next(2, 7); // 2 a 6 itens por pedido
+
+                                int numItens = random.Next(2, 7);
                                 for (int j = 0; j < numItens; j++)
                                 {
                                     var produto = produtos [random.Next(produtos.Count)];
@@ -131,11 +101,12 @@ namespace GeneralLabSolutions.InfraStructure.Data
                                         nomeDoProduto: produto.Descricao
                                     );
 
-                                    // **Usar o novo método para gerar o StatusDoItem**
-                                    var statusInicial = GetStatusDoItemByWeight(random);
-                                    var estadoDoItem = new EstadoDoItem(itemPedido.Id, statusInicial);
+                                    // *** Obter um StatusDoItem aleatório com base nos pesos ***
+                                    var statusDoItem = GetStatusDoItemByWeight(random, statusItens);
 
-                                    itemPedido.SetEstadoDoItem(estadoDoItem);
+                                    // *** Criar um novo EstadoDoItem associando ao ItemPedido e ao StatusDoItem ***
+                                    var estadoDoItem = new EstadoDoItem(itemPedido.Id, statusDoItem.Id);
+                                    itemPedido.Estados.Add(estadoDoItem); // Adiciona o estado ao item
 
                                     pedido.AdicionarItem(itemPedido);
                                 }
@@ -145,7 +116,7 @@ namespace GeneralLabSolutions.InfraStructure.Data
                         }
                     }
 
-                    context.SaveChanges();
+                    // context.SaveChanges(); // Removido o SaveChanges daqui e colocado no DbInitializer (UMA ÚNICA TRANSAÇÃO)
                     Console.WriteLine("SeedData para Pedido, ItemPedido e EstadoDoItem gerado com sucesso!");
                 } else
                 {

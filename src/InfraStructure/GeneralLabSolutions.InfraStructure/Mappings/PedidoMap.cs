@@ -1,6 +1,7 @@
 ﻿using GeneralLabSolutions.Domain.Entities;
 using GeneralLabSolutions.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace GeneralLabSolutions.InfraStructure.Mappings
@@ -27,12 +28,11 @@ namespace GeneralLabSolutions.InfraStructure.Mappings
                 .IsRequired()
                 .HasDefaultValue(StatusDoPedido.Orcamento);
 
-
             // Configuração do relacionamento Pedido 1:N ItensPedido
             builder.HasMany(x => x.Itens)
-                .WithOne(x=>x.Pedido)
+                .WithOne(x => x.Pedido)
                 .HasForeignKey(x => x.PedidoId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.NoAction);
 
             // Configuração do relacionamento com Cliente
             builder.HasOne(x => x.Cliente)
@@ -45,6 +45,12 @@ namespace GeneralLabSolutions.InfraStructure.Mappings
                 .WithMany(x => x.Pedidos)
                 .HasForeignKey(x => x.VendedorId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            // Configuração do relacionamento 1:N com HistoricoPedido
+            builder.HasMany(p => p.Historico)
+                .WithOne(h => h.Pedido)
+                .HasForeignKey(h => h.PedidoId)
+                .OnDelete(DeleteBehavior.Cascade); // Cascade faz sentido aqui
 
             // Nome da tabela
             builder.ToTable("Pedido");

@@ -39,6 +39,11 @@ namespace GeneralLabSolutions.InfraStructure.Data
         public DbSet<PessoaTelefone> PessoaTelefone { get; set; }
         public DbSet<PessoaContato> PessoaContato { get; set; }
 
+        public DbSet<StatusDoItem> StatusDoItem { get; set; } 
+        public DbSet<StatusDoItemIncompativel> StatusDoItemIncompativel { get; set; }
+        public DbSet<HistoricoPedido> HistoricoPedido { get; set; }
+        public DbSet<HistoricoItem> HistoricoItem { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{

@@ -1,8 +1,8 @@
-﻿using GeneralLabSolutions.InfraStructure.Data;
-using Microsoft.EntityFrameworkCore;
+﻿// ... (outros using)
+using GeneralLabSolutions.InfraStructure.Data;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
-namespace GeneralLabSolutions.InfraStructure.Data;
 public static class DbInitializer
 {
     public static async Task InitializeAsync(IServiceProvider serviceProvider)
@@ -23,7 +23,9 @@ public static class DbInitializer
                     SeedDataCliente.Initialize(scopedProvider);
                     SeedDataVendedor.Initialize(scopedProvider);
                     SeedDataProduto.Initialize(scopedProvider);
-                    SeedDataPedido.Initialize(scopedProvider);
+                    SeedDataStatusDoItem.Initialize(scopedProvider);  // <<<=== Mover para antes de SeedDataPedido
+                    SeedDataStatusDoItemIncompativel.Initialize(scopedProvider);  // <<<=== Mover para antes de SeedDataPedido
+                    SeedDataPedido.Initialize(scopedProvider); // Agora vai ter os StatusDoItem disponíveis
                     SeedDataContato.Initialize(scopedProvider);
                     SeedDataTelefone.Initialize(scopedProvider);
                     SeedDataGerenciadorDeFluxoKanban.Initialize(scopedProvider);
@@ -32,19 +34,7 @@ public static class DbInitializer
                     await context.SaveChangesAsync(); //Salvar todas as alterações na mesma transação.
                     await transaction.CommitAsync();
 
-                    Console.WriteLine("SeedData para Categoria de Produto gerado com sucesso!");
-                    Console.WriteLine("SeedData para Cliente gerado com sucesso!");
-                    Console.WriteLine("SeedData para Contato e PessoaContato gerados com sucesso!");
-                    Console.WriteLine("SeedData para Fornecedor gerado com sucesso!");
-                    Console.WriteLine("SeedData para GerenciadorDeFluxoKanban gerado com sucesso!");
-                    Console.WriteLine("SeedData para MembrosEquipe gerado com sucesso!");
-                    Console.WriteLine("SeedData para Pedido, ItemPedido e EstadoDoItem gerado com sucesso!");
-                    Console.WriteLine("SeedData para Produto gerado com sucesso!");
-                    Console.WriteLine("SeedData para Telefone e PessoaTelefone gerados com sucesso!");
-                    Console.WriteLine("SeedData para Vendedor gerado com sucesso!");
-
-
-
+                    // Adicionar mensagens de sucesso para cada SeedData, se necessário
 
                     Console.WriteLine("\n\n================================\nSeedData executado com sucesso!");
                 } catch (Exception ex)

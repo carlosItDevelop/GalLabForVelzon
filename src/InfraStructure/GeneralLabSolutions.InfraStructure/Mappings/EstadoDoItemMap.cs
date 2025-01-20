@@ -1,5 +1,4 @@
 ﻿using GeneralLabSolutions.Domain.Entities;
-using GeneralLabSolutions.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -11,20 +10,30 @@ namespace GeneralLabSolutions.InfraStructure.Mappings
         {
             builder.HasKey(e => e.Id);
 
-            builder.Property(e => e.Status)
-                .HasEnumConversion()
-                .IsRequired()
-                .HasColumnType("varchar(50)");
+            builder.Property(e => e.StatusDoItemId)
+                .IsRequired();
 
             builder.Property(e => e.DataAlteracao)
                 .IsRequired()
                 .HasColumnType("datetime2");
 
-            // Relacionamento com ItemPedido
+            builder.Property(e => e.Ativo)
+                .IsRequired();
+
+            builder.Property(e => e.DadosExtras)
+                .HasColumnType("NVARCHAR(MAX)");
+
+            // Relacionamento com ItemPedido (agora 1:N)
             builder.HasOne(e => e.ItemPedido)
-                .WithOne(i => i.EstadoDoItem)
-                .HasForeignKey<EstadoDoItem>(e => e.ItemPedidoId)
-                .OnDelete(DeleteBehavior.NoAction); // Define conforme a lógica de negócio
+                .WithMany(i => i.Estados)
+                .HasForeignKey(e => e.ItemPedidoId)
+                .OnDelete(DeleteBehavior.Restrict); // Evitar exclusão em cascata
+
+            // Relacionamento com StatusDoItem
+            builder.HasOne(e => e.StatusDoItem)
+                .WithMany() // Pode adicionar uma propriedade de navegação em StatusDoItem se necessário
+                .HasForeignKey(e => e.StatusDoItemId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.ToTable("EstadoDoItem");
         }

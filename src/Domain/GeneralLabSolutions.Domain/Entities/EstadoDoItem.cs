@@ -5,57 +5,39 @@ namespace GeneralLabSolutions.Domain.Entities
 {
     public class EstadoDoItem : EntityBase
     {
-        // EF
-        public EstadoDoItem() { }
-
-        public EstadoDoItem(Guid itemPedidoId, StatusDoItem status)
-        {
-            ItemPedidoId = itemPedidoId;
-            Status = status;
-            DataAlteracao = DateTime.UtcNow;
-        }
-
         public Guid ItemPedidoId { get; private set; }
-        public ItemPedido ItemPedido { get; private set; }
+        public virtual ItemPedido ItemPedido { get; private set; }
 
-        public StatusDoItem Status { get; private set; }
+        public Guid StatusDoItemId { get; private set; }
+
+        // Propriedade de navegação para StatusDoItem
+        public virtual StatusDoItem StatusDoItem { get; private set; }
+
         public DateTime DataAlteracao { get; private set; }
 
-        // Método para alterar o status com lógica de negócio
-        public void AlterarStatus(StatusDoItem novoStatus)
-        {
-            if (!IsValidTransition(this.Status, novoStatus))
-                throw new InvalidOperationException($"Transição de {this.Status} para {novoStatus} não permitida.");
+        // Indica se este estado específico está ativo para o item no momento.
+        public bool Ativo { get; private set; }
 
-            Status = novoStatus;
+        // Campo para dados extras, como observações específicas para cada mudança de estado.
+        public string? DadosExtras { get; private set; } // Pode ser um JSON, se necessário.
+
+        // Construtor para criar uma nova entrada de estado do item
+        public EstadoDoItem(Guid itemPedidoId, Guid statusDoItemId, string dadosExtras = null)
+        {
+            ItemPedidoId = itemPedidoId;
+            StatusDoItemId = statusDoItemId;
             DataAlteracao = DateTime.UtcNow;
-
-            // Todo: Adicionar um evento de domínio:
-            //AdicionarEvento(new EstadoDoItemAlteradoEvent(this));
-
+            Ativo = true; // Por padrão, um novo estado é considerado ativo.
+            DadosExtras = dadosExtras; // Pode ser null ou vazio, dependendo dos requisitos.
         }
 
-        private bool IsValidTransition(StatusDoItem atual, StatusDoItem novo)
+        // Método para desativar um estado. Pode ser chamado quando um estado é substituído por outro, por exemplo.
+        public void DesativarEstado()
         {
-            var transicoesValidas = new Dictionary<StatusDoItem, List<StatusDoItem>>
-            {
-                { 
-                    StatusDoItem.Pago, new List<StatusDoItem> 
-                      { 
-                        StatusDoItem.Entregue, StatusDoItem.EmTransito 
-                      } 
-                },
-                { 
-                    StatusDoItem.EmTransito, new List<StatusDoItem> 
-                    { 
-                        StatusDoItem.Entregue, StatusDoItem.NaAlfandega 
-                    } 
-                },
-                // Adicione outras transições conforme necessário
-            };
-
-            return transicoesValidas.ContainsKey(atual) && transicoesValidas [atual].Contains(novo);
+            Ativo = false;
         }
 
+        // EF
+        protected EstadoDoItem() { }
     }
 }
