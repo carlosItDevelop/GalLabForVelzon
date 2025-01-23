@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 using GeneralLabSolutions.Domain.Enums;
-using GeneralLabSolutions.Domain.Extensions.Helpers.Dtos.DtosViewComponents;
+using GeneralLabSolutions.Domain.DTOs.DtosViewComponents;
 using GeneralLabSolutions.Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 

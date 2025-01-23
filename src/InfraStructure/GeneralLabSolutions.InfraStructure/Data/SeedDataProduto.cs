@@ -34,17 +34,18 @@ namespace GeneralLabSolutions.InfraStructure.Data
         // **Modificação aqui!**
         private static string GerarDescricaoProduto(Random random, List<CategoriaProduto> categorias)
         {
-            var adjetivos = new [] { "Incrível", "Moderno", "Eficiente", "Robusto", "Prático", "Inovador" };
-            var nomes = new [] { "Dispositivo", "Equipamento", "Ferramenta", "Material", "Componente", "Acessório" };
-
+            var adjetivos = new [] { "Incrível", "Moderno", "Eficiente", "Robusto", "Prático", "Inovador", "Compacto", "Leve", "Resistente", "Durável", "Confiável", "Preciso", "Versátil", "Econômico" };
+            var nomes = new [] { "Dispositivo", "Equipamento", "Ferramenta", "Material", "Componente", "Acessório", "Sistema", "Instrumento", "Máquina", "Aparelho", "Kit", "Conjunto" };
+            var complementos = new [] { "de Medição", "de Teste", "de Análise", "de Controle", "de Segurança", "de Precisão", "de Alto Desempenho", "de Última Geração", "de Alta Tecnologia", "de Baixa Manutenção" };
             var categoria = categorias [random.Next(categorias.Count)].Descricao;
             var adjetivo = adjetivos [random.Next(adjetivos.Length)];
             var nome = nomes [random.Next(nomes.Length)];
+            var complemento = complementos [random.Next(complementos.Length)];
 
             // Gerar um GUID e pegar os primeiros 8 caracteres
             var guidParte = Guid.NewGuid().ToString().Substring(0, 8);
 
-            return $"{adjetivo} {nome} para {categoria} - {guidParte}";
+            return $"{adjetivo} {nome} {complemento} para {categoria} - {guidParte}";
         }
 
         // Função para retornar o status do produto baseado em pesos (reutilizada do código anterior)

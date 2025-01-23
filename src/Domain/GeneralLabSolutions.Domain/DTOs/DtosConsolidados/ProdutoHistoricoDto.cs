@@ -1,4 +1,4 @@
-﻿namespace GeneralLabSolutions.Domain.Extensions.Helpers.Dtos.DtosConsolidados
+﻿namespace GeneralLabSolutions.Domain.DTOs.DtosConsolidados
 {
     // DTO para histórico de produtos vendidos
 

@@ -19,19 +19,19 @@ namespace GeneralLabSolutions.InfraStructure.Mappings
 
             builder.Property(h => h.TipoEvento)
                 .IsRequired()
-                .HasColumnType("varchar(100)");
+                .HasColumnType("varchar(100)"); // Ajuste o tamanho conforme necessário
 
             builder.Property(h => h.StatusAnterior)
-                .HasColumnType("varchar(50)");
+                .HasColumnType("varchar(50)"); // Ajuste o tamanho conforme necessário
 
             builder.Property(h => h.StatusNovo)
-                .HasColumnType("varchar(50)");
+                .HasColumnType("varchar(50)"); // Ajuste o tamanho conforme necessário
 
             builder.Property(h => h.UsuarioId)
-                .HasColumnType("varchar(255)");
+                .HasColumnType("varchar(255)"); // Ajuste o tamanho conforme necessário
 
             builder.Property(h => h.DadosExtras)
-                .HasColumnType("NVARCHAR(MAX)");
+                .HasColumnType("NVARCHAR(MAX)"); // Ou JSON, se o seu banco de dados suportar
 
             // Relacionamento com Pedido
             builder.HasOne(h => h.Pedido)

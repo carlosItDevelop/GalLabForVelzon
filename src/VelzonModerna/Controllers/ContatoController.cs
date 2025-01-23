@@ -7,8 +7,12 @@ using VelzonModerna.ViewModels;
 
 namespace VelzonModerna.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class ContatoController : Controller
     {
+        // ToDo: Implementar Repository Pattern
         private readonly AppDbContext _context;
         private readonly IMapper _mapper;
 

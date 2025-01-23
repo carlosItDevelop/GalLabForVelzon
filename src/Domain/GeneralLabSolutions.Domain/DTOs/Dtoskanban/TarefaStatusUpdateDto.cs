@@ -1,4 +1,4 @@
-﻿namespace GeneralLabSolutions.Domain.Extensions.Helpers.Dtos.Dtoskanban
+﻿namespace GeneralLabSolutions.Domain.DTOs.Dtoskanban
 {
     public class TarefaStatusUpdateDto
     {

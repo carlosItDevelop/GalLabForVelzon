@@ -1,5 +1,5 @@
 ﻿using GeneralLabSolutions.Domain.Entities;
-using GeneralLabSolutions.Domain.Extensions.Helpers.Dtos.DtosConsolidados;
+using GeneralLabSolutions.Domain.DTOs.DtosConsolidados;
 using GeneralLabSolutions.Domain.Interfaces;
 using GeneralLabSolutions.InfraStructure.Data;
 using GeneralLabSolutions.InfraStructure.Repository.Base;

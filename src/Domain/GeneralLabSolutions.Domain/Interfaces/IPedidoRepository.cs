@@ -1,7 +1,8 @@
-﻿using GeneralLabSolutions.Domain.Entities;
+﻿using GeneralLabSolutions.Domain.DTOs.DtosGraficos;
+using GeneralLabSolutions.Domain.DTOs.DtosViewComponents;
+using GeneralLabSolutions.Domain.Entities;
 using GeneralLabSolutions.Domain.Enums;
-using GeneralLabSolutions.Domain.Extensions.Helpers.Dtos.DtosGraficos;
-using GeneralLabSolutions.Domain.Extensions.Helpers.Dtos.DtosViewComponents;
+
 
 namespace GeneralLabSolutions.Domain.Interfaces
 {

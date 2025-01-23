@@ -11,6 +11,7 @@ namespace VelzonModerna.Controllers
     [Route("pedidos")]
     public class PedidoController : Controller
     {
+        // Todo: Implementar repository Pattern
         private readonly AppDbContext _context;
         //private readonly IPedidoRepository _pedidoRepository;
 

@@ -148,20 +148,26 @@ namespace GeneralLabSolutions.InfraStructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("DadosExtras")
+                        .HasColumnType("NVARCHAR(MAX)");
+
                     b.Property<DateTime>("DataAlteracao")
                         .HasColumnType("datetime2");
 
                     b.Property<Guid>("ItemPedidoId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("varchar(50)");
+                    b.Property<Guid>("StatusDoItemId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ItemPedidoId")
-                        .IsUnique();
+                    b.HasIndex("ItemPedidoId");
+
+                    b.HasIndex("StatusDoItemId");
 
                     b.ToTable("EstadoDoItem", (string)null);
                 });
@@ -247,6 +253,78 @@ namespace GeneralLabSolutions.InfraStructure.Migrations
                         .HasDatabaseName("IX_GerenciadorDeFluxoKanban_Titulo");
 
                     b.ToTable("GerenciadorDeFluxoKanban");
+                });
+
+            modelBuilder.Entity("GeneralLabSolutions.Domain.Entities.HistoricoItem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("DadosExtras")
+                        .HasColumnType("NVARCHAR(MAX)");
+
+                    b.Property<DateTime>("DataHora")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("ItemPedidoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("StatusAnterior")
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("StatusNovo")
+                        .IsRequired()
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("TipoEvento")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("UsuarioId")
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ItemPedidoId");
+
+                    b.ToTable("HistoricoItem", (string)null);
+                });
+
+            modelBuilder.Entity("GeneralLabSolutions.Domain.Entities.HistoricoPedido", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("DadosExtras")
+                        .HasColumnType("NVARCHAR(MAX)");
+
+                    b.Property<DateTime>("DataHora")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("PedidoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("StatusAnterior")
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("StatusNovo")
+                        .IsRequired()
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("TipoEvento")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("UsuarioId")
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PedidoId");
+
+                    b.ToTable("HistoricoPedido", (string)null);
                 });
 
             modelBuilder.Entity("GeneralLabSolutions.Domain.Entities.ItemPedido", b =>
@@ -454,6 +532,48 @@ namespace GeneralLabSolutions.InfraStructure.Migrations
                     b.ToTable("Produto", (string)null);
                 });
 
+            modelBuilder.Entity("GeneralLabSolutions.Domain.Entities.StatusDoItem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Ativo")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("StatusDoItem", (string)null);
+                });
+
+            modelBuilder.Entity("GeneralLabSolutions.Domain.Entities.StatusDoItemIncompativel", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("StatusDoItemId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("StatusDoItemIncompativelId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StatusDoItemId");
+
+                    b.HasIndex("StatusDoItemIncompativelId");
+
+                    b.ToTable("StatusDoItemIncompativel", (string)null);
+                });
+
             modelBuilder.Entity("GeneralLabSolutions.Domain.Entities.Telefone", b =>
                 {
                     b.Property<Guid>("Id")
@@ -606,12 +726,20 @@ namespace GeneralLabSolutions.InfraStructure.Migrations
             modelBuilder.Entity("GeneralLabSolutions.Domain.Entities.EstadoDoItem", b =>
                 {
                     b.HasOne("GeneralLabSolutions.Domain.Entities.ItemPedido", "ItemPedido")
-                        .WithOne("EstadoDoItem")
-                        .HasForeignKey("GeneralLabSolutions.Domain.Entities.EstadoDoItem", "ItemPedidoId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .WithMany("Estados")
+                        .HasForeignKey("ItemPedidoId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("GeneralLabSolutions.Domain.Entities.StatusDoItem", "StatusDoItem")
+                        .WithMany()
+                        .HasForeignKey("StatusDoItemId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("ItemPedido");
+
+                    b.Navigation("StatusDoItem");
                 });
 
             modelBuilder.Entity("GeneralLabSolutions.Domain.Entities.Fornecedor", b =>
@@ -625,12 +753,34 @@ namespace GeneralLabSolutions.InfraStructure.Migrations
                     b.Navigation("Pessoa");
                 });
 
+            modelBuilder.Entity("GeneralLabSolutions.Domain.Entities.HistoricoItem", b =>
+                {
+                    b.HasOne("GeneralLabSolutions.Domain.Entities.ItemPedido", "ItemPedido")
+                        .WithMany("Historico")
+                        .HasForeignKey("ItemPedidoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ItemPedido");
+                });
+
+            modelBuilder.Entity("GeneralLabSolutions.Domain.Entities.HistoricoPedido", b =>
+                {
+                    b.HasOne("GeneralLabSolutions.Domain.Entities.Pedido", "Pedido")
+                        .WithMany("Historico")
+                        .HasForeignKey("PedidoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Pedido");
+                });
+
             modelBuilder.Entity("GeneralLabSolutions.Domain.Entities.ItemPedido", b =>
                 {
                     b.HasOne("GeneralLabSolutions.Domain.Entities.Pedido", "Pedido")
                         .WithMany("Itens")
                         .HasForeignKey("PedidoId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("GeneralLabSolutions.Domain.Entities.Produto", "Produto")
@@ -727,6 +877,25 @@ namespace GeneralLabSolutions.InfraStructure.Migrations
                     b.Navigation("Fornecedor");
                 });
 
+            modelBuilder.Entity("GeneralLabSolutions.Domain.Entities.StatusDoItemIncompativel", b =>
+                {
+                    b.HasOne("GeneralLabSolutions.Domain.Entities.StatusDoItem", "StatusDoItem")
+                        .WithMany("Incompatibilidades")
+                        .HasForeignKey("StatusDoItemId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("GeneralLabSolutions.Domain.Entities.StatusDoItem", "StatusDoItemIncompativelNavigation")
+                        .WithMany()
+                        .HasForeignKey("StatusDoItemIncompativelId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("StatusDoItem");
+
+                    b.Navigation("StatusDoItemIncompativelNavigation");
+                });
+
             modelBuilder.Entity("GeneralLabSolutions.Domain.Entities.Vendedor", b =>
                 {
                     b.HasOne("GeneralLabSolutions.Domain.Entities.Pessoa", "Pessoa")
@@ -775,12 +944,15 @@ namespace GeneralLabSolutions.InfraStructure.Migrations
 
             modelBuilder.Entity("GeneralLabSolutions.Domain.Entities.ItemPedido", b =>
                 {
-                    b.Navigation("EstadoDoItem")
-                        .IsRequired();
+                    b.Navigation("Estados");
+
+                    b.Navigation("Historico");
                 });
 
             modelBuilder.Entity("GeneralLabSolutions.Domain.Entities.Pedido", b =>
                 {
+                    b.Navigation("Historico");
+
                     b.Navigation("Itens");
                 });
 
@@ -789,6 +961,11 @@ namespace GeneralLabSolutions.InfraStructure.Migrations
                     b.Navigation("PessoasContatos");
 
                     b.Navigation("PessoasTelefones");
+                });
+
+            modelBuilder.Entity("GeneralLabSolutions.Domain.Entities.StatusDoItem", b =>
+                {
+                    b.Navigation("Incompatibilidades");
                 });
 
             modelBuilder.Entity("GeneralLabSolutions.Domain.Entities.Telefone", b =>

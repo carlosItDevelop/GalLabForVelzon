@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GeneralLabSolutions.Identidade.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250117200529_RecriandoInitialMigrationIdentidade")]
-    partial class RecriandoInitialMigrationIdentidade
+    [Migration("20250120223447_ReInitIdentidade")]
+    partial class ReInitIdentidade
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

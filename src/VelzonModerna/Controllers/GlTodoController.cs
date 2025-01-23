@@ -2,6 +2,7 @@
 
 namespace VelzonModerna.Controllers
 {
+    // Todo: Implementar as Actions e Views
     public class GlTodoController : Controller
     {
         public async Task<IActionResult> Index()

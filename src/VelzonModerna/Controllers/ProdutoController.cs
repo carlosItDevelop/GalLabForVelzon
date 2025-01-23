@@ -9,6 +9,7 @@ using VelzonModerna.Controllers.Base;
 
 namespace VelzonModerna.Controllers
 {
+    // Todo: Implementar Repository Pattern
     public class ProdutoController : BaseMvcController
     {
         private readonly AppDbContext _context;

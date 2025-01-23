@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace GeneralLabSolutions.Identidade.Migrations
 {
     /// <inheritdoc />
-    public partial class RecriandoInitialMigrationIdentidade : Migration
+    public partial class ReInitIdentidade : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

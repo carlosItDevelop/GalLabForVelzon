@@ -4,7 +4,6 @@ namespace GeneralLabSolutions.Domain.Entities
 {
     public class StatusDoItem : EntityBase
     {
-
         public StatusDoItem()
         {
             Incompatibilidades = new List<StatusDoItemIncompativel>();

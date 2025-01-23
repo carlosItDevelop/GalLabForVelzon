@@ -19,14 +19,13 @@ namespace GeneralLabSolutions.Domain.Entities
             DataPedido = dataPedido;
             Itens = new List<ItemPedido>();
             Historico = new List<HistoricoPedido>();
+            StatusDoPedido = StatusDoPedido.Orcamento; // Definir status inicial
         }
 
         public Guid ClienteId { get; set; }
         public Guid VendedorId { get; set; }
         public DateTime DataPedido { get; set; }
-
-        // Removido o set para evitar modificação externa direta
-        public StatusDoPedido StatusDoPedido { get; private set; } = StatusDoPedido.Orcamento;
+        public StatusDoPedido StatusDoPedido { get; private set; }
 
         public virtual Cliente Cliente { get; set; }
         public virtual Vendedor Vendedor { get; set; }
@@ -69,6 +68,10 @@ namespace GeneralLabSolutions.Domain.Entities
         public void AtualizarStatus(StatusDoPedido novoStatus)
         {
             StatusDoPedido = novoStatus;
+
+            // Aqui você também pode adicionar a lógica para registrar o histórico de alterações na tabela HistoricoPedido, se necessário.
+            // Exemplo:
+            // Historico.Add(new HistoricoPedido { PedidoId = this.Id, TipoEvento = "Status Alterado", StatusAnterior = this.StatusDoPedido.ToString(), StatusNovo = novoStatus.ToString(), DataHora = DateTime.Now, UsuarioId = "..." });
         }
     }
 }

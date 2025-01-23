@@ -32,7 +32,7 @@ namespace GeneralLabSolutions.InfraStructure.Mappings
             builder.HasMany(x => x.Itens)
                 .WithOne(x => x.Pedido)
                 .HasForeignKey(x => x.PedidoId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Restrict);
 
             // Configuração do relacionamento com Cliente
             builder.HasOne(x => x.Cliente)

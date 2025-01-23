@@ -1,4 +1,5 @@
 ﻿using GeneralLabSolutions.Domain.Entities;
+using GeneralLabSolutions.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -21,7 +22,7 @@ namespace GeneralLabSolutions.InfraStructure.Mappings
                 .IsRequired();
 
             builder.Property(e => e.DadosExtras)
-                .HasColumnType("NVARCHAR(MAX)");
+                .HasColumnType("NVARCHAR(MAX)"); // Ou JSON, se o seu banco de dados suportar
 
             // Relacionamento com ItemPedido (agora 1:N)
             builder.HasOne(e => e.ItemPedido)

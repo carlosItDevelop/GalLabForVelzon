@@ -1,5 +1,5 @@
 ﻿using GeneralLabSolutions.Domain.Enums;
-using GeneralLabSolutions.Domain.Extensions.Helpers.Dtos.DtosGraficos;
+using GeneralLabSolutions.Domain.DTOs.DtosGraficos;
 using GeneralLabSolutions.Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using VelzonModerna.ViewModels;

@@ -1,7 +1,7 @@
 ﻿namespace GeneralLabSolutions.Identidade.Configuration
 {
     /// <summary>
-    /// Classe que guardará os dados donó
+    /// Classe que guardará os dados do nó
     /// SeedUsersSettings em secrets.json
     /// </summary>
     public class SeedUserSettings

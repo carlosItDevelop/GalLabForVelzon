@@ -7,8 +7,13 @@ using GeneralLabSolutions.Domain.Entities.Base;
 
 namespace GeneralLabSolutions.Domain.Entities
 {
-    public class PessoaTelefone : EntityBase
+    /// <summary>
+    /// Modelo que associa Pessoa com Telefone
+    /// </summary>
+    public class PessoaTelefone
     {
+        // ToDo: Retirei a herança de EntityBase, pois a chave primária é a composta: PessoaId + TelefoneId; Documentador: Não perca de vista esta anotação!
+
         public Guid PessoaId { get; set; }
         public Pessoa Pessoa { get; set; }
 

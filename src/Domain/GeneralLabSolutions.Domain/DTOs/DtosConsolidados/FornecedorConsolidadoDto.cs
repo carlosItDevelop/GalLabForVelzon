@@ -1,6 +1,6 @@
 ﻿using GeneralLabSolutions.Domain.Entities;
 
-namespace GeneralLabSolutions.Domain.Extensions.Helpers.Dtos.DtosConsolidados
+namespace GeneralLabSolutions.Domain.DTOs.DtosConsolidados
 {
     public class FornecedorConsolidadoDto
     {

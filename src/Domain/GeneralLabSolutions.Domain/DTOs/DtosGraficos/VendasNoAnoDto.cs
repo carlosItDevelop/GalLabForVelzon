@@ -1,4 +1,4 @@
-﻿namespace GeneralLabSolutions.Domain.Extensions.Helpers.Dtos.DtosGraficos
+﻿namespace GeneralLabSolutions.Domain.DTOs.DtosGraficos
 {
     public class VendasNoAnoDto
     {

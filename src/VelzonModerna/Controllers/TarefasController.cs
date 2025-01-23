@@ -1,11 +1,12 @@
 ﻿using GeneralLabSolutions.Domain.Entities;
-using GeneralLabSolutions.Domain.Extensions.Helpers.Dtos.Dtoskanban;
+using GeneralLabSolutions.Domain.DTOs.Dtoskanban;
 using GeneralLabSolutions.Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using VelzonModerna.ViewModels;
 
 namespace VelzonModerna.Controllers
 {
+    // Todo: Gerenciador do Quadro Kanban - Refatorar depois e mudar os nomes da Controller e das Views
     public class TarefasController : Controller
     {
         private readonly IGerenciadorDeFluxoKanbanRepository _gerenciadorDeFluxoKanbanRepository;

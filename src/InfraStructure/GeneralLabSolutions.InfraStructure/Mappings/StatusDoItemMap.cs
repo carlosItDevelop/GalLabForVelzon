@@ -19,7 +19,7 @@ namespace GeneralLabSolutions.InfraStructure.Mappings
                 .IsRequired()
                 .HasDefaultValue(true);
 
-            // Relacionamento com StatusDoItemIncompativel (1:N)
+            // Configuração do relacionamento 1:N com StatusDoItemIncompativel
             builder.HasMany(s => s.Incompatibilidades)
                 .WithOne(i => i.StatusDoItem)
                 .HasForeignKey(i => i.StatusDoItemId)

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace GeneralLabSolutions.InfraStructure.Migrations
 {
     /// <inheritdoc />
-    public partial class RecriandoInitialMigrationCatalogo : Migration
+    public partial class ReInitCatalogo : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -77,6 +77,19 @@ namespace GeneralLabSolutions.InfraStructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Pessoa", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StatusDoItem",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Descricao = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
+                    Ativo = table.Column<bool>(type: "bit", nullable: false, defaultValue: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StatusDoItem", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -234,6 +247,31 @@ namespace GeneralLabSolutions.InfraStructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "StatusDoItemIncompativel",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    StatusDoItemId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    StatusDoItemIncompativelId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StatusDoItemIncompativel", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_StatusDoItemIncompativel_StatusDoItem_StatusDoItemId",
+                        column: x => x.StatusDoItemId,
+                        principalTable: "StatusDoItem",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_StatusDoItemIncompativel_StatusDoItem_StatusDoItemIncompativelId",
+                        column: x => x.StatusDoItemIncompativelId,
+                        principalTable: "StatusDoItem",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PessoaTelefone",
                 columns: table => new
                 {
@@ -324,6 +362,30 @@ namespace GeneralLabSolutions.InfraStructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "HistoricoPedido",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PedidoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DataHora = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TipoEvento = table.Column<string>(type: "varchar(100)", nullable: false),
+                    StatusAnterior = table.Column<string>(type: "varchar(50)", nullable: true),
+                    StatusNovo = table.Column<string>(type: "varchar(50)", nullable: false),
+                    UsuarioId = table.Column<string>(type: "varchar(255)", nullable: true),
+                    DadosExtras = table.Column<string>(type: "NVARCHAR(MAX)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HistoricoPedido", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_HistoricoPedido_Pedido_PedidoId",
+                        column: x => x.PedidoId,
+                        principalTable: "Pedido",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ItemPedido",
                 columns: table => new
                 {
@@ -341,8 +403,7 @@ namespace GeneralLabSolutions.InfraStructure.Migrations
                         name: "FK_ItemPedido_Pedido_PedidoId",
                         column: x => x.PedidoId,
                         principalTable: "Pedido",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_ItemPedido_Produto_ProdutoId",
                         column: x => x.ProdutoId,
@@ -357,8 +418,10 @@ namespace GeneralLabSolutions.InfraStructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ItemPedidoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Status = table.Column<string>(type: "varchar(50)", nullable: false),
-                    DataAlteracao = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    StatusDoItemId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DataAlteracao = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Ativo = table.Column<bool>(type: "bit", nullable: false),
+                    DadosExtras = table.Column<string>(type: "NVARCHAR(MAX)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -367,7 +430,38 @@ namespace GeneralLabSolutions.InfraStructure.Migrations
                         name: "FK_EstadoDoItem_ItemPedido_ItemPedidoId",
                         column: x => x.ItemPedidoId,
                         principalTable: "ItemPedido",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_EstadoDoItem_StatusDoItem_StatusDoItemId",
+                        column: x => x.StatusDoItemId,
+                        principalTable: "StatusDoItem",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "HistoricoItem",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ItemPedidoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DataHora = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TipoEvento = table.Column<string>(type: "varchar(100)", nullable: false),
+                    StatusAnterior = table.Column<string>(type: "varchar(50)", nullable: true),
+                    StatusNovo = table.Column<string>(type: "varchar(50)", nullable: false),
+                    UsuarioId = table.Column<string>(type: "varchar(255)", nullable: true),
+                    DadosExtras = table.Column<string>(type: "NVARCHAR(MAX)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HistoricoItem", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_HistoricoItem_ItemPedido_ItemPedidoId",
+                        column: x => x.ItemPedidoId,
+                        principalTable: "ItemPedido",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -412,8 +506,12 @@ namespace GeneralLabSolutions.InfraStructure.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_EstadoDoItem_ItemPedidoId",
                 table: "EstadoDoItem",
-                column: "ItemPedidoId",
-                unique: true);
+                column: "ItemPedidoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EstadoDoItem_StatusDoItemId",
+                table: "EstadoDoItem",
+                column: "StatusDoItemId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Fornecedor_Documento",
@@ -447,6 +545,16 @@ namespace GeneralLabSolutions.InfraStructure.Migrations
                 name: "IX_GerenciadorDeFluxoKanban_Titulo",
                 table: "GerenciadorDeFluxoKanban",
                 column: "Titulo");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HistoricoItem_ItemPedidoId",
+                table: "HistoricoItem",
+                column: "ItemPedidoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HistoricoPedido_PedidoId",
+                table: "HistoricoPedido",
+                column: "PedidoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ItemPedido_NomeDoProduto",
@@ -522,6 +630,16 @@ namespace GeneralLabSolutions.InfraStructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_StatusDoItemIncompativel_StatusDoItemId",
+                table: "StatusDoItemIncompativel",
+                column: "StatusDoItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StatusDoItemIncompativel_StatusDoItemIncompativelId",
+                table: "StatusDoItemIncompativel",
+                column: "StatusDoItemIncompativelId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TarefaMembro_TarefasId",
                 table: "TarefaMembro",
                 column: "TarefasId");
@@ -572,10 +690,19 @@ namespace GeneralLabSolutions.InfraStructure.Migrations
                 name: "EstadoDoItem");
 
             migrationBuilder.DropTable(
+                name: "HistoricoItem");
+
+            migrationBuilder.DropTable(
+                name: "HistoricoPedido");
+
+            migrationBuilder.DropTable(
                 name: "PessoaContato");
 
             migrationBuilder.DropTable(
                 name: "PessoaTelefone");
+
+            migrationBuilder.DropTable(
+                name: "StatusDoItemIncompativel");
 
             migrationBuilder.DropTable(
                 name: "TarefaMembro");
@@ -588,6 +715,9 @@ namespace GeneralLabSolutions.InfraStructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Telefone");
+
+            migrationBuilder.DropTable(
+                name: "StatusDoItem");
 
             migrationBuilder.DropTable(
                 name: "GerenciadorDeFluxoKanban");

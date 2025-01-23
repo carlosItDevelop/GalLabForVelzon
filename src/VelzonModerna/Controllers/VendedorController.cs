@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace VelzonModerna.Controllers
 {
+    // Todo: Implementar Repository Pattern
     public class VendedorController : Controller
     {
         private readonly AppDbContext _context;

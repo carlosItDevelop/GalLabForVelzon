@@ -1,4 +1,4 @@
-﻿namespace GeneralLabSolutions.Domain.Extensions.Helpers.Dtos.DtosViewComponents
+﻿namespace GeneralLabSolutions.Domain.DTOs.DtosViewComponents
 {
     public class PedidoResumoDto
     {

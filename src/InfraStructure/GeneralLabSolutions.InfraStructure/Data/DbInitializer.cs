@@ -5,8 +5,15 @@ using Microsoft.Extensions.Hosting;
 
 public static class DbInitializer
 {
+    /// <summary>
+    /// Classe que unifica a criação dos SeedDatas da Solução
+    /// </summary>
+    /// <param name="serviceProvider"></param>
+    /// <returns></returns>
     public static async Task InitializeAsync(IServiceProvider serviceProvider)
     {
+        // ToDo: Vou manter como está, por enquanto. Documentador; não esqueça dessa decisão!
+
         using (var scope = serviceProvider.CreateScope())
         {
             var scopedProvider = scope.ServiceProvider;
