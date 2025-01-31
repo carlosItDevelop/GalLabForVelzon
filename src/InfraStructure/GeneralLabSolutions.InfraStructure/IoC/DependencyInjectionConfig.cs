@@ -26,6 +26,12 @@ namespace GeneralLabSolutions.InfraStructure.IoC
             services.AddScoped<IPedidoRepository, PedidoRepository>();
             services.AddScoped<ICategoriaRepository, CategoriaRepository>();
 
+
+            // DI KanbanTask
+            services.AddScoped<IKanbanTaskRepository, KanbanTaskRepository>();
+            services.AddScoped<IParticipanteRepository, ParticipanteRepository>();
+
+
             // DI Consolidados
             services.AddScoped<IConsolidadoClienteRepository, ConsolidadoClienteRepository>();
             services.AddScoped<IConsolidadoVendedorRepository, ConsolidadoVendedorRepository>();
@@ -40,9 +46,14 @@ namespace GeneralLabSolutions.InfraStructure.IoC
             services.AddScoped<IClienteDomainService, ClienteDomainService>();
             services.AddScoped<ICategoriaDomainService, CategoriaDomainService>();
 
+            services.AddScoped<IKanbanTaskDomainService, KanbanTaskDomainService>();
+            services.AddScoped<IParticipanteDomainService, ParticipanteDomainService>();
+
             // Di Others
             services.AddScoped(typeof(IUnitOfWork), typeof(AppDbContext));
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+
 
             return services;
 

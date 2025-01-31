@@ -1,16 +1,18 @@
 ﻿using AutoMapper;
 using GeneralLabSolutions.Domain.Entities;
 using GeneralLabSolutions.Domain.Interfaces;
+using GeneralLabSolutions.Domain.Notigfications;
 using GeneralLabSolutions.Domain.Services.Abstractions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using VelzonModerna.Controllers.Base;
 using VelzonModerna.ViewModels;
 
 namespace VelzonModerna.Controllers
 {
     //[Authorize]
-    public class CategoriaProdutoController : Controller
+    public class CategoriaProdutoController : BaseMvcController
     {
 
         private readonly IMapper _mapper;
@@ -22,7 +24,8 @@ namespace VelzonModerna.Controllers
 
         public CategoriaProdutoController(IMapper mapper, 
                             ICategoriaRepository categoriaRepository, 
-                            ICategoriaDomainService categoriaDomainService,         IQueryGenericRepository<CategoriaProduto, Guid> query)
+                            ICategoriaDomainService categoriaDomainService,         IQueryGenericRepository<CategoriaProduto, Guid> query,
+                            INotificador notificador) : base(notificador)
         {
             _mapper = mapper;
             _categoriaRepository = categoriaRepository;
@@ -39,7 +42,6 @@ namespace VelzonModerna.Controllers
             return View(listaCategoriaProdutoViewModel);
         }
 
-        // GET: CategoriaProduto/Details/5
         public async Task<IActionResult> Details(Guid id)
         {
             var categoriaProdutoViewModel
@@ -54,7 +56,6 @@ namespace VelzonModerna.Controllers
             return View(categoriaProdutoViewModel);
         }
 
-        // GET: CategoriaProduto/Create
         public IActionResult Create()
         {
             return View();
@@ -69,12 +70,12 @@ namespace VelzonModerna.Controllers
                 await _categoriaDomainService.AddCategoriaAsync(_mapper.Map<CategoriaProduto>(CategoriaViewModel));
 
                 await _categoriaRepository.UnitOfWork.CommitAsync();
+                TempData ["Sucesso"] = "Categoria adicionada com sucesso!";
                 return RedirectToAction(nameof(Index));
             }
             return View(CategoriaViewModel);
         }
 
-        // GET: CategoriaProduto/Edit/5
         public async Task<IActionResult> Edit(Guid id)
         {
 
@@ -88,7 +89,6 @@ namespace VelzonModerna.Controllers
             return View(categoriaProdutoViewModel);
         }
 
-        // POST: CategoriaProduto/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, CategoriaProdutoViewModel categoriaViewModel)
@@ -104,8 +104,16 @@ namespace VelzonModerna.Controllers
                 {
                     await _categoriaDomainService.UpdateCategoriaAsync(_mapper.Map<CategoriaProduto>(categoriaViewModel));
 
+                    // Mostra notificações de Validação de regra de negócio,
+                    // caso haja e NÃO deixa que o CommitAsync seja chamado.
+                    if (!OperacaoValida())
+                        return RedirectToAction(nameof(Index));
+
+
                     await _categoriaRepository.UnitOfWork.CommitAsync();
-                    
+                    TempData ["Sucesso"] = "Categoria atualizada com sucesso!";
+
+
                 } catch (DbUpdateConcurrencyException)
                 {
                     if (!await CategotiaExists(categoriaViewModel.Id))
@@ -116,12 +124,12 @@ namespace VelzonModerna.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
             return View(categoriaViewModel);
         }
 
-        // GET: CategoriaProduto/Delete/5
         public async Task<IActionResult> Delete(Guid id)
         {
 
@@ -137,7 +145,6 @@ namespace VelzonModerna.Controllers
             return View(_mapper.Map<CategoriaProdutoViewModel>(await _query.GetByIdAsync(id)));
         }
 
-        // POST: CategoriaProduto/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
@@ -149,7 +156,17 @@ namespace VelzonModerna.Controllers
                 return NotFound("Categoria não encontrada!");
             }
             await _categoriaDomainService.DeleteCategoriaProdutoAsync(categoria);
+
+            // Mostra notificações de Validação de regra de negócio,
+            // caso haja e NÃO deixa que o CommitAsync seja chamado.
+            if (!OperacaoValida())
+                return RedirectToAction(nameof(Index));
+
+
             await _categoriaRepository.UnitOfWork.CommitAsync();
+
+            TempData ["Sucesso"] = "Categoria excluída com sucesso!";
+
             return RedirectToAction(nameof(Index));
 
         }

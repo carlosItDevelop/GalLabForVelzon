@@ -44,6 +44,14 @@ namespace GeneralLabSolutions.InfraStructure.Data
         public DbSet<HistoricoPedido> HistoricoPedido { get; set; }
         public DbSet<HistoricoItem> HistoricoItem { get; set; }
 
+        
+        
+        // Novos modelos para QuadroKanban
+        public DbSet<KanbanTask> KanbanTask { get; set; }
+        public DbSet<Participante> Participante { get; set; }
+        public DbSet<UndoRedoAction> UndoRedoAction { get; set; }
+
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{

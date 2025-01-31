@@ -73,7 +73,8 @@ namespace VelzonModerna.Controllers
             var cliente = _mapper.Map<Cliente>(clienteViewModel);
             await _clienteDomainService.AddClienteAsync(cliente);
 
-            // Validação de regra de negócio
+            // Mostra notificações de Validação de regra de negócio,
+            // caso haja e NÃO deixa que o CommitAsync seja chamao.
             if (!OperacaoValida()) return View(clienteViewModel);            
 
             await _clienteRepository.UnitOfWork.CommitAsync();

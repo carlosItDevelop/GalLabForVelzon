@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GeneralLabSolutions.Domain.Entities;
+﻿using GeneralLabSolutions.Domain.Entities;
 
 namespace GeneralLabSolutions.Domain.Services.Abstractions
 {
@@ -27,6 +22,19 @@ namespace GeneralLabSolutions.Domain.Services.Abstractions
         Task AddClienteAsync(Cliente model);
         Task UpdateClienteAsync(Cliente model);
         Task DeleteClienteAsync(Cliente model);
+    }
+
+    public interface IKanbanTaskDomainService
+    {
+        Task<bool> ValidarAddKanbanTaskAsync(KanbanTask model);
+        Task AddkanbanTaskAsync(KanbanTask model);
+    }
+
+    public interface IParticipanteDomainService
+    {
+        Task<bool> ValidarAddParticipanteAsync(Participante model);
+        Task AddParticipanteAsync(Participante model);
+
     }
 
 }

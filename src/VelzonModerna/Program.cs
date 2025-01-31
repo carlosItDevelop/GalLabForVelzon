@@ -1,3 +1,5 @@
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using GeneralLabSolutions.Domain.Notigfications;
 using GeneralLabSolutions.InfraStructure.Data;
 using GeneralLabSolutions.InfraStructure.IoC;
@@ -38,12 +40,21 @@ public class Program
         builder.Services.AddControllers().AddJsonOptions(options =>
         {
             options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+            //options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase));
+        });
+
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("AllowSpecificOrigin", builder =>
+                builder.WithOrigins("https://localhost:7015") // Permite requisições desse domínio
+                       .AllowAnyMethod()
+                       .AllowAnyHeader());
         });
 
 
         var app = builder.Build();
 
-
+        app.UseCors("AllowSpecificOrigin"); // Ativa a política de CORS
 
         // Configure the HTTP request pipeline.
         if (!app.Environment.IsDevelopment())

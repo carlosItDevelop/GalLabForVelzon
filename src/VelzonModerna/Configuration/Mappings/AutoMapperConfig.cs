@@ -19,6 +19,20 @@ namespace VelzonModerna.Configuration.Mappings
             CreateMap<Pedido, PedidoViewModel>().ReverseMap();
             CreateMap<Telefone, TelefoneViewModel>().ReverseMap();
 
+
+            // Kanban Mapper
+            CreateMap<KanbanTask, KanbanTaskViewModel>()
+                .ForMember(dest => dest.ParticipantIds,
+                           opt => opt.MapFrom(src => src.Participantes.Select(p => p.Id)))
+                .ReverseMap()
+                // Ao mapear de VM → Entity, ignorar ou mapear manualmente
+                .ForMember(dest => dest.Participantes, opt => opt.Ignore());
+
+
+
+            CreateMap<Participante, ParticipanteViewModel>().ReverseMap();
+
+
         }
     }
 }

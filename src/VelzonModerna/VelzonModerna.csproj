@@ -7,7 +7,7 @@
 
     <WarningsAsErrors></WarningsAsErrors> <!-- Especifica quais warnings devem ser tratados como erros, mas deixe vazio se você quiser ignorar os warnings específicos -->
     <NoWarn>CS8618;CS8602;CS8603;CS8604</NoWarn>
-    <UserSecretsId>95ed4474-8ca5-4c5f-9c9a-85f33d8d4de9</UserSecretsId>    
+    <UserSecretsId>95ed4474-8ca5-4c5f-9c9a-85f33d8d4de9</UserSecretsId>   
 
 
 

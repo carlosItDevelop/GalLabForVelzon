@@ -31,6 +31,7 @@ namespace VelzonModerna.Controllers
             return View();
         }
 
+
         [HttpGet]
         public async Task<IActionResult> ObterDadosKanban()
         {
