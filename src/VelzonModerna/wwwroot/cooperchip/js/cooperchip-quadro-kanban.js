@@ -95,7 +95,7 @@ async function apiCreateParticipant(participant) {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
-            'RequestVerificationToken': token
+            /*'RequestVerificationToken': token*/
         },
         body: JSON.stringify(participant)
     });

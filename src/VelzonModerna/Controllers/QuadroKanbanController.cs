@@ -128,9 +128,9 @@ namespace VelzonModerna.Controllers
             return Ok(result);
         }
 
-
-        // PUT /QuadroKanban/Tasks/{id}
+        
         [HttpPut("Tasks/{id:guid}")]
+        [IgnoreAntiforgeryToken]
         public async Task<IActionResult> UpdateTask(Guid id, [FromBody] KanbanTaskViewModel model)
         {
             if (id != model.Id)
@@ -183,7 +183,7 @@ namespace VelzonModerna.Controllers
         }
 
         [HttpPost("Participantes")]
-        [ValidateAntiForgeryToken] // Validação do AntiForgery Token
+        [IgnoreAntiforgeryToken] // Validação do AntiForgery Token
         public async Task<IActionResult> CreateParticipante([FromBody] ParticipanteViewModel model)
         {
             if (!ModelState.IsValid)
