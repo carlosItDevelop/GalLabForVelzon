@@ -11,7 +11,7 @@ let participants = [];   // Array local dos participantes
 // Undo/Redo
 const MAX_HISTORY = 20;
 let doneActions = [];
-let undoneActions = [];
+
 
 // Filtro e ordenação
 let searchQuery = "";
@@ -95,7 +95,7 @@ async function apiCreateParticipant(participant) {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
-            /*'RequestVerificationToken': token*/
+            'RequestVerificationToken': token
         },
         body: JSON.stringify(participant)
     });
@@ -127,7 +127,7 @@ async function initKanban() {
     tasks = await apiGetTasks();
     // Carregar participantes do servidor
     participants = await apiGetParticipants();
-    updateUndoRedoButtons();
+
     renderParticipantsList();
     renderTasks();
 }
@@ -293,7 +293,7 @@ async function updateTaskPosition(taskId, newColumn) {
 
     // Local update
     tasks[idx] = result;
-    registerUpdateAction(oldTask, result); // se quiser Undo local
+    
     renderTasks();
 }
 
@@ -378,20 +378,12 @@ async function saveTask() {
     if (!taskId) {
         // CREATE
         result = await apiCreateTask(newTask);
-        if (result) {
-            tasks.push(result);
-            registerCreateAction(result);
-        }
     } else {
         // UPDATE
         const index = tasks.findIndex(t => t.id === taskId);
         if (index !== -1) {
             const oldTask = structuredClone(tasks[index]);
             result = await apiUpdateTask(newTask);
-            if (result) {
-                tasks[index] = result;
-                registerUpdateAction(oldTask, result);
-            }
         }
     }
 
@@ -414,9 +406,6 @@ async function removeTaskInternal(taskId, registerActionFlag) {
     if (!success) return;
 
     tasks.splice(index, 1);
-    if (registerActionFlag) {
-        registerDeleteAction(oldTask);
-    }
     renderTasks();
 }
 
@@ -506,99 +495,8 @@ function renderParticipantsList() {
 // =======================================================
 // UNDO/REDO
 // =======================================================
-function pushAction(action) {
-    doneActions.push(action);
-    if (doneActions.length > MAX_HISTORY) {
-        doneActions.shift();
-    }
-    undoneActions = [];
-    updateUndoRedoButtons();
-}
 
-function undoAction() {
-    if (doneActions.length === 0) return;
-    const action = doneActions.pop();
-    revertAction(action);
-    undoneActions.push(action);
-    updateUndoRedoButtons();
-    renderTasks();
-}
 
-function redoAction() {
-    if (undoneActions.length === 0) return;
-    const action = undoneActions.pop();
-    applyAction(action);
-    doneActions.push(action);
-    updateUndoRedoButtons();
-    renderTasks();
-}
-
-function revertAction(action) {
-    switch (action.type) {
-        case "create":
-            tasks = tasks.filter(t => t.id !== action.taskAfter.id);
-            break;
-        case "delete":
-            tasks.push(action.taskBefore);
-            break;
-        case "update":
-        case "move":
-            const idx = tasks.findIndex(t => t.id === action.taskAfter.id);
-            if (idx !== -1) tasks[idx] = action.taskBefore;
-            break;
-    }
-}
-
-function applyAction(action) {
-    switch (action.type) {
-        case "create":
-            tasks.push(action.taskAfter);
-            break;
-        case "delete":
-            tasks = tasks.filter(t => t.id !== action.taskBefore.id);
-            break;
-        case "update":
-        case "move":
-            const idx = tasks.findIndex(t => t.id === action.taskBefore.id);
-            if (idx !== -1) tasks[idx] = action.taskAfter;
-            break;
-    }
-}
-
-function registerCreateAction(newTask) {
-    pushAction({
-        type: "create",
-        taskBefore: null,
-        taskAfter: structuredClone(newTask),
-    });
-}
-function registerDeleteAction(oldTask) {
-    pushAction({
-        type: "delete",
-        taskBefore: structuredClone(oldTask),
-        taskAfter: null,
-    });
-}
-function registerUpdateAction(before, after) {
-    if (before.column !== after.column) {
-        pushAction({
-            type: "move",
-            taskBefore: structuredClone(before),
-            taskAfter: structuredClone(after),
-        });
-    } else {
-        pushAction({
-            type: "update",
-            taskBefore: structuredClone(before),
-            taskAfter: structuredClone(after),
-        });
-    }
-}
-
-function updateUndoRedoButtons() {
-    document.getElementById("btnUndo").disabled = (doneActions.length === 0);
-    document.getElementById("btnRedo").disabled = (undoneActions.length === 0);
-}
 
 // =======================================================
 // FERRAMENTAS

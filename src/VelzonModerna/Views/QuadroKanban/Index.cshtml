@@ -2,7 +2,7 @@
 @model KanbanBoardViewModel;
 
 @{
-    ViewBag.Title = "Kanban PRO - RC v0.6.0 (Undo/Redo)";
+    ViewBag.Title = "Kanban PRO - RC v0.7.0";
     ViewBag.pTitle = "Kanban Board";
     ViewBag.pageTitle = "Quadro kanban";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -21,17 +21,13 @@
 @Html.AntiForgeryToken()
 
 <div class="container-fluid py-4">
-    <!-- LINHA 1: Título + Botão Participantes -->
-    <div class="row mb-3">
-        <div class="col-8 d-flex align-items-center">
-            <h2>Kanban PRO - RC v0.6.0 (Undo/Redo)</h2>
-        </div>
-        <div class="col-4 text-end">
-            <button class="btn btn-primary" onclick="showParticipantsModal()">
-                <i class="bi bi-people-fill"></i> Participantes
-            </button>
+
+    <div class="row">
+        <div class="col-4 d-flex align-items-center">
+            <h2>Kanban PRO - RC v0.7.0</h2>
         </div>
     </div>
+    <hr />
 
     <!-- LINHA 2: Busca, Ordenação + Botoes Undo/Redo -->
     <div class="row mb-3">
@@ -51,17 +47,12 @@
                 <option value="priority">Prioridade (Alta > Média > Baixa)</option>
             </select>
         </div>
-        <div class="col-md-4 text-end">
-            <!-- Botões Undo/Redo -->
-            <button class="btn btn-warning me-2 btn-undo-redo"
-                    id="btnUndo"
-                    onclick="undoAction()">
-                <i class="bi bi-arrow-counterclockwise"></i> Desfazer
-            </button>
-            <button class="btn btn-info btn-undo-redo"
-                    id="btnRedo"
-                    onclick="redoAction()">
-                <i class="bi bi-arrow-clockwise"></i> Refazer
+        <!-- LINHA 1: Título + Botão Participantes -->
+
+
+        <div class="col-4 text-end">
+            <button class="btn btn-primary" onclick="showParticipantsModal()">
+                <i class="bi bi-people-fill"></i> Participantes
             </button>
         </div>
     </div>

@@ -49,7 +49,7 @@ namespace GeneralLabSolutions.InfraStructure.Data
         // Novos modelos para QuadroKanban
         public DbSet<KanbanTask> KanbanTask { get; set; }
         public DbSet<Participante> Participante { get; set; }
-        public DbSet<UndoRedoAction> UndoRedoAction { get; set; }
+
 
 
 
