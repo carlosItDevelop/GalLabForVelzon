@@ -1,6 +1,3 @@
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using GeneralLabSolutions.Domain.Notigfications;
 using GeneralLabSolutions.InfraStructure.Data;
 using GeneralLabSolutions.InfraStructure.IoC;
 using Microsoft.EntityFrameworkCore;

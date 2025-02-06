@@ -18,6 +18,7 @@ let searchQuery = "";
 let sortOption = "none";
 
 //const token = $('input[name="__RequestVerificationToken"]').val();
+//'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
 
 // =======================================================
 // FUNÇÕES DE API (FETCH)
@@ -95,7 +96,7 @@ async function apiCreateParticipant(participant) {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
-            'RequestVerificationToken': token
+            /*'RequestVerificationToken': token*/
         },
         body: JSON.stringify(participant)
     });

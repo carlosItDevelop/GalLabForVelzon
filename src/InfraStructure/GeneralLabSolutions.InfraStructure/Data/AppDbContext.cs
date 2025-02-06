@@ -1,11 +1,9 @@
 ﻿using FluentValidation.Results;
 using GeneralLabSolutions.Domain.Entities;
-using GeneralLabSolutions.Domain.Mensageria;
-using GeneralLabSolutions.Domain.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using GeneralLabSolutions.Domain.Entities.Base;
-using System.Reflection.Metadata.Ecma335;
+using GeneralLabSolutions.Domain.Interfaces;
+using GeneralLabSolutions.Domain.Mensageria;
+using Microsoft.EntityFrameworkCore;
 
 namespace GeneralLabSolutions.InfraStructure.Data
 {
@@ -14,8 +12,9 @@ namespace GeneralLabSolutions.InfraStructure.Data
 
 		private readonly IMediatorHandler? _mediatorHandler;
 
-        public AppDbContext(DbContextOptions<AppDbContext> options, IMediatorHandler? mediatorHandler = null)
-			: base(options) 
+        public AppDbContext(DbContextOptions<AppDbContext> options, 
+                            IMediatorHandler? mediatorHandler = null)
+			                : base(options) 
 		{
             _mediatorHandler = mediatorHandler;
         }
@@ -44,12 +43,12 @@ namespace GeneralLabSolutions.InfraStructure.Data
         public DbSet<HistoricoPedido> HistoricoPedido { get; set; }
         public DbSet<HistoricoItem> HistoricoItem { get; set; }
 
-        
-        
         // Novos modelos para QuadroKanban
         public DbSet<KanbanTask> KanbanTask { get; set; }
         public DbSet<Participante> Participante { get; set; }
 
+        // Novos modelos para Agendamento com FullCalendar
+        public DbSet<Agendamento> Agendamento { get; set; }
 
 
 
@@ -82,30 +81,6 @@ namespace GeneralLabSolutions.InfraStructure.Data
     }
 
     #region: Todo: Guardar para quando for persistir Events
-    //public static class MediatorExtension
-    //{
-    //	public static async Task PublicarEventos<T>(this IMediatorHandler mediator, T ctx) where T : DbContext
-    //	{
-    //		var domainEntities = ctx.ChangeTracker
-    //			.Entries<EntityBase>()
-    //			.Where(x => x.Entity.Notificacoes != null && x.Entity.Notificacoes.Any())
-    //			.ToList();
-
-    //		var domainEvents = domainEntities
-    //			.SelectMany(x => x.Entity.Notificacoes!)
-    //			.ToList();
-
-    //		domainEntities.ToList()
-    //			.ForEach(entity => entity.Entity.LimparEventos());
-    //		var tasks = domainEvents
-    //			.Select(async (domainEvent) =>
-    //			{
-    //				await mediator.PublicarEvento(domainEvent);
-    //			});
-
-    //		await Task.WhenAll(tasks);
-    //	}
-    //}
 
     public static class MediatorExtension
     {

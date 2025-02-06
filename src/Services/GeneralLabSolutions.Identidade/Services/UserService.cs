@@ -302,7 +302,6 @@ namespace GeneralLabSolutions.Identidade.Services
         #endregion
 
 
-
         #region: Bloquear um Usuário (NÃO Admin) por 'X' minutos
 
         public async Task<IdentityResult> BloquearDesbloquearUsuarioAsync(string userId, TimeSpan? tempoBloqueio = null)

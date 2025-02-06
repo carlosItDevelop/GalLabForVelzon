@@ -31,6 +31,7 @@ namespace VelzonModerna.Configuration.Mappings
 
 
             CreateMap<Participante, ParticipanteViewModel>().ReverseMap();
+            CreateMap<Agendamento, AgendamentoViewModel>().ReverseMap();
 
 
         }

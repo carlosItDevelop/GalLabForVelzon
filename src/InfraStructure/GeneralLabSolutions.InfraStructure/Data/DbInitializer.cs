@@ -1,56 +1,59 @@
 ﻿// ... (outros using)
 using GeneralLabSolutions.InfraStructure.Data;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
-public static class DbInitializer
+namespace GeneralLabSolutions.InfraStructure.Data
 {
-    /// <summary>
-    /// Classe que unifica a criação dos SeedDatas da Solução
-    /// </summary>
-    /// <param name="serviceProvider"></param>
-    /// <returns></returns>
-    public static async Task InitializeAsync(IServiceProvider serviceProvider)
+    public static class DbInitializer
     {
-        // ToDo: Vou manter como está, por enquanto. Documentador; não esqueça dessa decisão!
-
-        using (var scope = serviceProvider.CreateScope())
+        /// <summary>
+        /// Classe que unifica a criação dos SeedDatas da Solução
+        /// </summary>
+        /// <param name="serviceProvider"></param>
+        /// <returns></returns>
+        public static async Task InitializeAsync(IServiceProvider serviceProvider)
         {
-            var scopedProvider = scope.ServiceProvider;
-            var context = scopedProvider.GetRequiredService<AppDbContext>();
+            // ToDo: Vou manter como está, por enquanto. Documentador; não esqueça dessa decisão!
 
-            // Usar uma única transação para todos os SeedData
-            using (var transaction = await context.Database.BeginTransactionAsync())
+            using (var scope = serviceProvider.CreateScope())
             {
-                try
+                var scopedProvider = scope.ServiceProvider;
+                var context = scopedProvider.GetRequiredService<AppDbContext>();
+
+                // Usar uma única transação para todos os SeedData
+                using (var transaction = await context.Database.BeginTransactionAsync())
                 {
-                    // Chamar os SeedData na ordem correta
-                    SeedDataCategoriaProduto.Initialize(scopedProvider);
-                    SeedDataFornecedor.Initialize(scopedProvider);
-                    SeedDataCliente.Initialize(scopedProvider);
-                    SeedDataVendedor.Initialize(scopedProvider);
-                    SeedDataProduto.Initialize(scopedProvider);
-                    SeedDataStatusDoItem.Initialize(scopedProvider);  // <<<=== Mover para antes de SeedDataPedido
-                    SeedDataStatusDoItemIncompativel.Initialize(scopedProvider);  // <<<=== Mover para antes de SeedDataPedido
-                    SeedDataPedido.Initialize(scopedProvider); // Agora vai ter os StatusDoItem disponíveis
-                    SeedDataContato.Initialize(scopedProvider);
-                    SeedDataTelefone.Initialize(scopedProvider);
-                    SeedDataGerenciadorDeFluxoKanban.Initialize(scopedProvider);
+                    try
+                    {
+                        // Chamar os SeedData na ordem correta
+                        SeedDataCategoriaProduto.Initialize(scopedProvider);
+                        SeedDataFornecedor.Initialize(scopedProvider);
+                        SeedDataCliente.Initialize(scopedProvider);
+                        SeedDataVendedor.Initialize(scopedProvider);
+                        SeedDataProduto.Initialize(scopedProvider);
+                        SeedDataStatusDoItem.Initialize(scopedProvider);
+                        SeedDataStatusDoItemIncompativel.Initialize(scopedProvider);
+                        SeedDataPedido.Initialize(scopedProvider);
+                        SeedDataContato.Initialize(scopedProvider);
+                        SeedDataTelefone.Initialize(scopedProvider);
+                        SeedDataGerenciadorDeFluxoKanban.Initialize(scopedProvider);
+                        SeedDataAgendamento.Initialize(scopedProvider); // <<<=== Adicione aqui
 
-                    // Se chegou até aqui sem erros, commita a transação
-                    await context.SaveChangesAsync(); //Salvar todas as alterações na mesma transação.
-                    await transaction.CommitAsync();
+                        // Se chegou até aqui sem erros, commita a transação
+                        await context.SaveChangesAsync(); //Salvar todas as alterações na mesma transação.
+                        await transaction.CommitAsync();
 
-                    // Adicionar mensagens de sucesso para cada SeedData, se necessário
+                        // Adicionar mensagens de sucesso para cada SeedData, se necessário
 
-                    Console.WriteLine("\n\n================================\nSeedData executado com sucesso!");
-                } catch (Exception ex)
-                {
-                    // Em caso de erro, faz rollback da transação
-                    await transaction.RollbackAsync();
-                    Console.WriteLine($"Erro durante a execução do SeedData: {ex.Message}");
-                    // Aqui você pode logar o erro, lançar a exceção novamente, etc.
-                    throw;
+                        Console.WriteLine("\n\n================================\nSeedData executado com sucesso!");
+                    } catch (Exception ex)
+                    {
+                        // Em caso de erro, faz rollback da transação
+                        await transaction.RollbackAsync();
+                        Console.WriteLine($"Erro durante a execução do SeedData: {ex.Message}");
+                        // Aqui você pode logar o erro, lançar a exceção novamente, etc.
+                        throw;
+                    }
                 }
             }
         }

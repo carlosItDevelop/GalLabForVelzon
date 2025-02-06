@@ -130,6 +130,7 @@ namespace VelzonModerna.Controllers
 
         
         [HttpPut("Tasks/{id:guid}")]
+        //[ValidateAntiForgeryToken] // Validação do AntiForgery Token
         [IgnoreAntiforgeryToken]
         public async Task<IActionResult> UpdateTask(Guid id, [FromBody] KanbanTaskViewModel model)
         {

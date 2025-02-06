@@ -2,9 +2,6 @@
 using GeneralLabSolutions.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace GeneralLabSolutions.InfraStructure.Data
 {
