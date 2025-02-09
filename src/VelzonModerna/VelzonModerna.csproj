@@ -20,6 +20,9 @@
   
     <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
+
+    <PackageReference Include="AspNetCoreHero.ToastNotification" Version="1.1.0" />
+      
   </ItemGroup>
 
 
@@ -52,6 +55,8 @@
   
   
   <ItemGroup>
+    <Folder Include="Views\AgendaEventos\" />
+    <Folder Include="Views\Shared\PartialViews\" />
     <Folder Include="wwwroot\cooperchip\css\datatables\" />
   </ItemGroup>
 

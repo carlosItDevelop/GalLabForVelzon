@@ -29,6 +29,8 @@ namespace GeneralLabSolutions.Domain.Entities
         // Relação reversa Many-to-Many (opcional)
         [JsonPropertyName("tasks")]
         public ICollection<KanbanTask>? Tasks { get; set; }
+
+        public ICollection<AgendaEventos>? AgendaEventos { get; set; } = new List<AgendaEventos>();
     }
 
 }

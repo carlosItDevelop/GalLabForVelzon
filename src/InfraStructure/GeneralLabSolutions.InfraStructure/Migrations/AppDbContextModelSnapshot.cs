@@ -22,6 +22,50 @@ namespace GeneralLabSolutions.InfraStructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("GeneralLabSolutions.Domain.Entities.AgendaEventos", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("AllDay")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<DateTime?>("End")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("ParticipanteId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Start")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ParticipanteId");
+
+                    b.HasIndex("Title")
+                        .IsUnique()
+                        .HasDatabaseName("IX_AgendaEventos_Title");
+
+                    b.ToTable("AgendaEventos");
+                });
+
             modelBuilder.Entity("GeneralLabSolutions.Domain.Entities.Agendamento", b =>
                 {
                     b.Property<Guid>("Id")
@@ -848,6 +892,17 @@ namespace GeneralLabSolutions.InfraStructure.Migrations
                     b.ToTable("KanbanTaskParticipante");
                 });
 
+            modelBuilder.Entity("GeneralLabSolutions.Domain.Entities.AgendaEventos", b =>
+                {
+                    b.HasOne("GeneralLabSolutions.Domain.Entities.Participante", "Participante")
+                        .WithMany("AgendaEventos")
+                        .HasForeignKey("ParticipanteId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Participante");
+                });
+
             modelBuilder.Entity("GeneralLabSolutions.Domain.Entities.Cliente", b =>
                 {
                     b.HasOne("GeneralLabSolutions.Domain.Entities.Pessoa", "Pessoa")
@@ -1098,6 +1153,11 @@ namespace GeneralLabSolutions.InfraStructure.Migrations
                     b.Navigation("Estados");
 
                     b.Navigation("Historico");
+                });
+
+            modelBuilder.Entity("GeneralLabSolutions.Domain.Entities.Participante", b =>
+                {
+                    b.Navigation("AgendaEventos");
                 });
 
             modelBuilder.Entity("GeneralLabSolutions.Domain.Entities.Pedido", b =>
