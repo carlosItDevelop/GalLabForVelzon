@@ -32,6 +32,8 @@ namespace GeneralLabSolutions.InfraStructure.Mappings
             builder.HasMany(p => p.Tasks)
                 .WithMany(k => k.Participantes);
 
+            // Relecionamento feito em AgendaEventos
+
             // Nome da tabela
             builder.ToTable("Participante");
         }

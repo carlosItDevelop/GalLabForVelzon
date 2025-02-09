@@ -9,7 +9,7 @@ namespace GeneralLabSolutions.InfraStructure.Mappings
         public void Configure(EntityTypeBuilder<AgendaEventos> builder)
         {
 
-            builder.HasIndex(x => x.Title).IsUnique().HasDatabaseName("IX_AgendaEventos_Title");
+            builder.HasIndex(x => x.Title).HasDatabaseName("IX_AgendaEventos_Title");
 
             builder.HasKey(e => e.Id);
             builder.Property(p => p.ParticipanteId).IsRequired();
