@@ -93,6 +93,35 @@ namespace VelzonModerna.Controllers
 
 
         [HttpPost]
+        //[IgnoreAntiforgeryToken]
+        [ValidateAntiForgeryToken]
+        public IActionResult UpdateEventDates(Guid id, DateTime start, DateTime? end)
+        {
+            try
+            {
+                var evento = _context.AgendaEventos.Find(id);
+                if (evento == null)
+                    return NotFound("Evento não encontrado.");
+
+                // Lógica de validação no servidor:
+                // se for passado, se for data antiga, etc., decida o que fazer
+
+                // Atualiza as datas
+                evento.Start = start;
+                evento.End = end;
+
+                _context.SaveChanges();
+                return Ok(new { success = true });
+            } catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao atualizar datas do evento.");
+                return BadRequest(new { success = false, message = "Erro ao atualizar datas." });
+            }
+        }
+
+
+
+        [HttpPost]
         [ValidateAntiForgeryToken]
         //[IgnoreAntiforgeryToken]
         public IActionResult Save(CreateEditAgendaEventoViewModel model)

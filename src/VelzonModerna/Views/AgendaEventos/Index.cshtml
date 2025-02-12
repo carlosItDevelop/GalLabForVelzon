@@ -14,6 +14,9 @@
 
 }
 
+@* Proteger contra CSRF *@
+@Html.AntiForgeryToken()
+
 <div class="alert alert-primary">
     <div class="d-flex flex-start w-100">
         <div class="mr-2 hidden-md-down">
@@ -235,8 +238,79 @@
                     }
                 },
 
-                eventColor: '#378006'
+                eventColor: '#378006',
                 // Aqui você pode continuar com mais configurações do FullCalendar
+
+
+
+                eventDrop: function(info)
+                {
+                    // Callback disparado quando o usuário termina de arrastar um evento
+                    let eventObj = info.event;
+
+                    // Exemplo de validação: se não quiser permitir arrastar para datas passadas
+                    // ou qualquer outra regra, faça a checagem aqui.
+                    var newStart = eventObj.start; // date object
+                    var newEnd = eventObj.end;     // pode ser null se o evento não tiver 'end'
+
+                    var currentDate = new Date();
+                    currentDate.setHours(0, 0, 0, 0);
+                    var newStartDate = new Date(newStart.getFullYear(), newStart.getMonth(), newStart.getDate());
+
+                    // Exemplo: se a data de início arrastada for < data atual, reverte a ação
+                    if (newStartDate < currentDate) {
+                        Swal.fire({
+                            title: 'Data inválida!',
+                            text: 'Não é permitido mover para datas passadas.',
+                            icon: 'warning',
+                            confirmButtonText: 'OK'
+                        });
+                        info.revert();
+                        return; // aborta
+                    }
+
+                    // Se passou na validação, chama o servidor para persistir a mudança
+                    $.ajax({
+                        url: '/AgendaEventos/UpdateEventDates',
+                        method: 'POST',
+                        data: {
+                            id: eventObj.id,
+                            start: moment(eventObj.start).format('YYYY-MM-DDTHH:mm:ss'),
+                            end: eventObj.end
+                                ? moment(eventObj.end).format('YYYY-MM-DDTHH:mm:ss')
+                                : null
+                        },
+                        headers: { 'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val() },
+                        success: function(response) {
+                            // Se o back-end confirmou o sucesso, ótimo!
+                            Swal.fire({
+                                title: 'Evento atualizado!',
+                                text: 'As novas datas foram salvas com sucesso.',
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            });
+                        },
+                        error: function(err) {
+                            // Em caso de erro no back-end, reverta a mudança visual
+                            info.revert();
+                            Swal.fire({
+                                title: 'Erro!',
+                                text: 'Não foi possível salvar a nova data do evento.',
+                                icon: 'error',
+                                confirmButtonText: 'Entendi'
+                            });
+                        }
+                    });
+                },
+
+                eventResize: function(info) {
+                    // Se quiser persistir redimensionamento (mudança de duração),
+                    // a lógica é parecida, recebendo info.event.start e info.event.end atualizados.
+                    // Pode reaproveitar a mesma rota /AgendaEventos/UpdateEventDates, por exemplo.
+                },
+
+
+
             });
 
 
