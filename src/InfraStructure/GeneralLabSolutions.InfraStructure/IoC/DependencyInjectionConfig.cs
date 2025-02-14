@@ -37,10 +37,6 @@ namespace GeneralLabSolutions.InfraStructure.IoC
             services.AddScoped<IConsolidadoVendedorRepository, ConsolidadoVendedorRepository>();
             services.AddScoped<IConsolidadoFornecedorRepository, ConsolidadoFornecedorRepository>();
 
-            // Aplicativos / tarefas
-            services.AddScoped<IGerenciadorDeFluxoKanbanRepository, GerenciadorDeFluxoKanbanRepository>();
-            services.AddScoped<IMembroEquipeRepository, MembroEquipeRepository>();
-
 
             // DI DomainService
             services.AddScoped<IClienteDomainService, ClienteDomainService>();

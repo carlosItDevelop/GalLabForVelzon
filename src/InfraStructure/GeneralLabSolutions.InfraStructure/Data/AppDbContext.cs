@@ -29,8 +29,6 @@ namespace GeneralLabSolutions.InfraStructure.Data
 		public DbSet<Telefone> Telefone { get; set; }
 		public DbSet<Pessoa> Pessoa { get; set; }
 		public DbSet<Contato> Contato { get; set; }
-		public DbSet<GerenciadorDeFluxoKanban> GerenciadorDeFluxoKanban { get; set; }
-        public DbSet<MembroEquipe> MembroEquipe { get; set; }
 		public DbSet<Voucher> Voucher { get; set; }
 
         public DbSet<EstadoDoItem> EstadoDoItem { get; set; }
@@ -47,10 +45,7 @@ namespace GeneralLabSolutions.InfraStructure.Data
         public DbSet<KanbanTask> KanbanTask { get; set; }
         public DbSet<Participante> Participante { get; set; }
 
-
         public DbSet<AgendaEventos> AgendaEventos { get; set; }
-
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
@@ -68,7 +63,6 @@ namespace GeneralLabSolutions.InfraStructure.Data
 
 			modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
 		}
-
 
 		public async Task<bool> CommitAsync()
 		{
@@ -104,8 +98,6 @@ namespace GeneralLabSolutions.InfraStructure.Data
             }
         }
     }
-
-
 
     #endregion
 }
