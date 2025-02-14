@@ -26,8 +26,6 @@ namespace GeneralLabSolutions.InfraStructure.IoC
             services.AddScoped<IPedidoRepository, PedidoRepository>();
             services.AddScoped<ICategoriaRepository, CategoriaRepository>();
 
-            services.AddScoped<IAgendamentoRepository, AgendamentoRepository>();
-
 
             // DI KanbanTask
             services.AddScoped<IKanbanTaskRepository, KanbanTaskRepository>();

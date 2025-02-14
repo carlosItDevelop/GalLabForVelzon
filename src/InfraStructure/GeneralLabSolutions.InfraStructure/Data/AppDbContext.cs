@@ -47,8 +47,6 @@ namespace GeneralLabSolutions.InfraStructure.Data
         public DbSet<KanbanTask> KanbanTask { get; set; }
         public DbSet<Participante> Participante { get; set; }
 
-        // Novos modelos para Agendamento com FullCalendar
-        public DbSet<Agendamento> Agendamento { get; set; }
 
         public DbSet<AgendaEventos> AgendaEventos { get; set; }
 

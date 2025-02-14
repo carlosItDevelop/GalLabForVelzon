@@ -1,8 +1,8 @@
 using GeneralLabSolutions.InfraStructure.Data;
 using GeneralLabSolutions.InfraStructure.IoC;
 using Microsoft.EntityFrameworkCore;
-using VelzonModerna.Configuration.Extensions;
 using VelzonModerna.Configuration.Mappings;
+using VelzonModerna.Extensions;
 
 public class Program
 {

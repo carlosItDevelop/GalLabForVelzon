@@ -37,7 +37,6 @@ namespace GeneralLabSolutions.InfraStructure.Data
                         SeedDataContato.Initialize(scopedProvider);
                         SeedDataTelefone.Initialize(scopedProvider);
                         SeedDataGerenciadorDeFluxoKanban.Initialize(scopedProvider);
-                        SeedDataAgendamento.Initialize(scopedProvider); // <<<=== Adicione aqui
 
                         // Se chegou até aqui sem erros, commita a transação
                         await context.SaveChangesAsync(); //Salvar todas as alterações na mesma transação.

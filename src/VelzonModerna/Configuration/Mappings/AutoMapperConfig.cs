@@ -28,11 +28,7 @@ namespace VelzonModerna.Configuration.Mappings
                 // Ao mapear de VM → Entity, ignorar ou mapear manualmente
                 .ForMember(dest => dest.Participantes, opt => opt.Ignore());
 
-
-
             CreateMap<Participante, ParticipanteViewModel>().ReverseMap();
-            CreateMap<Agendamento, AgendamentoViewModel>().ReverseMap();
-
 
         }
     }
